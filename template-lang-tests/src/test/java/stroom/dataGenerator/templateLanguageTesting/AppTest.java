@@ -3,12 +3,29 @@
  */
 package stroom.dataGenerator.templateLanguageTesting;
 
+import com.google.common.io.Resources;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
+
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    @Test public void testProcess() {
+
+        URL url = Thread.currentThread().getContextClassLoader().getResource("templates/velocity");
+
+        App testApp = new App ("./output");
+
+        File dir = new File (url.getPath());
+
+        testApp.process(new String[] {dir.getAbsolutePath()});
     }
+
 }

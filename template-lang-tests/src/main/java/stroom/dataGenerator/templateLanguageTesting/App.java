@@ -3,12 +3,150 @@
  */
 package stroom.dataGenerator.templateLanguageTesting;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.io.UnicodeInputStream;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    private String outputDirectory;
+
+    public App (String outputDirectory){
+        this.outputDirectory = outputDirectory;
+        File dir = new File (outputDirectory);
+        dir.mkdirs();
+    }
+
+
+    public String generate(String templateDirectory, String template, String outputDirectory ) {
+        Velocity.init();
+
+        VelocityContext context = new VelocityContext();
+
+        context.put( "user","Stroom");
+
+        String templateFilename = templateDirectory + "/" + template;
+
+
+        try
+        {
+            UnicodeInputStream inputStream = new UnicodeInputStream(new FileInputStream(templateFilename));
+
+
+            final String outputName = outputDirectory + "/" + template + ".out";
+            FileOutputStream fileOutputStream = new FileOutputStream(outputName);
+            final OutputStreamWriter sw;
+            final InputStreamReader reader;
+            if (inputStream.getEncodingFromStream() != null) {
+               final Charset charset = Charset.forName(inputStream.getEncodingFromStream());
+               reader = new InputStreamReader(inputStream, charset.newDecoder());
+
+               final byte[] bom;
+               if ("UTF-8".equals(charset.name())){
+                   bom = new byte []{(byte)239, (byte)187, (byte)191};
+               } else if ("UTF-16BE".equals(charset.name())) {
+                   bom = new byte[]{(byte)254, (byte)255};
+               } else if ("UTF-16LE".equals(charset.name())) {
+                   bom = new byte[]{(byte)255, (byte)254};
+               } else if ("UTF-32BE".equals(charset.name())) {
+                   bom = new byte[]{(byte)0, (byte)0, (byte)254, (byte)255};
+               } else if ("UTF-32LE".equals(charset.name())) {
+                   bom = new byte[]{(byte)0, (byte)0, (byte)255, (byte)254};
+               } else {
+                   System.err.println ("Unrecognised charset " + charset.name());
+                   bom = null;
+               }
+
+               if (bom != null){
+                   fileOutputStream.write(bom);
+                   fileOutputStream.flush();
+               }
+
+               sw = new OutputStreamWriter(fileOutputStream, charset.newEncoder());
+            } else {
+                reader = new InputStreamReader(inputStream, StandardCharsets.US_ASCII.newDecoder());
+                sw = new OutputStreamWriter(new FileOutputStream(outputName),
+                        StandardCharsets.US_ASCII.newEncoder());
+            }
+
+            System.out.println ("Template " + template + " encoding: " + inputStream.getEncodingFromStream());
+            Velocity.evaluate(context, sw, template, reader);
+
+            sw.flush();
+
+            sw.close();
+            return outputName + " written";
+        } catch (FileNotFoundException fnfe){
+            // couldn't find the template
+            System.err.println("Cannot find " + templateFilename);
+        }
+        catch (IOException ioe){
+            System.err.println("IOException thrown, possible encoding issue... " + ioe.getMessage());
+            ioe.printStackTrace();
+        }
+        catch( ResourceNotFoundException rnfe )
+        {
+            // couldn't find the template
+            System.err.println("Cannot find " + templateFilename);
+        }
+        catch( ParseErrorException pee )
+        {
+            // syntax error: problem parsing the template
+            System.err.println("Parse Error in " + templateFilename
+             + " " + pee.getMessage() + " Line: " + pee.getLineNumber() + " Col: " + pee.getColumnNumber());
+        }
+        catch( MethodInvocationException mie )
+        {
+            // something invoked in the template
+            // threw an exception
+            System.err.println("Exception thrown by invoked call from template " + templateFilename
+                    + " " + mie.getMessage() + " Line: " + mie.getLineNumber() + " Col: " + mie.getColumnNumber()
+                    + mie.getCause().getMessage());
+        }
+        catch( Exception e )
+        {
+            System.err.println ("Exception thrown during processing of template " + templateFilename + " Detail: "  + e.getMessage()
+            + ((e.getCause() != null) ? e.getCause().getMessage() : ""));
+        }
+
+        return null;
+
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        App app = new App(".");
+        app.process(args);
+    }
+
+    public void process (String [] dirs){
+        for (String dir : dirs){
+            System.out.println("Processing all files in " + dir);
+            File folder = new File (dir);
+            File[]  templates = folder.listFiles();
+            for (File template : templates){
+                try{
+                    String path = template.getCanonicalPath();
+
+                    System.out.println("Processing template " + template.getName());
+                    String result = generate(dir, template.getName(), outputDirectory);
+                    System.out.println();
+                    System.out.println(result);
+                    System.out.println();
+                    System.out.println("-------------------------");
+                } catch (IOException ex) {
+                    System.err.println ("IOException processing " + template.getName() + " " + ex.getMessage());
+                }
+
+
+            }
+        }
+
     }
 }
