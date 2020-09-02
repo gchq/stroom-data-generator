@@ -3,6 +3,7 @@
  */
 package stroom.dataGenerator.templateLanguageTesting;
 
+import org.apache.commons.cli.*;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -10,16 +11,20 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.io.UnicodeInputStream;
+import org.apache.velocity.tools.generic.DateTool;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class App {
-    private String outputDirectory;
+    private final String outputDirectory;
+    private final String suffix;
 
-    public App (String outputDirectory){
+    public App (String outputDirectory, String suffix){
+
         this.outputDirectory = outputDirectory;
+        this.suffix = suffix;
         File dir = new File (outputDirectory);
         dir.mkdirs();
     }
@@ -32,6 +37,8 @@ public class App {
 
         context.put( "user","Stroom");
 
+        context.put("date", new DateTool());
+
         String templateFilename = templateDirectory + "/" + template;
 
 
@@ -39,8 +46,8 @@ public class App {
         {
             UnicodeInputStream inputStream = new UnicodeInputStream(new FileInputStream(templateFilename));
 
-
-            final String outputName = outputDirectory + "/" + template + ".out";
+            final String outputName = outputDirectory + "/" + template +
+                    (suffix != null ? suffix : "");
             FileOutputStream fileOutputStream = new FileOutputStream(outputName);
             final OutputStreamWriter sw;
             final InputStreamReader reader;
@@ -60,7 +67,7 @@ public class App {
                } else if ("UTF-32LE".equals(charset.name())) {
                    bom = new byte[]{(byte)0, (byte)0, (byte)255, (byte)254};
                } else {
-                   System.err.println ("Unrecognised charset " + charset.name());
+                   System.err.println ("Unrecognised BOM charset " + charset.name());
                    bom = null;
                }
 
@@ -121,8 +128,25 @@ public class App {
     }
 
     public static void main(String[] args) {
-        App app = new App(".");
-        app.process(args);
+        Options options = new Options();
+        options.addOption(new Option("o", "output", true, "Output directory"));
+        options.addOption(new Option ("s","suffix", true, "File suffix, e.g. .out"));
+        CommandLineParser parser = new DefaultParser();
+        try {
+            CommandLine commands = parser.parse(options, args);
+            String outputDir = commands.getOptionValue("o");
+            String extension = commands.getOptionValue("s");
+            if (outputDir == null){
+                outputDir = ".";
+            }
+            App app = new App(outputDir, extension);
+            app.process(commands.getArgs());
+        } catch (ParseException ex) {
+            System.err.println ("Usage: java " + App.class.getName() + " [-o/--output <output directory>] " +
+                    " [-s/--suffix <output file suffix e.g. .out>] " +
+                    "<input dir 1> ... [input dir n]");
+        }
+
     }
 
     public void process (String [] dirs){

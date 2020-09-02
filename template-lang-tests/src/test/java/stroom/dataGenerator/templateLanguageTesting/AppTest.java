@@ -21,11 +21,12 @@ public class AppTest {
 
         URL url = Thread.currentThread().getContextClassLoader().getResource("templates/velocity");
 
-        App testApp = new App ("./output");
+
 
         File dir = new File (url.getPath());
 
-        testApp.process(new String[] {dir.getAbsolutePath()});
+        App.main(new String[] {"-o",  "output", dir.getAbsolutePath()});
+
     }
 
 }
