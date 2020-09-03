@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if (( $# != 3));
+then
+  >&2 echo "Usage: ausearch2template <ausearch file> <user> <host>"
+  exit 1
+fi
+
+cat $1 |  sed "s/$3/org.myorg.linuxhost/g" | sed "s/\/home\/$2/\/mnt\/data/g" | sed "s/$2/\$user/g" | sed -r 's/audit\([^.]+[.][0-9]+/audit($date.get("MM\/dd\/yy HH:mm:ss.SSS")/g' | sed 's/172.16.119.134/172.16.1.1/g' 
+
+#|  sed s/SSS\"/SSS\'/g | sed s/\"MM/\'MM
+

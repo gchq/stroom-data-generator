@@ -3,7 +3,6 @@
 **/target/
 **/out/
 **/build/
-**/bin/
 *.swp
 node_modules
 _book
@@ -14,7 +13,6 @@ classes/
 generated/
 libs/
 jars/
-bin/
 embedmysql/
 .settings/
 stroom-dashboard-gwt/hs_err_pid*.log
