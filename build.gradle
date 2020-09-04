@@ -21,8 +21,10 @@ repositories {
 }
 
 dependencies {
-    // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.0-jre'
+
+    implementation 'org.apache.velocity:velocity-engine-core:2.2'
+    implementation 'org.apache.velocity.tools:velocity-tools-generic:3.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

@@ -1,42 +1,50 @@
 package stroom.dataGenerator;
 
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.tools.generic.DateTool;
+import stroom.dataGenerator.config.TemplateConfig;
+
 import java.io.Reader;
 import java.io.Writer;
 import java.time.Instant;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
-public class VelocityTemplateProcessor implements TemplateProcessor {
+public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
     public static final String FORMAT_ID="Velocity";
 
-    private final TemplateProcessorFactory.ProcessorRole role;
-    private final String path;
-
-    public VelocityTemplateProcessor(TemplateProcessorFactory.ProcessorRole role, String path){
-        this.role = role;
-        this.path = path;
+    public VelocityTemplateProcessor(final ProcessorRole role, final String templateRoot,
+                                     final String streamName, final TemplateConfig config){
+        super(role, templateRoot, streamName, config);
     }
+
 
     @Override
-    public void prologue(Writer output) throws TemplateProcessingException {
-        if (TemplateProcessorFactory.ProcessorRole.HEADER.equals(role)){
-            processTemplate (output, null);
-        }
+    protected void processTemplate (final Reader input, final Writer output, final Instant timestamp){
+        Velocity.init();
+
+        VelocityContext context = new VelocityContext();
+
+        context.put( "user","Stroom");
+
+        context.put("date", new SingleInstantDateTool());
+
+        Velocity.evaluate(context, output, template, input);
     }
 
-    @Override
-    public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
-        if (TemplateProcessorFactory.ProcessorRole.CONTENT.equals(role)){
-            processTemplate (output, timestamp);
+    private static class SingleInstantDateTool extends DateTool{
+        private final Date date;
+        SingleInstantDateTool (final Instant timestamp, TimeZone timeZone, Locale locale){
+            this.date = Date.from(timestamp);
+            setTimeZone(timeZone);
+            setLocale(locale);
         }
-    }
 
-    @Override
-    public void epilogue(Writer output) throws TemplateProcessingException {
-        if (TemplateProcessorFactory.ProcessorRole.FOOTER.equals(role)){
-            processTemplate (output, null);
+        @Override
+        public Date getDate() {
+            return date;
         }
-    }
-
-    private void processTemplate (Writer output, Instant timestamp){
-
     }
 }

@@ -7,11 +7,6 @@ import java.io.FileNotFoundException;
 import java.time.Duration;
 
 public class TemplateProcessorFactory {
-    public enum ProcessorRole {
-        HEADER,
-        CONTENT,
-        FOOTER
-    }
     TemplateProcessor createProcessor (EventGenConfig appConfig, TemplateConfig template, ProcessorRole role) throws FileNotFoundException {
         String format = template.getFormat();
 
