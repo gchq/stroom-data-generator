@@ -1,5 +1,6 @@
 package stroom.dataGenerator;
 
+import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.TemplateConfig;
 
 import java.io.*;
@@ -12,36 +13,32 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
     private final String templatePath;
     private String content;
     private final String streamName;
-    private final ProcessorRole role;
+    private final EventGenConfig appConfig;
+    private final TemplateConfig config;
 
-    public AbstractTemplateProcessor(final ProcessorRole role, final String templateRoot, final String streamName, final TemplateConfig config){
-        templatePath = templateRoot + "/" + config.getPath();
+    public AbstractTemplateProcessor(final EventGenConfig appConfig, final String streamName, final TemplateConfig config){
+        this.appConfig = appConfig;
+        this.config = config;
+        templatePath = appConfig.getTemplateRoot() + "/" + config.getPath();
         this.streamName = streamName;
-        this.role = role;
     }
 
     @Override
     public void prologue(Writer output) throws TemplateProcessingException {
-        if (ProcessorRole.HEADER.equals(role)){
-            final Reader input = readTemplate();
-            processTemplate (input, output, null);
-        }
+        final Reader input = readTemplate();
+        processTemplate (input, output, null);
     }
 
     @Override
     public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
-        if (ProcessorRole.CONTENT.equals(role)){
-            final Reader input = readTemplate();
-            processTemplate (input, output, timestamp);
-        }
+        final Reader input = readTemplate();
+        processTemplate (input, output, timestamp);
     }
 
     @Override
     public void epilogue(Writer output) throws TemplateProcessingException {
-        if (ProcessorRole.FOOTER.equals(role)){
-            final Reader input = readTemplate();
-            processTemplate (input, output, null);
-        }
+        final Reader input = readTemplate();
+        processTemplate (input, output, null);
     }
 
     protected Reader readTemplate() throws TemplateProcessingException {
@@ -53,6 +50,18 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
             }
         }
         return new StringReader(content);
+    }
+
+    public String getStreamName() {
+        return streamName;
+    }
+
+    public EventGenConfig getAppConfig() {
+        return appConfig;
+    }
+
+    public TemplateConfig getConfig(){
+        return config;
     }
 
     abstract protected void processTemplate(Reader input, Writer output, Instant timestamp);

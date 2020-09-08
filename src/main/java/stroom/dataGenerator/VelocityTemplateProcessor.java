@@ -3,6 +3,7 @@ package stroom.dataGenerator;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.tools.generic.DateTool;
+import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.TemplateConfig;
 
 import java.io.Reader;
@@ -15,9 +16,9 @@ import java.util.TimeZone;
 public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
     public static final String FORMAT_ID="Velocity";
 
-    public VelocityTemplateProcessor(final ProcessorRole role, final String templateRoot,
+    public VelocityTemplateProcessor(final EventGenConfig appConfig,
                                      final String streamName, final TemplateConfig config){
-        super(role, templateRoot, streamName, config);
+        super(appConfig, streamName, config);
     }
 
 
@@ -29,9 +30,10 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
 
         context.put( "user","Stroom");
 
-        context.put("date", new SingleInstantDateTool());
+        context.put("date", new SingleInstantDateTool(timestamp,
+                getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
 
-        Velocity.evaluate(context, output, template, input);
+        Velocity.evaluate(context, output, getStreamName(), input);
     }
 
     private static class SingleInstantDateTool extends DateTool{
