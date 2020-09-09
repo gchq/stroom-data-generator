@@ -25,7 +25,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.2'
     implementation 'org.apache.velocity:velocity-engine-core:2.2'
     implementation 'org.apache.velocity.tools:velocity-tools-generic:3.0'
-
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.2'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }

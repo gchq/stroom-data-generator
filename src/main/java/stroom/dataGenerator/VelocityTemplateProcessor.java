@@ -28,11 +28,12 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
 
         VelocityContext context = new VelocityContext();
 
-        context.put( "user","Stroom");
+        context.put( "user","stroom");
 
-        context.put("date", new SingleInstantDateTool(timestamp,
-                getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
-
+        if (timestamp != null) {
+            context.put("date", new SingleInstantDateTool(timestamp,
+                    getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
+        }
         Velocity.evaluate(context, output, getStreamName(), input);
     }
 

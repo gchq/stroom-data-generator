@@ -23,22 +23,11 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
         this.streamName = streamName;
     }
 
-    @Override
-    public void prologue(Writer output) throws TemplateProcessingException {
-        final Reader input = readTemplate();
-        processTemplate (input, output, null);
-    }
 
     @Override
     public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
         final Reader input = readTemplate();
         processTemplate (input, output, timestamp);
-    }
-
-    @Override
-    public void epilogue(Writer output) throws TemplateProcessingException {
-        final Reader input = readTemplate();
-        processTemplate (input, output, null);
     }
 
     protected Reader readTemplate() throws TemplateProcessingException {

@@ -4,14 +4,21 @@
 package stroom.dataGenerator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.EventStreamConfig;
 
+import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class EventGen {
 
@@ -19,18 +26,40 @@ public class EventGen {
 
     public EventGen(String pathToConfig) throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        mapper.findAndRegisterModules();
+        mapper.findAndRegisterModules().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);;
         config = mapper.readValue(new File(pathToConfig), EventGenConfig.class);
     }
 
-    public void go () throws FileNotFoundException {
-        Random random = new Random(config.getSeed());
+    public void go () throws IOException, TemplateProcessingException {
+
+        List<EventStreamProcessor> streamProcessors = new ArrayList<>();
         for (EventStreamConfig streamConfig : config.getStreams()){
-            EventStreamProcessor streamProcessor = new EventStreamProcessor (config, streamConfig);
-            
+            streamProcessors.add(new EventStreamProcessor(config, streamConfig));
+        }
+
+        Random random = new Random(config.getSeed());
+        Instant endTime = config.getStartTime().plus(config.getRunLength());
+        Instant periodStart = config.getStartTime();
+
+        while (periodStart.isBefore(endTime)){
+
+            processTimePeriod (periodStart, streamProcessors, random);
+
+            periodStart = periodStart.plus(config.getBatchDuration());
+        }
+
+
+    }
+
+    public void processTimePeriod (Instant startTime, List<EventStreamProcessor> processors, Random random) throws
+            IOException, TemplateProcessingException {
+        final String periodName = DateTimeFormatter.ISO_INSTANT.format(startTime);
+        for (EventStreamProcessor streamProcessor : processors){
+            streamProcessor.process(periodName, startTime, startTime.plus(config.getBatchDuration()),random);
         }
 
     }
+
 
     public static void main(String[] args) {
         if (args.length != 1){

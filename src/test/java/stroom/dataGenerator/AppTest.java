@@ -7,8 +7,5 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        EventGen classUnderTest = new EventGen();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
-    }
+
 }

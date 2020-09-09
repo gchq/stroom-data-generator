@@ -2,6 +2,7 @@
 .DS_Store
 **/target/
 **/out/
+**/output/
 **/build/
 *.swp
 node_modules

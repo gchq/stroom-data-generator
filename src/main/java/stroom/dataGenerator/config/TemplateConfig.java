@@ -10,6 +10,13 @@ public class TemplateConfig {
     private final String localeId;
     private final String timeZoneId;
 
+    TemplateConfig(){
+        path = null;
+        format = null;
+        localeId = null;
+        timeZoneId = null;
+    }
+
     public TemplateConfig(final String path, final String format, final String localeName, final String timeZoneName) {
         this.path = path;
         this.format = format;

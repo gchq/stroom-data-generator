@@ -1,6 +1,5 @@
 package stroom.dataGenerator;
 
-import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.StochasticTemplateConfig;
 
 import java.io.FileNotFoundException;
@@ -22,19 +21,8 @@ public class StochasticTemplateProcessor implements TemplateProcessor{
         return (long) ((Math.log(1.0-random.nextDouble()))/-arrivalRate);
     }
 
-
-    @Override
-    public void prologue(Writer output) throws TemplateProcessingException {
-        processor.prologue(output);
-    }
-
     @Override
     public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
         processor.process(timestamp, output);
-    }
-
-    @Override
-    public void epilogue(Writer output) throws TemplateProcessingException {
-        processor.epilogue(output);
     }
 }

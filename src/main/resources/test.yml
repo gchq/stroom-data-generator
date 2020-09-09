@@ -1,0 +1,28 @@
+startTime: 2020-01-01T00:00:00.000Z
+runLength: P30D
+seed: 0
+templateRoot: templates
+outputRoot: output
+defaultTemplateFormat: Velocity
+defaultTimeZoneId: UTC
+defaultLocaleId: en-uk
+defaultFileEncoding: utf-8
+batchDuration: PT10M
+streams:
+  - name: testJson
+    substreamCount: 2
+    header:
+      path: json/header
+    content:
+      - template:
+          path: json/events/exampleFormatA/event1
+        averageCountPerSecond: 0.2
+      - template:
+          path: json/events/exampleFormatA/event2
+        averageCountPerSecond: 0.02
+      - template:
+          path: json/events/exampleFormatA/event3
+        averageCountPerSecond: 0.002
+    footer:
+      path: json/footer
+    outputDirectory: testJsond

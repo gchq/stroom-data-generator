@@ -10,12 +10,30 @@ public class EventStreamConfig {
     private final TemplateConfig footer;
     private final String fileEncoding;
     private final String completionCommand;
+    private final String outputDirectory;
+    private final String outputSuffix;
+
+    EventStreamConfig(){
+        name = null;
+        substreamCount = 0;
+        header = null;
+        content = null;
+        footer = null;
+        fileEncoding = null;
+        completionCommand = null;
+        outputDirectory = null;
+        outputSuffix = null;
+    }
 
     public EventStreamConfig(String name, int substreamCount, TemplateConfig header,
+                             String outputPath,
+                             String outputSuffix,
                              List<StochasticTemplateConfig> content,
                              TemplateConfig footer, String fileEncoding, String completionCommand) {
         this.name = name;
         this.substreamCount = substreamCount;
+        this.outputDirectory = outputPath;
+        this.outputSuffix = outputSuffix;
         this.header = header;
         this.content = content;
         this.footer = footer;
@@ -49,5 +67,13 @@ public class EventStreamConfig {
 
     public String getCompletionCommand() {
         return completionCommand;
+    }
+
+    public String getOutputDirectory() {
+        return outputDirectory;
+    }
+
+    public String getOutputSuffix() {
+        return outputSuffix;
     }
 }
