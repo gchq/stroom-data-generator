@@ -24,16 +24,17 @@ public class EventStreamProcessor {
         this.config = config;
         TemplateProcessorFactory templateProcessorFactory = new TemplateProcessorFactory(appConfig);
 
-        if (config.getHeader() != null) {
-            headerProcessor = templateProcessorFactory.createProcessor(config.getHeader(), config.getName());
+        if (config.getPreEvents() != null) {
+            headerProcessor = templateProcessorFactory.createProcessor(config.getPreEvents(), config.getName());
         }
 
-        if (config.getContent() != null){
-            contentProcessor = new StochasticContentProcessor(appConfig, config.getContent(), config.getName());
+        if (config.getEvents() != null){
+            contentProcessor = new StochasticContentProcessor(appConfig, config.getEvents(),
+                    config.getBetweenEvents(), config.getName());
         }
 
-        if (config.getFooter() != null) {
-            footerProcessor = templateProcessorFactory.createProcessor(config.getFooter(), config.getName());
+        if (config.getPostEvents() != null) {
+            footerProcessor = templateProcessorFactory.createProcessor(config.getPostEvents(), config.getName());
         }
 
         if (config.getOutputDirectory() != null) {
@@ -56,7 +57,7 @@ public class EventStreamProcessor {
         }
     }
 
-    public void process (String periodName, Instant startTimeInclusive, Instant endTimeExclusive, Random random) throws IOException, TemplateProcessingException {
+    public void process (String periodName, Instant startTimeInclusive, Instant endTimeExclusive) throws IOException, TemplateProcessingException {
         //Create output directory
         File dir = new File (outputDirectory);
         dir.mkdirs();
@@ -106,7 +107,7 @@ public class EventStreamProcessor {
                 throw ex;
             }
 
-            contentProcessor.process(startTimeInclusive, endTimeExclusive, writer, random);
+            contentProcessor.process(startTimeInclusive, endTimeExclusive, writer);
 
             try {
                 if (footerProcessor != null) {
@@ -117,6 +118,7 @@ public class EventStreamProcessor {
                 throw ex;
             }
 
+            writer.flush();
             if (zipOutputStream != null){
                 zipOutputStream.closeEntry();
             }

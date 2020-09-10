@@ -16,9 +16,9 @@ public class StochasticTemplateProcessor implements TemplateProcessor{
         config = contentProcessorConfig;
     }
 
-    public long nextEventAfterMs(Random random){
+    public long nextEventAfterMs(double randomVal){
         double arrivalRate = config.getAverageCountPerSecond() / 1000.0;
-        return (long) ((Math.log(1.0-random.nextDouble()))/-arrivalRate);
+        return (long) ((Math.log(1.0-randomVal))/-arrivalRate);
     }
 
     @Override

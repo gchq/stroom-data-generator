@@ -5,38 +5,41 @@ import java.util.List;
 public class EventStreamConfig {
     private final String name;
     private final int substreamCount;
-    private final TemplateConfig header;
-    private final List<StochasticTemplateConfig> content;
-    private final TemplateConfig footer;
+    private final TemplateConfig preEvents;
+    private final List<StochasticTemplateConfig> events;
+    private final TemplateConfig betweenEvents;
+    private final TemplateConfig postEvents;
     private final String fileEncoding;
     private final String completionCommand;
     private final String outputDirectory;
     private final String outputSuffix;
 
     EventStreamConfig(){
+        betweenEvents = null;
         name = null;
         substreamCount = 0;
-        header = null;
-        content = null;
-        footer = null;
+        preEvents = null;
+        events = null;
+        postEvents = null;
         fileEncoding = null;
         completionCommand = null;
         outputDirectory = null;
         outputSuffix = null;
     }
 
-    public EventStreamConfig(String name, int substreamCount, TemplateConfig header,
-                             String outputPath,
+    public EventStreamConfig(String name, int substreamCount, TemplateConfig preEvents,
+                             TemplateConfig betweenEvents, String outputPath,
                              String outputSuffix,
-                             List<StochasticTemplateConfig> content,
-                             TemplateConfig footer, String fileEncoding, String completionCommand) {
+                             List<StochasticTemplateConfig> events,
+                             TemplateConfig postEvents, String fileEncoding, String completionCommand) {
         this.name = name;
         this.substreamCount = substreamCount;
+        this.betweenEvents = betweenEvents;
         this.outputDirectory = outputPath;
         this.outputSuffix = outputSuffix;
-        this.header = header;
-        this.content = content;
-        this.footer = footer;
+        this.preEvents = preEvents;
+        this.events = events;
+        this.postEvents = postEvents;
         this.fileEncoding = fileEncoding;
         this.completionCommand = completionCommand;
     }
@@ -49,16 +52,16 @@ public class EventStreamConfig {
         return substreamCount;
     }
 
-    public TemplateConfig getHeader() {
-        return header;
+    public TemplateConfig getPreEvents() {
+        return preEvents;
     }
 
-    public List<StochasticTemplateConfig> getContent() {
-        return content;
+    public List<StochasticTemplateConfig> getEvents() {
+        return events;
     }
 
-    public TemplateConfig getFooter() {
-        return footer;
+    public TemplateConfig getPostEvents() {
+        return postEvents;
     }
 
     public String getFileEncoding() {
@@ -75,5 +78,9 @@ public class EventStreamConfig {
 
     public String getOutputSuffix() {
         return outputSuffix;
+    }
+
+    public TemplateConfig getBetweenEvents() {
+        return betweenEvents;
     }
 }

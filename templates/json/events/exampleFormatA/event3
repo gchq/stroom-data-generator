@@ -1,5 +1,0 @@
-  {
-    "timestamp": "$date('MM/dd/yy HH:mm:ss.SSS')",
-    "action": "Export",
-    "user": "$user"
-  }

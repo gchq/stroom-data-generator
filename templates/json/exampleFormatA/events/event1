@@ -1,0 +1,5 @@
+  {
+    "timestamp": "$date.get('yyyy-dd-MM')T$date.get('HH:mm:ss.SSS')",
+    "action": "Process",
+    "user": "$user"
+  }

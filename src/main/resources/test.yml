@@ -1,6 +1,5 @@
 startTime: 2020-01-01T00:00:00.000Z
 runLength: P30D
-seed: 0
 templateRoot: templates
 outputRoot: output
 defaultTemplateFormat: Velocity
@@ -11,18 +10,20 @@ batchDuration: PT10M
 streams:
   - name: testJson
     substreamCount: 2
-    header:
-      path: json/header
-    content:
+    preEvents:
+      path: json/startArray
+    betweenEvents:
+      path: json/betweenArrayElements
+    events:
       - template:
-          path: json/events/exampleFormatA/event1
-        averageCountPerSecond: 0.2
-      - template:
-          path: json/events/exampleFormatA/event2
+          path: json/exampleFormatA/events/event1
         averageCountPerSecond: 0.02
       - template:
-          path: json/events/exampleFormatA/event3
+          path: json/exampleFormatA/events/event2
+        averageCountPerSecond: 0.01
+      - template:
+          path: json/exampleFormatA/events/event3
         averageCountPerSecond: 0.002
-    footer:
-      path: json/footer
+    postEvents:
+      path: json/endArray
     outputDirectory: testJsond

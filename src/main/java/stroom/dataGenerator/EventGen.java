@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class EventGen {
@@ -37,13 +38,12 @@ public class EventGen {
             streamProcessors.add(new EventStreamProcessor(config, streamConfig));
         }
 
-        Random random = new Random(config.getSeed());
         Instant endTime = config.getStartTime().plus(config.getRunLength());
         Instant periodStart = config.getStartTime();
 
         while (periodStart.isBefore(endTime)){
 
-            processTimePeriod (periodStart, streamProcessors, random);
+            processTimePeriod (periodStart, streamProcessors);
 
             periodStart = periodStart.plus(config.getBatchDuration());
         }
@@ -51,11 +51,11 @@ public class EventGen {
 
     }
 
-    public void processTimePeriod (Instant startTime, List<EventStreamProcessor> processors, Random random) throws
+    public void processTimePeriod (Instant startTime, List<EventStreamProcessor> processors) throws
             IOException, TemplateProcessingException {
         final String periodName = DateTimeFormatter.ISO_INSTANT.format(startTime);
         for (EventStreamProcessor streamProcessor : processors){
-            streamProcessor.process(periodName, startTime, startTime.plus(config.getBatchDuration()),random);
+            streamProcessor.process(periodName, startTime, startTime.plus(config.getBatchDuration()));
         }
 
     }

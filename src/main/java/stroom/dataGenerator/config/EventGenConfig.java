@@ -8,7 +8,6 @@ import java.util.List;
 public class EventGenConfig {
     private final Instant startTime;
     private final Duration runLength;
-    private final int seed;
     private final String templateRoot;
     private final String outputRoot;
     private final String defaultTemplateFormat;
@@ -21,7 +20,6 @@ public class EventGenConfig {
     public EventGenConfig(){
         startTime = null;
         runLength = null;
-        seed = 0;
         templateRoot = null;
         outputRoot = null;
         defaultTemplateFormat = null;
@@ -41,7 +39,6 @@ public class EventGenConfig {
                           List<EventStreamConfig> streams) {
         this.startTime = startTime;
         this.runLength = runLength;
-        this.seed = seed;
         this.templateRoot = templateRoot;
         this.outputRoot = outputRoot;
         this.defaultTemplateFormat = defaultTemplateFormat;
@@ -58,10 +55,6 @@ public class EventGenConfig {
 
     public Duration getRunLength() {
         return runLength;
-    }
-
-    public int getSeed() {
-        return seed;
     }
 
     public List<EventStreamConfig> getStreams() {

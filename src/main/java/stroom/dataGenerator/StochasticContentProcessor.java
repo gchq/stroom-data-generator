@@ -5,6 +5,7 @@ import stroom.dataGenerator.TemplateProcessingException;
 import stroom.dataGenerator.TemplateProcessorFactory;
 import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.StochasticTemplateConfig;
+import stroom.dataGenerator.config.TemplateConfig;
 
 import java.io.FileNotFoundException;
 import java.io.Writer;
@@ -13,24 +14,29 @@ import java.util.*;
 
 public class StochasticContentProcessor {
     private List <StochasticTemplateProcessor> contentProcessors;
+    private TemplateProcessor betweenEventProcessor;
     private final String streamName;
-    public StochasticContentProcessor(EventGenConfig appConfig, List<StochasticTemplateConfig> contentConfig, String streamName) throws FileNotFoundException {
+    public StochasticContentProcessor(EventGenConfig appConfig, List<StochasticTemplateConfig> contentConfig, TemplateConfig betweenEventConfig,
+                                      String streamName) throws FileNotFoundException {
         this.streamName = streamName;
         TemplateProcessorFactory templateProcessorFactory = new TemplateProcessorFactory(appConfig);
         contentProcessors = new ArrayList<>();
         for (StochasticTemplateConfig config : contentConfig){
             contentProcessors.add ( new StochasticTemplateProcessor(templateProcessorFactory, streamName, config));
         }
+        if (betweenEventConfig != null){
+            betweenEventProcessor = templateProcessorFactory.createProcessor(betweenEventConfig, streamName);
+        }
     }
 
-    public void process (Instant startTime, Instant endTime, Writer output, Random random) {
-
+    public void process (Instant startTime, Instant endTime, Writer output) {
+        Random random = new Random();
         Instant currentTime = startTime;
-
+        boolean firstEvent = true;
         while (currentTime.isBefore(endTime)){
             Map<Long, StochasticTemplateProcessor> nextEventTimes = new HashMap<>();
             for (StochasticTemplateProcessor processor : contentProcessors){
-                nextEventTimes.put(processor.nextEventAfterMs(random), processor);
+                nextEventTimes.put(processor.nextEventAfterMs(random.nextDouble()), processor);
             }
             Long shortestInterval = nextEventTimes.keySet().iterator().next();
             for (Long delay : nextEventTimes.keySet()){
@@ -43,6 +49,10 @@ public class StochasticContentProcessor {
             currentTime = Instant.ofEpochMilli(currentTime.toEpochMilli() + shortestInterval);
 
             try {
+                if (!firstEvent){
+                    betweenEventProcessor.process(currentTime, output);
+                }
+                firstEvent = false;
                 processor.process(currentTime, output);
             } catch (TemplateProcessingException ex){
                 System.err.println("Processing error encountered in " + streamName + " : " + ex.getMessage());
