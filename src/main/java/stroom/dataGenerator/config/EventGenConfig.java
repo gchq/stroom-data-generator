@@ -89,7 +89,7 @@ public class EventGenConfig {
         return defaultFileEncoding;
     }
 
-    public TemporalAmount getBatchDuration() {
+    public Duration getBatchDuration() {
         return batchDuration;
     }
 }
