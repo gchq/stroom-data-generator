@@ -25,9 +25,9 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
 
 
     @Override
-    public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
+    public void process(ProcessingContext context, Writer output) throws TemplateProcessingException {
         final Reader input = readTemplate();
-        processTemplate (input, output, timestamp);
+        processTemplate (input, output, context);
     }
 
     protected Reader readTemplate() throws TemplateProcessingException {
@@ -53,6 +53,6 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
         return config;
     }
 
-    abstract protected void processTemplate(Reader input, Writer output, Instant timestamp);
+    abstract protected void processTemplate(Reader input, Writer output, ProcessingContext context);
 
 }

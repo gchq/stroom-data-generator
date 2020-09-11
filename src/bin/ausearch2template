@@ -2,11 +2,13 @@
 
 if (( $# != 3));
 then
-  >&2 echo "Usage: ausearch2template <ausearch file> <user> <host>"
+  >&2 echo "Usage: ausearch2template <ausearch file> <user> <host regex>"
   exit 1
 fi
 
-cat $1 |  sed "s/$3/org.myorg.linuxhost/g" | sed "s/\/home\/$2/\/mnt\/data/g" | sed "s/$2/\$user/g" | sed -r 's/audit\([^.]+[.][0-9]+/audit($date.get("MM\/dd\/yy HH:mm:ss.SSS")/g' | sed 's/172.16.119.134/172.16.1.1/g' 
 
-#|  sed s/SSS\"/SSS\'/g | sed s/\"MM/\'MM
+cat $1 |  sed -r "s/$3/\$fqdn/g" | sed "s/\/home\/$2/\/mnt\/data/g" | sed "s/$2/\$user/g" | \
+	sed -r 's/audit\([^.]+[.][0-9]+[^ ]+/audit($date.get("MM\/dd\/yy HH:mm:ss.SSS"):$seq)/g' | \
+	sed -r 's/192\.168\.[0-9]{1,3}/$hostip/g' | sed -r 's/172\.16\.[0-9]{1,3}/$hostip/g' | \
+	sed -r 's/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/$otherip/g' 
 

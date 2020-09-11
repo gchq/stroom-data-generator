@@ -22,7 +22,7 @@ public class StochasticTemplateProcessor implements TemplateProcessor{
     }
 
     @Override
-    public void process(Instant timestamp, Writer output) throws TemplateProcessingException {
-        processor.process(timestamp, output);
+    public void process(ProcessingContext context, Writer output) throws TemplateProcessingException {
+        processor.process(context, output);
     }
 }

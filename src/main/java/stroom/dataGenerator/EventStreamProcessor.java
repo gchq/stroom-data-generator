@@ -97,21 +97,24 @@ public class EventStreamProcessor {
                 writer = createWriter(fileOutputStream);
             }
 
-
+            ProcessingContext context =
+                    new ProcessingContext(startTimeInclusive, substream,
+                            generateUserNumber(), appConfig.getDomain());
             try {
                 if (headerProcessor != null) {
-                    headerProcessor.process(startTimeInclusive, writer);
+
+                    headerProcessor.process(context, writer);
                 }
             } catch (TemplateProcessingException ex){
                 System.err.println("Processing error during header creation " + config.getName());
                 throw ex;
             }
 
-            contentProcessor.process(startTimeInclusive, endTimeExclusive, writer);
+            context = contentProcessor.process(context, endTimeExclusive, writer);
 
             try {
                 if (footerProcessor != null) {
-                    footerProcessor.process(endTimeExclusive, writer);
+                    footerProcessor.process(context, writer);
                 }
             } catch (TemplateProcessingException ex){
                 System.err.println("Processing error during footer creation " + config.getName());
@@ -130,6 +133,12 @@ public class EventStreamProcessor {
 
         fileOutputStream.close();
     }
+
+    private int generateUserNumber() {
+        //Simple way to get a unequal distribution of users
+        return (int) (appConfig.getUserCount() - Math.sqrt(new Random().nextDouble()) * appConfig.getUserCount());
+    }
+
 
     private Writer createWriter(OutputStream outputStream) throws IOException {
         final OutputStreamWriter writer;

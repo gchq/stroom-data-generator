@@ -1,5 +1,5 @@
 startTime: 2020-01-01T00:00:00.000Z
-runLength: P30D
+runLength: P10D
 templateRoot: templates
 outputRoot: output
 defaultTemplateFormat: Velocity
@@ -7,9 +7,11 @@ defaultTimeZoneId: UTC
 defaultLocaleId: en-uk
 defaultFileEncoding: utf-8
 batchDuration: PT10M
+domain: domain.myorg.org
+userCount: 1000
 streams:
   - name: testJson
-    substreamCount: 2
+    substreamCount: 5
     preEvents:
       path: json/startArray
     betweenEvents:

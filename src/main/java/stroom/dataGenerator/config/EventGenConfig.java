@@ -2,7 +2,6 @@ package stroom.dataGenerator.config;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 public class EventGenConfig {
@@ -16,6 +15,8 @@ public class EventGenConfig {
     private final String defaultFileEncoding;
     private final List<EventStreamConfig> streams;
     private final Duration batchDuration;
+    private String domain;
+    private int userCount;
 
     public EventGenConfig(){
         startTime = null;
@@ -28,6 +29,8 @@ public class EventGenConfig {
         defaultFileEncoding = null;
         streams = null;
         batchDuration = null;
+        domain = null;
+        userCount = 0;
     }
 
     public EventGenConfig(Instant startTime, Duration runLength, int seed, final String templateRoot,
@@ -36,6 +39,8 @@ public class EventGenConfig {
                           final Duration batchDuration,
                           final String defaultTimezone, final String defaultLocale,
                           final String defaultFileEncoding,
+                          final String domain,
+                          final int userCount,
                           List<EventStreamConfig> streams) {
         this.startTime = startTime;
         this.runLength = runLength;
@@ -51,6 +56,8 @@ public class EventGenConfig {
         }
         this.defaultLocaleId = defaultLocale;
         this.streams = streams;
+        this.domain = domain;
+        this.userCount = userCount;
     }
 
     public Duration getRunLength() {
@@ -91,5 +98,13 @@ public class EventGenConfig {
 
     public Duration getBatchDuration() {
         return batchDuration;
+    }
+
+    public int getUserCount() {
+        return userCount;
+    }
+
+    public String getDomain() {
+        return domain;
     }
 }

@@ -23,18 +23,24 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
 
 
     @Override
-    protected void processTemplate (final Reader input, final Writer output, final Instant timestamp){
+    protected void processTemplate (final Reader input, final Writer output, final ProcessingContext context){
         Velocity.init();
 
-        VelocityContext context = new VelocityContext();
+        VelocityContext velocityContext = new VelocityContext();
 
-        context.put( "user","stroom");
+        velocityContext.put("user", context.getUserId());
+        velocityContext.put("substream", context.getSubstreamNum());
+        velocityContext.put("host", context.getHostId());
+        velocityContext.put("fqdn", context.getHostFqdn());
+        velocityContext.put("hostip", context.getIpAddress());
+        velocityContext.put("otherip", context.generateRandomIpAddress());
+        velocityContext.put("seq", context.getSequenceNumber());
 
-        if (timestamp != null) {
-            context.put("date", new SingleInstantDateTool(timestamp,
+        if (context.getTimestamp() != null) {
+            velocityContext.put("date", new SingleInstantDateTool(context.getTimestamp(),
                     getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
         }
-        Velocity.evaluate(context, output, getStreamName(), input);
+        Velocity.evaluate(velocityContext, output, getStreamName(), input);
     }
 
     private static class SingleInstantDateTool extends DateTool{

@@ -1,5 +1,8 @@
   {
-    "timestamp": "$date.get('yyyy-dd-MM')T$date.get('HH:mm:ss.SSS')",
+    "timestamp": "$date.get('yyyy-dd-MM')T$date.get('HH:mm:ss.SSS')Z",
     "action": "Process",
-    "user": "$user"
+    "user": "$user",
+    "host": "$host",
+    "fqdn": "$fqdn",
+    "deviceip": "$hostip"
   }

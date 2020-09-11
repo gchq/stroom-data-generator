@@ -29,9 +29,10 @@ public class StochasticContentProcessor {
         }
     }
 
-    public void process (Instant startTime, Instant endTime, Writer output) {
+    public ProcessingContext process (ProcessingContext initialContext, Instant endTime, Writer output) {
         Random random = new Random();
-        Instant currentTime = startTime;
+        ProcessingContext context = initialContext;
+        Instant currentTime = context.getTimestamp();
         boolean firstEvent = true;
         while (currentTime.isBefore(endTime)){
             Map<Long, StochasticTemplateProcessor> nextEventTimes = new HashMap<>();
@@ -47,13 +48,13 @@ public class StochasticContentProcessor {
 
             StochasticTemplateProcessor processor = nextEventTimes.get(shortestInterval);
             currentTime = Instant.ofEpochMilli(currentTime.toEpochMilli() + shortestInterval);
-
+            context = new ProcessingContext(initialContext, currentTime);
             try {
                 if (!firstEvent){
-                    betweenEventProcessor.process(currentTime, output);
+                    betweenEventProcessor.process(context, output);
                 }
                 firstEvent = false;
-                processor.process(currentTime, output);
+                processor.process(context, output);
             } catch (TemplateProcessingException ex){
                 System.err.println("Processing error encountered in " + streamName + " : " + ex.getMessage());
                 ex.printStackTrace();
@@ -61,6 +62,6 @@ public class StochasticContentProcessor {
                 contentProcessors.remove(processor);
             }
         }
-
+        return context;
     }
 }

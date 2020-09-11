@@ -7,5 +7,5 @@ import java.time.Instant;
 import java.util.Random;
 
 public interface TemplateProcessor {
-    void process (Instant timestamp, Writer output) throws TemplateProcessingException;
+    void process (ProcessingContext context, Writer output) throws TemplateProcessingException;
 }
