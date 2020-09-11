@@ -5,13 +5,13 @@ outputRoot: output
 defaultTemplateFormat: Velocity
 defaultTimeZoneId: UTC
 defaultLocaleId: en-uk
-defaultFileEncoding: utf-8
+defaultFileEncoding: us-ascii
 batchDuration: PT10M
 domain: domain.myorg.org
 userCount: 1000
 streams:
   - name: testJson
-    substreamCount: 5
+    substreamCount: 2
     preEvents:
       path: json/startArray
     betweenEvents:
@@ -28,4 +28,9 @@ streams:
         averageCountPerSecond: 0.002
     postEvents:
       path: json/endArray
-    outputDirectory: testJsond
+    outputDirectory: testJson
+  - name: ausearch-basic
+    substreamCount: 5
+    postEvents:
+      path: ausearch/fullbatch10min
+    outputDirectory: ausearchBasic

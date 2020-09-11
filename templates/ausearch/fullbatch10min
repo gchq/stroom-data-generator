@@ -26,9 +26,9 @@ node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arc
 ----
 node=$fqdn type=SYSTEM_BOOT msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1290 uid=root auid=unset ses=unset msg=' comm=systemd-update-utmp exe=/usr/lib/elogind/elogind hostname=? addr=? terminal=? res=success' 
 ----
-node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1709 uid=root auid=$user ses=2 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_unix,pam_permit,pam_mail,pam_elogind,pam_env acct=$user exe=/usr/bin/sshd hostname=$hostip.134 addr=$hostip.134 terminal=ssh res=success' 
+node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1709 uid=root auid=$user ses=2 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_unix,pam_permit,pam_mail,pam_elogind,pam_env acct=$user exe=/usr/bin/sshd hostname=$hostip addr=$hostip terminal=ssh res=success' 
 ----
-node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1699 uid=root auid=$user ses=1 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_unix,pam_permit,pam_mail,pam_elogind,pam_env acct=$user exe=/usr/bin/sshd hostname=$hostip.134 addr=$hostip.134 terminal=ssh res=success' 
+node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1699 uid=root auid=$user ses=1 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_unix,pam_permit,pam_mail,pam_elogind,pam_env acct=$user exe=/usr/bin/sshd hostname=$hostip addr=$hostip terminal=ssh res=success' 
 ----
 node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=3600 uid=$user auid=$user ses=1 msg='op=PAM:session_close grantors=pam_unix acct=root exe=/usr/bin/su hostname=$fqdn addr=? terminal=pts/0 res=success' 
 ----
@@ -62,7 +62,7 @@ node=$fqdn type=SOCKADDR msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : sa
 node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=sendto success=yes exit=1056 a0=0x3 a1=0x7ffd4dbf3c90 a2=0x420 a3=0x0 items=0 ppid=22404 pid=22419 auid=unset uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=unset comm=auditctl exe=/usr/bin/auditctl key=(null) 
 node=$fqdn type=CONFIG_CHANGE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : auid=unset ses=unset op=remove_rule key=(null) list=exit res=yes 
 ----
-node=$fqdn type=DAEMON_CLOSE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : addr=::ffff:$hostip.134 port=34758 res=success 
+node=$fqdn type=DAEMON_CLOSE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : addr=::ffff:$hostip port=34758 res=success 
 ----
 node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/sbin/auditctl -R /etc/audit/audit.rules.stop.pre 
 node=$fqdn type=SOCKADDR msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : saddr={ fam=netlink nlnk-fam=16 nlnk-pid=0 } 
@@ -166,7 +166,7 @@ node=$fqdn type=DAEMON_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : 
 ----
 node=$fqdn type=DAEMON_START msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=start ver=$otherip format=enriched kernel=$otherip-$fqdn1-1 auid=unset pid=1083 uid=root ses=unset res=success 
 ----
-node=$fqdn type=DAEMON_ACCEPT msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : addr=::ffff:$hostip.134 port=40426 res=success 
+node=$fqdn type=DAEMON_ACCEPT msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : addr=::ffff:$hostip port=40426 res=success 
 ----
 node=$fqdn type=DAEMON_START msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=start ver=$otherip format=enriched kernel=$otherip-$fqdn1-1 auid=unset pid=1989 uid=root ses=unset res=success 
 ----

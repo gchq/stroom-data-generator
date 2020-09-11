@@ -110,7 +110,10 @@ public class EventStreamProcessor {
                 throw ex;
             }
 
-            context = contentProcessor.process(context, endTimeExclusive, writer);
+            if (contentProcessor != null) {
+                context = contentProcessor.process(context, endTimeExclusive, writer);
+            }
+
 
             try {
                 if (footerProcessor != null) {
@@ -152,7 +155,10 @@ public class EventStreamProcessor {
             final Charset charset = Charset.forName(fileEncoding);
 
             final byte[] bom;
-            if ("UTF-8".equals(charset.name())){
+            if ("US-ASCII".equals(charset.name())){
+                bom = new byte[0];
+            }
+            else if ("UTF-8".equals(charset.name())){
                 bom = new byte []{(byte)239, (byte)187, (byte)191};
             } else if ("UTF-16BE".equals(charset.name())) {
                 bom = new byte[]{(byte)254, (byte)255};

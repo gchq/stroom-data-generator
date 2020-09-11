@@ -13,8 +13,9 @@ echo
 
 FEED=$1
 
-for FILE in `ls *$SUFFIX`; do
-  RESPONSE=`curl -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit`
+for FILE in `ls *$SUFFIX`
+do
+  RESPONSE=`curl -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit"`
 
   echo Sent $FILE to Stroom feed $FEED with response code $RESPONSE
   echo
