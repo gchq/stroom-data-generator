@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Random;
 
 public class ProcessingContext {
+    private Object languageNativeContext;
     private final String fqdn;
     private final int substreamNum;
     private final Instant timestamp;
@@ -18,6 +19,7 @@ public class ProcessingContext {
         this.hostId = "host" + substreamNum;
         this.fqdn = domain + "." + this.hostId;
         this.sequenceNumber = 1;
+        languageNativeContext = null;
     }
 
     public ProcessingContext(ProcessingContext initialContext, Instant currentTime) {
@@ -27,6 +29,7 @@ public class ProcessingContext {
         this.hostId = initialContext.hostId;
         this.fqdn = initialContext.fqdn;
         this.sequenceNumber = initialContext.sequenceNumber + 1;
+        this.languageNativeContext = initialContext.languageNativeContext;
     }
 
     public Instant getTimestamp(){
@@ -64,5 +67,13 @@ public class ProcessingContext {
 
     public long getSequenceNumber() {
         return sequenceNumber;
+    }
+
+    public Object getLanguageNativeContext() {
+        return languageNativeContext;
+    }
+
+    public void setLanguageNativeContext(Object languageNativeContext) {
+        this.languageNativeContext = languageNativeContext;
     }
 }

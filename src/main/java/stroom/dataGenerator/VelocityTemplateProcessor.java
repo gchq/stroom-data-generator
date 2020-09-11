@@ -19,28 +19,45 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
     public VelocityTemplateProcessor(final EventGenConfig appConfig,
                                      final String streamName, final TemplateConfig config){
         super(appConfig, streamName, config);
+        Velocity.init();
     }
 
 
     @Override
     protected void processTemplate (final Reader input, final Writer output, final ProcessingContext context){
-        Velocity.init();
+        VelocityContext velocityContext = initialiseContext (context);
 
-        VelocityContext velocityContext = new VelocityContext();
+        Velocity.evaluate(velocityContext, output, getStreamName(), input);
+    }
 
-        velocityContext.put("user", context.getUserId());
-        velocityContext.put("substream", context.getSubstreamNum());
-        velocityContext.put("host", context.getHostId());
-        velocityContext.put("fqdn", context.getHostFqdn());
-        velocityContext.put("hostip", context.getIpAddress());
-        velocityContext.put("otherip", context.generateRandomIpAddress());
+    private VelocityContext initialiseContext (ProcessingContext context){
+        final VelocityContext velocityContext;
+        if (context.getLanguageNativeContext() != null){
+            if (! (context.getLanguageNativeContext() instanceof VelocityContext)){
+                throw new UnsupportedOperationException("Currently unable to mix template languages");
+            }
+            velocityContext = (VelocityContext) context.getLanguageNativeContext();
+        } else {
+            velocityContext = new VelocityContext();
+
+            //Set vals that don't change for entire file/substrewam
+            velocityContext.put("user", context.getUserId());
+            velocityContext.put("substream", context.getSubstreamNum());
+            velocityContext.put("host", context.getHostId());
+            velocityContext.put("fqdn", context.getHostFqdn());
+            velocityContext.put("hostip", context.getIpAddress());
+            velocityContext.put("otherip", context.generateRandomIpAddress());
+            context.setLanguageNativeContext(velocityContext);
+        }
+
+        //Set vals that change each event
         velocityContext.put("seq", context.getSequenceNumber());
-
         if (context.getTimestamp() != null) {
             velocityContext.put("date", new SingleInstantDateTool(context.getTimestamp(),
                     getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
         }
-        Velocity.evaluate(velocityContext, output, getStreamName(), input);
+
+        return velocityContext;
     }
 
     private static class SingleInstantDateTool extends DateTool{
