@@ -47,7 +47,6 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
             velocityContext.put("fqdn", context.getHostFqdn());
             velocityContext.put("hostip", context.getIpAddress());
             velocityContext.put("otherip", context.generateRandomIpAddress());
-            context.setLanguageNativeContext(velocityContext);
         }
 
         //Set vals that change each event
@@ -56,6 +55,8 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
             velocityContext.put("date", new SingleInstantDateTool(context.getTimestamp(),
                     getConfig().getTimeZone(getAppConfig()), getConfig().getLocale(getAppConfig())));
         }
+
+        context.setLanguageNativeContext(velocityContext);
 
         return velocityContext;
     }

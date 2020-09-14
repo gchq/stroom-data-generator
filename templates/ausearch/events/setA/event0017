@@ -1,0 +1,1 @@
+node=$fqdn type=DAEMON_CLOSE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : addr=::ffff:$hostip port=34758 res=success 

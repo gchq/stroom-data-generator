@@ -1,0 +1,1 @@
+node=$fqdn type=USER_START msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=2030 uid=root auid=unset ses=unset msg='op=PAM:session_open grantors=pam_limits acct=root exe=/usr/bin/start-stop-daemon hostname=$fqdn addr=? terminal=pts/0 res=success' 

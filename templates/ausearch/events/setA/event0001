@@ -1,0 +1,1 @@
+node=$fqdn type=DAEMON_ROTATE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=rotate-logs auid=unset pid=-1 subj=? 

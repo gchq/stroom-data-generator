@@ -1,0 +1,3 @@
+node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/sbin/auditctl -R /etc/audit/audit.rules.stop.pre 
+node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=sendto success=yes exit=56 a0=0x3 a1=0x7ffd4dbf6080 a2=0x38 a3=0x0 items=0 ppid=22404 pid=22419 auid=unset uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=unset comm=auditctl exe=/usr/bin/auditctl key=(null) 
+node=$fqdn type=CONFIG_CHANGE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=set audit_enabled=0 old=1 auid=unset ses=unset res=yes 

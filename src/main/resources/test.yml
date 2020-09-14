@@ -1,5 +1,5 @@
 startTime: 2020-01-01T00:00:00.000Z
-runLength: P10D
+runLength: P0DT1H
 templateRoot: templates
 outputRoot: output
 defaultTemplateFormat: Velocity
@@ -10,27 +10,33 @@ batchDuration: PT10M
 domain: domain.myorg.org
 userCount: 1000
 streams:
-  - name: testJson
+#  - name: testJson
+#    substreamCount: 2
+#    preEvents:
+#      path: json/startArray
+#    betweenEvents:
+#      path: json/betweenArrayElements
+#    events:
+#      - template:
+#          path: json/exampleFormatA/events/event1
+#        averageCountPerSecond: 0.02
+#      - template:
+#          path: json/exampleFormatA/events/event2
+#        averageCountPerSecond: 0.01
+#      - template:
+#          path: json/exampleFormatA/events/event3
+#        averageCountPerSecond: 0.002
+#    postEvents:
+#      path: json/endArray
+#    outputDirectory: testJson
+  - name: ausearch
     substreamCount: 2
     preEvents:
-      path: json/startArray
+      path: ausearch/delimiter
     betweenEvents:
-      path: json/betweenArrayElements
+      path: ausearch/delimiter
     events:
       - template:
-          path: json/exampleFormatA/events/event1
-        averageCountPerSecond: 0.02
-      - template:
-          path: json/exampleFormatA/events/event2
-        averageCountPerSecond: 0.01
-      - template:
-          path: json/exampleFormatA/events/event3
-        averageCountPerSecond: 0.002
-    postEvents:
-      path: json/endArray
-    outputDirectory: testJson
-  - name: ausearch-basic
-    substreamCount: 5
-    postEvents:
-      path: ausearch/fullbatch10min
-    outputDirectory: ausearchBasic
+          path: ausearch/events/setA
+        averageCountPerSecond: 0.7
+    outputDirectory: ausearch

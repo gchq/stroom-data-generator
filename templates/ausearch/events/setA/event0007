@@ -1,0 +1,1 @@
+node=$fqdn type=USER_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1709 uid=root auid=$user ses=2 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_unix,pam_permit,pam_mail,pam_elogind,pam_env acct=$user exe=/usr/bin/sshd hostname=$hostip addr=$hostip terminal=ssh res=success' 

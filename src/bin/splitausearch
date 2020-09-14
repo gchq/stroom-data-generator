@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if (( $# != 2 ))
+then 
+  echo "splitausearch <input template file> <output directory>"
+  exit 1
+fi
+
+#Read whole lines as tokens
+IFS=$'\n'
+
+EVENTNUM=1
+CURRENT_TEMPLATE="$2/event"
+CURRENT_TEMPLATE+=`printf "%04d" $EVENTNUM`
+for LINE in `cat $1`
+do
+  if [[ $LINE == '----' ]]
+  then
+    echo "Creating event type $EVENTNUM"
+    CURRENT_TEMPLATE="$2/event"
+    CURRENT_TEMPLATE+=`printf "%04d" $EVENTNUM`
+    EVENTNUM=$((EVENTNUM+1))
+  else
+    echo $LINE >> $CURRENT_TEMPLATE
+  fi
+done

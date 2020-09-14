@@ -1,9 +1,18 @@
 package stroom.dataGenerator.config;
 
 public class StochasticTemplateConfig {
-    private TemplateConfig template;
-    private double averageCountPerSecond;
+    private final TemplateConfig template;
+    private final double averageCountPerSecond;
 
+    StochasticTemplateConfig (){
+        template = null;
+        averageCountPerSecond = 0;
+    }
+
+    public StochasticTemplateConfig (TemplateConfig template, double averageCountPerSecond){
+        this.template = template;
+        this.averageCountPerSecond = averageCountPerSecond;
+    }
     public TemplateConfig getTemplate() {
         return template;
     }

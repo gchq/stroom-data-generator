@@ -1,0 +1,1 @@
+node=$fqdn type=ANOM_ABEND msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : auid=$user uid=$user gid=$user ses=1 pid=17581 comm=ThreadPoolSingl exe=/opt/vivaldi/vivaldi-bin sig=SIGTRAP res=yes 

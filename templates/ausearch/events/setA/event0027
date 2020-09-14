@@ -1,0 +1,1 @@
+node=$fqdn type=USER_AUTH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1083 uid=root auid=unset ses=unset msg='op=PAM:authentication grantors=pam_securetty,pam_tally2,pam_shells,pam_unix,pam_permit acct=root exe=/usr/bin/login hostname=$fqdn addr=? terminal=tty1 res=success' 

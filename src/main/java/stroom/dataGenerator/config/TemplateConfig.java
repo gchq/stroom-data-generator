@@ -24,6 +24,13 @@ public class TemplateConfig {
         this.timeZoneId = timeZoneName;
     }
 
+    public TemplateConfig(final TemplateConfig base, final String path){
+        this.path = path;
+        this.format = base.format;
+        this.localeId = base.localeId;
+        this.timeZoneId = base.timeZoneId;
+    }
+
     public String getPath() {
         return path;
     }

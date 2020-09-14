@@ -1,0 +1,1 @@
+node=$fqdn type=CONFIG_CHANGE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : auid=unset ses=unset op=add_rule key=(null) list=exit res=yes 

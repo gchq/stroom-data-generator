@@ -1,0 +1,1 @@
+node=$fqdn type=DAEMON_START msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=start ver=$otherip format=enriched kernel=$otherip-$fqdn1-1 auid=unset pid=1083 uid=root ses=unset res=success 
