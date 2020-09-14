@@ -30,7 +30,7 @@ streams:
 #      path: json/endArray
 #    outputDirectory: testJson
   - name: ausearch
-    substreamCount: 2
+#    substreamCount: 2
     preEvents:
       path: ausearch/delimiter
     betweenEvents:
@@ -40,3 +40,8 @@ streams:
           path: ausearch/events/setA
         averageCountPerSecond: 0.7
     outputDirectory: ausearch
+#  - name: ausearch-basic
+#    substreamCount: 5
+#    postEvents:
+#      path: ausearch/fullbatch10min
+#    outputDirectory: ausearchBasic

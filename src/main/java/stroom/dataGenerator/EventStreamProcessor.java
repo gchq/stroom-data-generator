@@ -50,7 +50,7 @@ public class EventStreamProcessor {
         } else {
             outputDirectory = ".";
         }
-        if  (config.getSubstreamCount() > 0){
+        if  (config.getSubstreamCount() > 0 || appConfig.getDefaultSubstreamCount() > 0){
             createSubstreams = true;
         } else {
             createSubstreams = false;
@@ -65,11 +65,11 @@ public class EventStreamProcessor {
         String outputFilename;
         if (createSubstreams){
             //Create zip archive
-            outputFilename = outputDirectory + "/" + periodName + config.getName().replace(' ', '_') +
+            outputFilename = outputDirectory + "/" + periodName + "-" + config.getName().replace(' ', '_') +
                     ".zip";
         } else {
             //Create ordinary text file
-            outputFilename = outputDirectory + "/" + periodName + config.getName().replace(' ', '_') +
+            outputFilename = outputDirectory + "/" + periodName + "-" + config.getName().replace(' ', '_') +
             (config.getOutputSuffix() != null ? config.getOutputSuffix() : "");;
         }
         FileOutputStream fileOutputStream;
@@ -85,8 +85,12 @@ public class EventStreamProcessor {
             zipOutputStream = new ZipOutputStream(fileOutputStream);
         }
 
+        int substreamCount = appConfig.getDefaultSubstreamCount();
+        if (config.getSubstreamCount() > 0) {
+            substreamCount = config.getSubstreamCount();
+        }
         int substream = 0;
-        while (substream < config.getSubstreamCount()){
+        do {
             substream++;
 
             final Writer writer;
@@ -128,7 +132,7 @@ public class EventStreamProcessor {
             if (zipOutputStream != null){
                 zipOutputStream.closeEntry();
             }
-        }
+        } while (substream < substreamCount);
 
         if (zipOutputStream != null){
             zipOutputStream.close();

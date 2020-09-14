@@ -6,6 +6,7 @@ package stroom.dataGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.apache.commons.cli.*;
 import stroom.dataGenerator.config.EventGenConfig;
 import stroom.dataGenerator.config.EventStreamConfig;
 
@@ -13,8 +14,10 @@ import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,11 +29,15 @@ public class EventGen {
 
     private final EventGenConfig config;
 
-    public EventGen(String pathToConfig) throws IOException {
+    public EventGen(final EventGenConfig config) throws IOException {
+        this.config = config;
+    }
+
+    public static EventGenConfig readConfig (String pathToConfig) throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        ;
-        config = mapper.readValue(new File(pathToConfig), EventGenConfig.class);
+
+        return mapper.readValue(new File(pathToConfig), EventGenConfig.class);
     }
 
     public void go() throws IOException, TemplateProcessingException {
@@ -71,16 +78,92 @@ public class EventGen {
 
 
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Please provide path to config YAML as application parameter");
-        } else {
-            try {
-                EventGen app = new EventGen(args[0]);
-                app.go();
-            } catch (Exception ex) {
-                System.err.println("Fatal Error due to " + ex.getMessage());
-                ex.printStackTrace();
+        Options options = new Options();
+        options.addOption(new Option("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
+        options.addOption(new Option ("r","run", true, "Run length (time period), e.g. P30D"));
+        options.addOption(new Option ("b","batch", true, "Batch size (time period), e.g. PT10M"));
+        options.addOption(new Option ("o","output", true, "Output directory"));
+        options.addOption(new Option ("t","templates", true, "Template directory"));
+        options.addOption(new Option ("u","users", true, "Number of users"));
+        options.addOption(new Option ("e","encoding", true, "Default output file encoding"));
+        options.addOption(new Option ("s","substreams", true, "Default number of substreams per batch"));
+        CommandLineParser parser = new DefaultParser();
+        try {
+            CommandLine commands = parser.parse(options, args);
+            String startTimeStr = commands.getOptionValue("p");
+            Instant startTime = null;
+            String runPeriodStr = commands.getOptionValue("r");
+            Duration runLength = null;
+            String batchPeriodStr = commands.getOptionValue("b");
+            Duration batchDuration = null;
+            String outputDir = commands.getOptionValue("o");
+            String templateDir = commands.getOptionValue("t");
+            String userCountStr = commands.getOptionValue("u");
+            Integer userCount = null;
+            String substreamCountStr = commands.getOptionValue("s");
+            Integer substreamCount = null;
+            if (userCountStr != null){
+                try {
+                    userCount = Integer.parseInt(userCountStr);
+                } catch (NumberFormatException ex){
+                    System.err.println("User parameter requires a numeric value (number of users)");
+                    System.exit(1);
+                }
             }
+            if (substreamCountStr != null){
+                try {
+                    substreamCount = Integer.parseInt(substreamCountStr);
+                } catch (NumberFormatException ex){
+                    System.err.println("Substream count parameter requires a numeric value (number of substreams)");
+                    System.exit(1);
+                }
+            }
+            if (startTimeStr != null){
+                try {
+                    startTime = Instant.parse(startTimeStr);
+                } catch (DateTimeParseException ex){
+                    System.err.println("Start time parameter requires a date time value");
+                    System.exit(1);
+                }
+            }
+            if (runPeriodStr != null){
+                try {
+                    runLength = Duration.parse(runPeriodStr);
+                } catch (DateTimeParseException ex){
+                    System.err.println("Run length parameter requires a duration value");
+                    System.exit(1);
+                }
+            }
+            if (batchPeriodStr != null){
+                try {
+                    batchDuration = Duration.parse(batchPeriodStr);
+                } catch (DateTimeParseException ex){
+                    System.err.println("Batch size parameter requires a duration value");
+                    System.exit(1);
+                }
+            }
+
+            if (commands.getArgs().length == 1){
+                System.out.println("Initialising from " + commands.getArgs()[0]);
+                EventGenConfig ymlconfig = readConfig(commands.getArgs()[0]);
+
+                EventGenConfig config = new EventGenConfig(ymlconfig, startTime, runLength, batchDuration,
+                        templateDir, outputDir, userCount, substreamCount);
+
+                EventGen app = new EventGen(config);
+                System.out.println("Starting event generation... ");
+                app.go();
+            } else {
+                System.err.println("Please provide path to config YAML as application parameter");
+            }
+
+        } catch (ParseException ex) {
+            new HelpFormatter().printHelp("Usage: java " + EventGen.class.getName() + " <config yaml file>", options );
+            System.exit(1);
+        } catch (Exception ex) {
+            System.err.println("Fatal Error due to " + ex.getMessage());
+            ex.printStackTrace();
         }
+
     }
 }
