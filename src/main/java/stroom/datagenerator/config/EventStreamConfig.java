@@ -1,4 +1,4 @@
-package stroom.dataGenerator.config;
+package stroom.datagenerator.config;
 
 import java.util.List;
 

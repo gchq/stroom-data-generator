@@ -1,10 +1,10 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.tools.generic.DateTool;
-import stroom.dataGenerator.config.EventGenConfig;
-import stroom.dataGenerator.config.TemplateConfig;
+import stroom.datagenerator.config.EventGenConfig;
+import stroom.datagenerator.config.TemplateConfig;
 
 import java.io.Reader;
 import java.io.Writer;

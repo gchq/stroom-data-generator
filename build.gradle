@@ -20,13 +20,37 @@ repositories {
     jcenter()
 }
 
+application {
+    mainClassName = 'stroom.datageneratator.EventGen'
+}
+
+
+jar {
+    archiveBaseName ='eventgen'
+    manifest {
+        attributes "Main-Class": "stroom.datagenerator.EventGen"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+////create a single Jar with all dependencies
+//task fatJar(type: Jar) {
+//    mainClassName = 'stroom.datageneratator.EventGen'
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
+
+
 dependencies {
-    implementation 'com.google.guava:guava:28.0-jre'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.2'
-    implementation 'org.apache.velocity:velocity-engine-core:2.2'
-    implementation 'org.apache.velocity.tools:velocity-tools-generic:3.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.2'
-    implementation 'commons-cli:commons-cli:1.4'
+    compile 'com.google.guava:guava:28.0-jre'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.2'
+    compile 'org.apache.velocity:velocity-engine-core:2.2'
+    compile 'org.apache.velocity.tools:velocity-tools-generic:3.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.2'
+    compile 'commons-cli:commons-cli:1.4'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }

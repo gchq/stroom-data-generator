@@ -1,4 +1,4 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
 public class TemplateProcessingException extends Exception {
     public TemplateProcessingException (final String streamName, final String templatePath, final String errorMsg, Throwable cause){

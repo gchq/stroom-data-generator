@@ -1,6 +1,6 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
-import stroom.dataGenerator.config.*;
+import stroom.datagenerator.config.*;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -139,6 +139,11 @@ public class EventStreamProcessor {
         }
 
         fileOutputStream.close();
+
+        if (config.getCompletionCommand() != null){
+            //todo implement
+            System.out.println("Would exectute: " + config.getCompletionCommand() + " " + outputFilename);
+        }
     }
 
     private int generateUserNumber() {

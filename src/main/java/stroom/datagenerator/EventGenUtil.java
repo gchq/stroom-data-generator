@@ -1,4 +1,4 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
 import java.util.Random;
 

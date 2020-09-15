@@ -1,11 +1,9 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
-import stroom.dataGenerator.config.EventGenConfig;
-import stroom.dataGenerator.config.TemplateConfig;
+import stroom.datagenerator.config.EventGenConfig;
+import stroom.datagenerator.config.TemplateConfig;
 
 import java.io.FileNotFoundException;
-import java.time.Duration;
-import java.util.Map;
 
 public class TemplateProcessorFactory {
     private final EventGenConfig appConfig;

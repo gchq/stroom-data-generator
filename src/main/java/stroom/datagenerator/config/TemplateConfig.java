@@ -1,6 +1,5 @@
-package stroom.dataGenerator.config;
+package stroom.datagenerator.config;
 
-import java.sql.Time;
 import java.util.Locale;
 import java.util.TimeZone;
 

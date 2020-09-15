@@ -1,13 +1,11 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
-import stroom.dataGenerator.config.EventGenConfig;
-import stroom.dataGenerator.config.TemplateConfig;
+import stroom.datagenerator.config.EventGenConfig;
+import stroom.datagenerator.config.TemplateConfig;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Instant;
 
 public abstract class AbstractTemplateProcessor implements TemplateProcessor{
     private final String templatePath;

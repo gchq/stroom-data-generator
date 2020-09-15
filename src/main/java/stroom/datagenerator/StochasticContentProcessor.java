@@ -1,12 +1,8 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
-import com.google.common.collect.Lists;
-import stroom.dataGenerator.StochasticTemplateProcessor;
-import stroom.dataGenerator.TemplateProcessingException;
-import stroom.dataGenerator.TemplateProcessorFactory;
-import stroom.dataGenerator.config.EventGenConfig;
-import stroom.dataGenerator.config.StochasticTemplateConfig;
-import stroom.dataGenerator.config.TemplateConfig;
+import stroom.datagenerator.config.EventGenConfig;
+import stroom.datagenerator.config.StochasticTemplateConfig;
+import stroom.datagenerator.config.TemplateConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;

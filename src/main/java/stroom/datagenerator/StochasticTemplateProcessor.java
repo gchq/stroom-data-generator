@@ -1,11 +1,9 @@
-package stroom.dataGenerator;
+package stroom.datagenerator;
 
-import stroom.dataGenerator.config.StochasticTemplateConfig;
+import stroom.datagenerator.config.StochasticTemplateConfig;
 
 import java.io.FileNotFoundException;
 import java.io.Writer;
-import java.time.Instant;
-import java.util.Random;
 
 public class StochasticTemplateProcessor implements TemplateProcessor{
     private TemplateProcessor processor;
