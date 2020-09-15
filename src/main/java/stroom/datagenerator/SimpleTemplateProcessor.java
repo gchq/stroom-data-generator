@@ -32,14 +32,15 @@ public class SimpleTemplateProcessor extends AbstractTemplateProcessor {
         while ((line = bufferedReader.readLine()) != null){
             String variablesChangedLine = line.replace("$user", context.getUserId())
                 .replace("$substream", "" + context.getSubstreamNum())
+                .replace("$hostip", context.getIpAddress())
                 .replace("$host", context.getHostId())
                 .replace("$fqdn", context.getHostFqdn())
-                .replace("$hostip", context.getIpAddress())
                 .replace("$otherip", context.generateRandomIpAddress())
                 .replace("$seq", "" + context.getSequenceNumber());
 
             String changedDateLine = replaceDates (variablesChangedLine, context.getTimestamp());
             output.write(changedDateLine);
+            output.write('\n');
         }
     }
 

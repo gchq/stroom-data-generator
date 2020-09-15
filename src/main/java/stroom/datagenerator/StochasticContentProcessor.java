@@ -50,7 +50,7 @@ public class StochasticContentProcessor {
                         contentProcessors.add(new StochasticTemplateProcessor(templateProcessorFactory, streamName, fileConfig));
                     }
                 }
-                System.out.println ("Stream " + streamName + " will have a range of event rates totalling " + cummulativeRate + " events per second");
+//                System.out.println ("Stream " + streamName + " will have a range of event rates totalling " + cummulativeRate + " events per second");
             } else {
                 contentProcessors.add(new StochasticTemplateProcessor(templateProcessorFactory, streamName, config));
             }

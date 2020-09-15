@@ -77,6 +77,7 @@ public class EventGen {
         options.addOption(new Option("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
         options.addOption(new Option ("r","run", true, "Run length (time period), e.g. P30D"));
         options.addOption(new Option ("b","batch", true, "Batch size (time period), e.g. PT10M"));
+        options.addOption(new Option ("d","domain", true, "Domain to use for host FQDN e.g. org.mydomain"));
         options.addOption(new Option ("o","output", true, "Output directory"));
         options.addOption(new Option ("t","templates", true, "Template directory"));
         options.addOption(new Option ("u","users", true, "Number of users"));
@@ -92,6 +93,7 @@ public class EventGen {
             String batchPeriodStr = commands.getOptionValue("b");
             Duration batchDuration = null;
             String outputDir = commands.getOptionValue("o");
+            String domain = commands.getOptionValue("d");
             String templateDir = commands.getOptionValue("t");
             String userCountStr = commands.getOptionValue("u");
             Integer userCount = null;
@@ -143,7 +145,7 @@ public class EventGen {
                 EventGenConfig ymlconfig = readConfig(commands.getArgs()[0]);
 
                 EventGenConfig config = new EventGenConfig(ymlconfig, startTime, runLength, batchDuration,
-                        templateDir, outputDir, userCount, substreamCount);
+                        templateDir, outputDir, domain, userCount, substreamCount);
 
                 EventGen app = new EventGen(config);
                 System.out.println("Starting event generation... ");

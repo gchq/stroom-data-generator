@@ -6,9 +6,9 @@ defaultTemplateFormat: Velocity
 defaultTimeZoneId: UTC
 defaultLocaleId: en-uk
 defaultFileEncoding: us-ascii
-defaultSubstreamCount: 2
+defaultSubstreamCount: 1
 batchDuration: PT10M
-domain: domain.myorg.org
+domain: org.myorg.domain
 userCount: 1000
 streams:
 #######################

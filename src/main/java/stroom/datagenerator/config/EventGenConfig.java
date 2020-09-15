@@ -37,7 +37,7 @@ public class EventGenConfig {
 
     public EventGenConfig(EventGenConfig baseConfig, Instant startTime, Duration runLength,
                           Duration batchDuration,
-                          String templateRoot, String outputRoot, Integer userCount, Integer substreamCount){
+                          String templateRoot, String outputRoot, String domain, Integer userCount, Integer substreamCount){
         if (startTime != null)
             this.startTime = startTime;
         else
@@ -72,6 +72,11 @@ public class EventGenConfig {
             this.defaultSubstreamCount = substreamCount;
         else
             this.defaultSubstreamCount = baseConfig.defaultSubstreamCount;
+
+        if (domain != null)
+            this.domain = domain;
+        else
+            this.domain = baseConfig.domain;
 
         this.defaultTemplateFormat = baseConfig.defaultTemplateFormat;
         this.defaultTimeZoneId = baseConfig.defaultTimeZoneId;
