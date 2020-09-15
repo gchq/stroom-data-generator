@@ -14,6 +14,11 @@ plugins {
     id 'application'
 }
 
+compileJava   {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -51,6 +56,8 @@ dependencies {
     compile 'org.apache.velocity.tools:velocity-tools-generic:3.0'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.2'
     compile 'commons-cli:commons-cli:1.4'
+    compile 'org.slf4j:slf4j-api:1.7.30'
+    compile 'org.slf4j:slf4j-simple:1.7.30'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
