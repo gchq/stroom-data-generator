@@ -24,10 +24,18 @@ public class TemplateProcessorFactory {
             throw new IllegalStateException("No template language specified");
         }
 
-        if (VelocityTemplateProcessor.FORMAT_ID.equals(format)){
-            return new VelocityTemplateProcessor(appConfig, streamName, template);
+        TemplateProcessor processor;
+
+        if (StaticTemplateProcessor.FORMAT_ID.equals(format)){
+            processor = new StaticTemplateProcessor(appConfig, streamName, template);
+        } else if (SimpleTemplateProcessor.FORMAT_ID.equals(format)){
+            processor = new SimpleTemplateProcessor(appConfig, streamName, template);
+        } else if (VelocityTemplateProcessor.FORMAT_ID.equals(format)){
+            processor = new VelocityTemplateProcessor(appConfig, streamName, template);
+        } else {
+            throw new FileNotFoundException("Template language not recognised: " + format);
         }
 
-        throw new FileNotFoundException("Template language not recognised: " + format);
+        return processor;
     }
 }

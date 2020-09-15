@@ -153,7 +153,7 @@ public class EventGen {
             }
 
         } catch (ParseException ex) {
-            new HelpFormatter().printHelp("Usage: java " + EventGen.class.getName() + " <config yaml file>", options );
+            new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
             System.exit(1);
         } catch (Exception ex) {
             System.err.println("Fatal Error due to " + ex.getMessage());

@@ -25,7 +25,11 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
     @Override
     public void process(ProcessingContext context, Writer output) throws TemplateProcessingException {
         final Reader input = readTemplate();
-        processTemplate (input, output, context);
+        try {
+            processTemplate(input, output, context);
+        } catch (IOException ex){
+            throw new TemplateProcessingException(streamName, templatePath, "Failed to process", ex);
+        }
     }
 
     protected Reader readTemplate() throws TemplateProcessingException {
@@ -51,6 +55,7 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
         return config;
     }
 
-    abstract protected void processTemplate(Reader input, Writer output, ProcessingContext context);
+    abstract protected void processTemplate(Reader input, Writer output, ProcessingContext context)
+            throws TemplateProcessingException, IOException ;
 
 }
