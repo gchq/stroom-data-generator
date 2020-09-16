@@ -74,6 +74,7 @@ public class EventGen {
 
     public static void main(String[] args) {
         Options options = new Options();
+        options.addOption(new Option ("h","help", false, "Show usage instructions / this message"));
         options.addOption(new Option("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
         options.addOption(new Option ("r","run", true, "Run length (time period), e.g. P30D"));
         options.addOption(new Option ("b","batch", true, "Batch size (time period), e.g. PT10M"));
@@ -99,6 +100,11 @@ public class EventGen {
             Integer userCount = null;
             String substreamCountStr = commands.getOptionValue("s");
             Integer substreamCount = null;
+            if (commands.hasOption('h'){
+                System.err.println ("Help currently limited to usage information...");
+                new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
+                System.exit(0);
+            }
             if (userCountStr != null){
                 try {
                     userCount = Integer.parseInt(userCountStr);
