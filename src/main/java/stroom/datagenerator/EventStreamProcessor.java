@@ -11,6 +11,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class EventStreamProcessor {
+    private static String tempSuffix = "-incomplete";
     private final EventGenConfig appConfig;
     private final EventStreamConfig config;
     private TemplateProcessor headerProcessor = null;
@@ -72,11 +73,12 @@ public class EventStreamProcessor {
             outputFilename = outputDirectory + "/" + periodName + "-" + config.getName().replace(' ', '_') +
             (config.getOutputSuffix() != null ? config.getOutputSuffix() : "");;
         }
+        String tempOutputfilename = outputFilename + tempSuffix;
         FileOutputStream fileOutputStream;
         try {
-            fileOutputStream = new FileOutputStream(outputFilename);
+            fileOutputStream = new FileOutputStream(tempOutputfilename);
         } catch (FileNotFoundException ex){
-            System.err.println("Error: Unable to create output file " + outputFilename);
+            System.err.println("Error: Unable to create output file using temporary name " + tempOutputfilename);
             return;
         }
 
@@ -139,6 +141,14 @@ public class EventStreamProcessor {
         }
 
         fileOutputStream.close();
+
+        //Rename file back to what it should be called.
+        File tempFile = new File (tempOutputfilename);
+        File outputFile = new File (outputFilename);
+        if (!tempFile.renameTo(outputFile)){
+            System.err.println("Error: Unable to rename temp output file " + tempOutputfilename + " to " + outputFilename);
+            return;
+        }
 
         if (config.getCompletionCommand() != null){
             //todo implement

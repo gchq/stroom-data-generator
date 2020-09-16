@@ -151,6 +151,7 @@ public class EventGen {
                 System.out.println("Starting event generation... ");
                 app.go();
             } else {
+                new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                 System.err.println("Please provide path to config YAML as application parameter");
             }
 
