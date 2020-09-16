@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#Incrementally generates older data, one hour at a time
+#Please set up the directory structure such that
+#.. is the directory that template and output paths are
+#   relative to (the CWD)
+#../state is a folder writeable by this process
+#../lib/eventgen.jar is the executable jar or symlink
+
+# For example:
+#
+# eventgen/
+#   -bin/
+#      -thisscript
+#   -lib/
+#      -eventgen.jar
+#   -state/
+#   -templates/
+#   -output/
+
+PROCNAME=$(basename $0)
+if [ "$(pidof -x $PROCNAME)" != $$ ]
+then
+  echo "Another instance of this script is already running"
+  exit
+fi
+
+if (( $# != 3 ))
+then
+  echo "usage: $0 <config yaml> <earliest date to generate> <latest date to generate>"
+  exit 1
+fi
+
+STATEFILE="state/$0.state" 
+
+if [ -f $STATEFILE ]
+then
+  THIS_RUN=$(date -d $(cat $STATEFILE) + 1 hour)
+else
+  THIS_RUN=$(date -d $2)
+fi
+  
+echo doing $THIS_RUN
+echo $THIS_RUN > $STATEFILE
+
+
+
+

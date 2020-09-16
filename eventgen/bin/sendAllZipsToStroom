@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ "$(pidof -x $(basename $0))" != $$ ]
+then
+  echo "Another instance of this script is already running"
+  exit
+fi
+
+if (( $# != 2 ))
+then
+  echo "Usage $0 <DIRECTORY> <FEED>"
+  exit 1
+fi
+
+cd $1
+FEED=$2
+SUFFIX='.zip'
+
+for FILE in `ls *$SUFFIX`
+do
+	echo $FILE
+  RESPONSE=`curl -s -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit"`
+  if (( $RESPONSE == 200 ))
+  then
+#    mv $FILE $FILE.sent
+    rm $FILE
+  fi
+
+done
+
+
