@@ -105,7 +105,7 @@ public class EventStreamProcessor {
 
             ProcessingContext context =
                     new ProcessingContext(startTimeInclusive, substream,
-                            generateUserNumber(), appConfig.getDomain());
+                            generateUserNumber(startTimeInclusive.toEpochMilli() + substream), appConfig.getDomain());
             try {
                 if (headerProcessor != null) {
 
@@ -156,9 +156,10 @@ public class EventStreamProcessor {
         }
     }
 
-    private int generateUserNumber() {
-        //Simple way to get a unequal distribution of users
-        return (int) (appConfig.getUserCount() - Math.sqrt(new Random().nextDouble()) * appConfig.getUserCount());
+    private int generateUserNumber(long seed) {
+        //Simple way to get a unequal distribution of events per user
+        return (int) (appConfig.getUserCount() - Math.sqrt(new Random(seed).nextDouble()) *
+                appConfig.getUserCount());
     }
 
 

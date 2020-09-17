@@ -61,14 +61,13 @@ public class StochasticContentProcessor {
     }
 
     public ProcessingContext process (ProcessingContext initialContext, Instant endTime, Writer output) {
-        Random random = new Random();
         ProcessingContext context = initialContext;
         Instant currentTime = context.getTimestamp();
         boolean firstEvent = true;
         while (currentTime.isBefore(endTime)){
             Map<Long, StochasticTemplateProcessor> nextEventTimes = new HashMap<>();
             for (StochasticTemplateProcessor processor : contentProcessors){
-                nextEventTimes.put(processor.nextEventAfterMs(random.nextDouble()), processor);
+                nextEventTimes.put(processor.nextEventAfterMs(initialContext.getRandom().nextDouble()), processor);
             }
             Long shortestInterval = nextEventTimes.keySet().iterator().next();
             for (Long delay : nextEventTimes.keySet()){

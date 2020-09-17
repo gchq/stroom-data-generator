@@ -100,7 +100,7 @@ public class EventGen {
             Integer userCount = null;
             String substreamCountStr = commands.getOptionValue("s");
             Integer substreamCount = null;
-            if (commands.hasOption('h'){
+            if (commands.hasOption('h')){
                 System.err.println ("Help currently limited to usage information...");
                 new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                 System.exit(0);
