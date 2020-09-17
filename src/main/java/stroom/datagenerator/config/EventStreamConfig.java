@@ -13,6 +13,7 @@ public class EventStreamConfig {
     private final String completionCommand;
     private final String outputDirectory;
     private final String outputSuffix;
+    private final String feed;
 
     EventStreamConfig(){
         betweenEvents = null;
@@ -25,13 +26,15 @@ public class EventStreamConfig {
         completionCommand = null;
         outputDirectory = null;
         outputSuffix = null;
+        feed = null;
     }
 
     public EventStreamConfig(String name, int substreamCount, TemplateConfig preEvents,
                              TemplateConfig betweenEvents, String outputPath,
                              String outputSuffix,
                              List<StochasticTemplateConfig> events,
-                             TemplateConfig postEvents, String fileEncoding, String completionCommand) {
+                             TemplateConfig postEvents, String fileEncoding, String completionCommand,
+                             String feed) {
         this.name = name;
         this.substreamCount = substreamCount;
         this.betweenEvents = betweenEvents;
@@ -42,6 +45,7 @@ public class EventStreamConfig {
         this.postEvents = postEvents;
         this.fileEncoding = fileEncoding;
         this.completionCommand = completionCommand;
+        this.feed = feed;
     }
 
     public String getName() {
@@ -82,5 +86,9 @@ public class EventStreamConfig {
 
     public TemplateConfig getBetweenEvents() {
         return betweenEvents;
+    }
+
+    public String getFeed() {
+        return feed;
     }
 }

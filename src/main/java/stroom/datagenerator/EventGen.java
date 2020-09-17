@@ -109,7 +109,8 @@ public class EventGen {
                 try {
                     userCount = Integer.parseInt(userCountStr);
                 } catch (NumberFormatException ex){
-                    System.err.println("User parameter requires a numeric value (number of users)");
+                    System.err.println("User parameter requires a numeric value (number of users). Got " + userCountStr);
+                    new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                     System.exit(1);
                 }
             }
@@ -117,7 +118,8 @@ public class EventGen {
                 try {
                     substreamCount = Integer.parseInt(substreamCountStr);
                 } catch (NumberFormatException ex){
-                    System.err.println("Substream count parameter requires a numeric value (number of substreams)");
+                    System.err.println("Substream count parameter requires a numeric value (number of substreams). Got " + substreamCountStr);
+                    new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                     System.exit(1);
                 }
             }
@@ -125,7 +127,8 @@ public class EventGen {
                 try {
                     startTime = Instant.parse(startTimeStr);
                 } catch (DateTimeParseException ex){
-                    System.err.println("Start time parameter requires a date time value");
+                    System.err.println("Start time parameter requires a date time value. Got " + startTimeStr);
+                    new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                     System.exit(1);
                 }
             }
@@ -133,7 +136,8 @@ public class EventGen {
                 try {
                     runLength = Duration.parse(runPeriodStr);
                 } catch (DateTimeParseException ex){
-                    System.err.println("Run length parameter requires a duration value");
+                    System.err.println("Run length parameter requires a duration value. Got " + runPeriodStr );
+                    new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                     System.exit(1);
                 }
             }

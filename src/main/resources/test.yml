@@ -15,6 +15,7 @@ streams:
 #  JSON Array format
 #######################
 #  - name: testJson
+#    feed: TEST-JSON_ARRAY-EVENTS
 #    preEvents:
 #      path: json/startArray
 #    betweenEvents:
@@ -35,22 +36,24 @@ streams:
 ###########################
 #  JSON Fragments format
 ###########################
-  - name: testJsonFrags
-    events:
-      - template:
-          path: json/exampleFormatA/events/event1
-        averageCountPerSecond: 0.02
-      - template:
-          path: json/exampleFormatA/events/event2
-        averageCountPerSecond: 0.01
-      - template:
-          path: json/exampleFormatA/events/event3
-        averageCountPerSecond: 0.002
-    outputDirectory: testJsonFrags
+#  - name: testJsonFrags
+#    feed: TEST-JSON_FRAGS-EVENTS
+#    events:
+#      - template:
+#          path: json/exampleFormatA/events/event1
+#        averageCountPerSecond: 0.02
+#      - template:
+#          path: json/exampleFormatA/events/event2
+#        averageCountPerSecond: 0.01
+#      - template:
+#          path: json/exampleFormatA/events/event3
+#        averageCountPerSecond: 0.002
+#    outputDirectory: testJsonFrags
 ##############################
 #  Linux ausearch format (variable data)
 ##############################
   - name: ausearch
+    feed: RHEL5_6_AUSEARCH-EVENTS
     preEvents:
       path: ausearch/delimiter
       format: Static

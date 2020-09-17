@@ -66,12 +66,14 @@ public class EventStreamProcessor {
         String outputFilename;
         if (createSubstreams){
             //Create zip archive
-            outputFilename = outputDirectory + "/" + periodName + "-" + config.getName().replace(' ', '_') +
+            outputFilename = outputDirectory + "/" + ((config.getFeed()!=null)?config.getFeed() : "UNDEFINED-FEED") +
+                    '.' + periodName + "-" + config.getName().replace(' ', '_') +
                     ".zip";
         } else {
             //Create ordinary text file
-            outputFilename = outputDirectory + "/" + periodName + "-" + config.getName().replace(' ', '_') +
-            (config.getOutputSuffix() != null ? config.getOutputSuffix() : "");;
+            outputFilename = outputDirectory + "/" + ((config.getFeed()!=null)?config.getFeed() : "UNDEFINED-FEED") +
+                    '.' + periodName + "-" + config.getName().replace(' ', '_') +
+                        (config.getOutputSuffix() != null ? config.getOutputSuffix() : "");
         }
         String tempOutputfilename = outputFilename + tempSuffix;
 
@@ -120,8 +122,7 @@ public class EventStreamProcessor {
                     headerProcessor.process(context, writer);
                 }
             } catch (TemplateProcessingException ex){
-                System.err.println("Processing error during header creation " + config.getName());
-                throw ex;
+                throw new TemplateProcessingException(config.getName(), config.getPreEvents().getPath(), "Processing error during header creation" , ex);
             }
 
             if (contentProcessor != null) {
@@ -134,8 +135,7 @@ public class EventStreamProcessor {
                     footerProcessor.process(context, writer);
                 }
             } catch (TemplateProcessingException ex){
-                System.err.println("Processing error during footer creation " + config.getName());
-                throw ex;
+                throw new TemplateProcessingException(config.getName(), config.getPostEvents().getPath(), "Processing error during footer creation" , ex);
             }
 
             writer.flush();
@@ -152,8 +152,8 @@ public class EventStreamProcessor {
 
         //Rename file back to what it should be called.
         if (!tempFile.renameTo(outputFile)){
-            System.err.println("Error: Unable to rename temp output file " + tempOutputfilename + " to " + outputFilename);
-            return;
+            throw new IOException("Error: Unable to rename temp output file " + tempOutputfilename + " to " + outputFilename);
+
         }
 
         if (config.getCompletionCommand() != null){

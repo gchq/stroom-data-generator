@@ -6,20 +6,24 @@ then
   exit
 fi
 
-if (( $# != 2 ))
+if (( $# < 1 ))
 then
-  echo "Usage $0 <DIRECTORY> <FEED>"
+  echo "Usage $0 <DIRECTORY> [FEED]"
   exit 1
 fi
 
-cd $1
 FEED=$2
 SUFFIX='.zip'
+FILES=$(find $1 -name \*$SUFFIX)
 
-for FILE in `ls *$SUFFIX`
+for FILE in $FILES
 do
-	echo $FILE
-  RESPONSE=`curl -s -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit"`
+  if (( $# == 1 ))
+  then
+	  FEED=$(basename $FILE | cut -d . -f 1)
+  fi
+  
+  RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
   if (( $RESPONSE == 200 ))
   then
 #    mv $FILE $FILE.sent
