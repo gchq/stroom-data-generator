@@ -159,6 +159,7 @@ public class EventGen {
             } else {
                 new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                 System.err.println("Please provide path to config YAML as application parameter");
+                System.exit(1);
             }
 
         } catch (ParseException ex) {
@@ -167,6 +168,7 @@ public class EventGen {
         } catch (Exception ex) {
             System.err.println("Fatal Error due to " + ex.getMessage());
             ex.printStackTrace();
+            System.exit(1);
         }
 
     }

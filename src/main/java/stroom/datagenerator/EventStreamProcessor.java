@@ -74,12 +74,20 @@ public class EventStreamProcessor {
             (config.getOutputSuffix() != null ? config.getOutputSuffix() : "");;
         }
         String tempOutputfilename = outputFilename + tempSuffix;
+
+        File tempFile = new File (tempOutputfilename);
+        if (tempFile.exists()){
+            throw new IOException("Error: File with temporary name " + tempOutputfilename + " already exists.  " +
+                    "This can be due to two EventGen processes colliding.  Either wait for other process to complete " +
+                    "or delete this file.");
+        }
+        File outputFile = new File (outputFilename);
+
         FileOutputStream fileOutputStream;
         try {
             fileOutputStream = new FileOutputStream(tempOutputfilename);
         } catch (FileNotFoundException ex){
-            System.err.println("Error: Unable to create output file using temporary name " + tempOutputfilename);
-            return;
+            throw new IOException("Error: Unable to create output file using temporary name " + tempOutputfilename, ex);
         }
 
         ZipOutputStream zipOutputStream = null;
@@ -143,8 +151,6 @@ public class EventStreamProcessor {
         fileOutputStream.close();
 
         //Rename file back to what it should be called.
-        File tempFile = new File (tempOutputfilename);
-        File outputFile = new File (outputFilename);
         if (!tempFile.renameTo(outputFile)){
             System.err.println("Error: Unable to rename temp output file " + tempOutputfilename + " to " + outputFilename);
             return;
