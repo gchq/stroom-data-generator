@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EventStreamConfig {
     private final String name;
-    private final int substreamCount;
+    private final Integer substreamCount;
     private final TemplateConfig preEvents;
     private final List<StochasticTemplateConfig> events;
     private final TemplateConfig betweenEvents;
@@ -18,7 +18,7 @@ public class EventStreamConfig {
     EventStreamConfig(){
         betweenEvents = null;
         name = null;
-        substreamCount = 0;
+        substreamCount = null;
         preEvents = null;
         events = null;
         postEvents = null;
@@ -52,8 +52,12 @@ public class EventStreamConfig {
         return name;
     }
 
-    public int getSubstreamCount() {
-        return substreamCount;
+    public int getSubstreamCount(EventGenConfig appConfig) {
+        if (substreamCount == null) {
+            return appConfig.getDefaultSubstreamCount();
+        } else {
+            return substreamCount;
+        }
     }
 
     public TemplateConfig getPreEvents() {
@@ -90,5 +94,9 @@ public class EventStreamConfig {
 
     public String getFeed() {
         return feed;
+    }
+
+    public boolean isZipRequired (EventGenConfig appConfig){
+        return getSubstreamCount(appConfig) > 0;
     }
 }

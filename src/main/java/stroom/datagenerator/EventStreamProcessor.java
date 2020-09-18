@@ -51,7 +51,7 @@ public class EventStreamProcessor {
         } else {
             outputDirectory = ".";
         }
-        if  (config.getSubstreamCount() > 0 || appConfig.getDefaultSubstreamCount() > 0){
+        if  (config.isZipRequired(appConfig)){
             createSubstreams = true;
         } else {
             createSubstreams = false;
@@ -97,10 +97,8 @@ public class EventStreamProcessor {
             zipOutputStream = new ZipOutputStream(fileOutputStream);
         }
 
-        int substreamCount = appConfig.getDefaultSubstreamCount();
-        if (config.getSubstreamCount() > 0) {
-            substreamCount = config.getSubstreamCount();
-        }
+        int substreamCount = config.getSubstreamCount(appConfig);
+
         int substream = 0;
         do {
             substream++;

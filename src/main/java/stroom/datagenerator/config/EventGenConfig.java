@@ -17,7 +17,7 @@ public class EventGenConfig {
     private final Duration batchDuration;
     private String domain;
     private int userCount;
-    private int defaultSubstreamCount;
+    private Integer defaultSubstreamCount;
 
     public EventGenConfig(){
         startTime = null;
@@ -32,7 +32,7 @@ public class EventGenConfig {
         batchDuration = null;
         domain = null;
         userCount = 0;
-        defaultSubstreamCount = 0;
+        defaultSubstreamCount = null;
     }
 
     public EventGenConfig(EventGenConfig baseConfig, Instant startTime, Duration runLength,
@@ -94,7 +94,7 @@ public class EventGenConfig {
                           final String defaultFileEncoding,
                           final String domain,
                           final int userCount,
-                          final int defaultSubstreamCount,
+                          final Integer defaultSubstreamCount,
                           List<EventStreamConfig> streams) {
         this.startTime = startTime;
         this.runLength = runLength;
@@ -160,7 +160,11 @@ public class EventGenConfig {
     }
 
     public int getDefaultSubstreamCount() {
-        return defaultSubstreamCount;
+        if (defaultSubstreamCount == null){
+            return 1;
+        } else {
+            return defaultSubstreamCount;
+        }
     }
 
     public String getDomain() {
