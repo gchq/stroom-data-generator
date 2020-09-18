@@ -8,7 +8,7 @@ fi
 
 if (( $# < 1 ))
 then
-  echo "Usage $0 <DIRECTORY> [FEED]"
+  echo "Usage $0 <output directory root> [FEED]"
   exit 1
 fi
 
@@ -20,7 +20,7 @@ for FILE in $FILES
 do
   if (( $# == 1 ))
   then
-	  FEED=$(basename $FILE | cut -d . -f 1)
+    FEED=$(basename $FILE | cut -d . -f 1)
   fi
   
   RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
