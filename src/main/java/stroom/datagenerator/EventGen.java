@@ -35,7 +35,7 @@ public class EventGen {
         return mapper.readValue(new File(pathToConfig), EventGenConfig.class);
     }
 
-    public void go() throws IOException, TemplateProcessingException {
+    public void go(boolean quiet) throws IOException, TemplateProcessingException {
 
         List<EventStreamProcessor> streamProcessors = new ArrayList<>();
         for (EventStreamConfig streamConfig : config.getStreams()) {
@@ -47,14 +47,19 @@ public class EventGen {
                 config.getRunLength().getNano() == 0 && config.getBatchDuration().getNano() == 0);
         long periodCount = config.getRunLength().dividedBy(config.getBatchDuration())
                 + (exactFit ? 0 : 1);
-        System.out.println ("Generating " + periodCount + " periods of data");
+
+        if (!quiet) {
+            System.out.println("Generating " + periodCount + " periods of data");
+        }
         Stream.iterate(config.getStartTime(), (periodStart) -> periodStart.plus(config.getBatchDuration())).parallel()
                 .limit(periodCount).
                 forEach((periodStart) -> {
                     try {
                         processTimePeriod(periodStart, streamProcessors);
                     } catch (TemplateProcessingException | IOException ex) {
-                        ex.printStackTrace();
+                        if (!quiet){
+                            ex.printStackTrace();
+                        }
                         throw new RuntimeException("Failed to process", ex);
                     }
 
@@ -74,7 +79,8 @@ public class EventGen {
 
     public static void main(String[] args) {
         Options options = new Options();
-        options.addOption(new Option ("h","help", false, "Show usage instructions / this message"));
+        options.addOption(new Option ("h","help", false, "Show usage instructions / this message, then exit"));
+        options.addOption(new Option ("q","quiet", false, "Suppress console output"));
         options.addOption(new Option("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
         options.addOption(new Option ("r","run", true, "Run length (time period), e.g. P30D"));
         options.addOption(new Option ("b","batch", true, "Batch size (time period), e.g. PT10M"));
@@ -87,6 +93,7 @@ public class EventGen {
         CommandLineParser parser = new DefaultParser();
         try {
             CommandLine commands = parser.parse(options, args);
+            boolean quietMode = commands.hasOption('q');
             String startTimeStr = commands.getOptionValue("p");
             Instant startTime = null;
             String runPeriodStr = commands.getOptionValue("r");
@@ -151,15 +158,19 @@ public class EventGen {
             }
 
             if (commands.getArgs().length == 1){
-                System.out.println("Initialising from " + commands.getArgs()[0]);
+                if(!quietMode){
+                    System.out.println("Initialising from " + commands.getArgs()[0]);
+                }
                 EventGenConfig ymlconfig = readConfig(commands.getArgs()[0]);
 
                 EventGenConfig config = new EventGenConfig(ymlconfig, startTime, runLength, batchDuration,
                         templateDir, outputDir, domain, userCount, substreamCount);
 
                 EventGen app = new EventGen(config);
-                System.out.println("Starting event generation... ");
-                app.go();
+                if (!quietMode) {
+                    System.out.println("Starting event generation... ");
+                }
+                app.go(quietMode);
             } else {
                 new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                 System.err.println("Please provide path to config YAML as application parameter");

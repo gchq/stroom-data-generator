@@ -6,16 +6,22 @@
 #
 
 PROCNAME=$(basename $0)
-#if [ "$(pidof -x $PROCNAME)" != $$ ]
-#then
-#  echo "Another instance of this script is already running"
-#  exit
-#fi
-
-if (( $# < 3 ))
+if [ "$(pidof -x $PROCNAME)" != $$ ]
 then
-  echo "usage: $0 <config yaml> <working directory> <earliest date to generate>"
-  echo "example: $0 config/all.yml . 2020-12-31 -s 500"
+  echo "Another instance of this script is already running"
+  exit
+fi
+
+DIRNAME=$(dirname $0)
+
+if (( $# < 4 ))
+then
+  echo "$PROCNAME is designed to be invoked multiple times, e.g. via cron in order to gradually generate data."
+  echo
+  echo "usage: $PROCNAME <config yaml> <task id> <state persistence directory> <earliest date to generate (inclusive)> [latest date to generate (exclusive)]"
+  echo
+  echo "Rolling example: $PROCNAME rolling-events /usr/local/etc/eventgen/config/events.yml /var/local/eventgen/state 2020-06-01"
+  echo "Non rolling example: $PROCNAME backfill-reference /usr/local/etc/eventgen/config/ref.yml /var/local/eventgen/state 2019-01-01 2019-12-31"
   exit 1
 fi
 
@@ -46,7 +52,7 @@ function process () {
 
   if (( $PERIOD_EPOCH >= $EARLIEST_EPOCH && $PERIOD_EPOCH <= $LATEST_EPOCH ))
   then
-    java -jar $JAR $CONFIG -r PT1H -p "${RUN_PERIOD_DATE}T${RUN_PERIOD_TIME}.000Z"
+    java -jar $JAR $CONFIG -q -r PT1H -p "${RUN_PERIOD_DATE}T${RUN_PERIOD_TIME}.000Z"
 
     if (( $? == 0 ))
     then
@@ -57,33 +63,49 @@ function process () {
 
 #----MAIN-----
 CONFIG=$1
-JAR="$(pwd)/eventgen.jar"
+JAR="$DIRNAME/eventgen.jar"
 if [ ! -f $JAR ]
 then
-  echo "Fatal: eventgen.jar (or symlink) must be located in the directory that this script is run from."
+  echo "Fatal: eventgen.jar (or symlink) must be located in the same directory as script ($DIRNAME)."
   exit 1
 fi
 
-cd $2
+TASK_ID=$2
+STATE_DIR=$3
+EARLIEST_DATE=$4
 
-STATEFILE_BASE=$(basename $0.state)
+#Create state directory if needed
+mkdir -p $STATE_DIR
+
+STATEFILE_BASE=$STATE_DIR/$TASK_ID.$PROCNAME.state
 
 STATEFILE_OLD=$STATEFILE_BASE".historic"
 STATEFILE_NEW=$STATEFILE_BASE".current"
 
-INITIAL_RUN_DATE='00:00:00 '$(date -u +"%Y-%m-%d")
+if (( $# >= 5 ))
+then
+  # Non-rolling
+  LATEST_EPOCH=$(date -u +%s -d "$5")
+  INITIAL_RUN_DATE="00:00:00 $5"
+else
+  HOUR_TRUNC_FORMAT='%Y-%m-%d %H':00:00
+  LAST_HOUR_START=$(date -d "- 1 hour" -u +"$HOUR_TRUNC_FORMAT")
+  LATEST_EPOCH=$(date -u +%s -d "$LAST_HOUR_START")
+  INITIAL_RUN_DATE='00:00:00 '$(date -u +"%Y-%m-%d")
+fi
+
 INITIAL_RUN_DATE_OLD=$(date -u -d "$INITIAL_RUN_DATE - 1 hour" +"%H:%M:%S %Y-%m-%d")
 init ${STATEFILE_OLD} "${INITIAL_RUN_DATE_OLD}"
 init ${STATEFILE_NEW} "${INITIAL_RUN_DATE}"
 
-EARLIEST_EPOCH=$(date -u +%s -d "$3")
-HOUR_TRUNC_FORMAT='%Y-%m-%d %H':00:00
-LAST_HOUR_START=$(date -d "- 1 hour" -u +"$HOUR_TRUNC_FORMAT")
-LATEST_EPOCH=$(date +%s -d "$LAST_HOUR_START")
+EARLIEST_EPOCH=$(date -u +%s -d "$EARLIEST_DATE")
 
 process ${STATEFILE_OLD} "- 1 hour" "$EARLIEST_EPOCH" "$LATEST_EPOCH" "$JAR" "$CONFIG"
-process ${STATEFILE_NEW} "+ 1 hour" "$EARLIEST_EPOCH" "$LATEST_EPOCH" "$JAR" "$CONFIG"
 
+if (( $# < 5 ))
+then
+  process ${STATEFILE_NEW} "+ 1 hour" "$EARLIEST_EPOCH" "$LATEST_EPOCH" "$JAR" "$CONFIG"
+fi
 
 
 
