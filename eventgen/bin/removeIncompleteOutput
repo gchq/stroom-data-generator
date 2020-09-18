@@ -1,0 +1,25 @@
+#!/bin/bash
+if [ "$(pidof -x $(basename $0))" != $$ ]
+then
+  echo "Another instance of this script is already running"
+#  exit
+fi
+
+if (( $# < 1 ))
+then
+  echo "usage: $0 <output directory root>"
+  exit 1
+fi
+
+SUFFIX='-incomplete'
+FILES=$(find $1 -name \*$SUFFIX 2>/dev/null)
+
+for FILE in $FILES
+do
+  PID=$(fuser $FILE 2>/dev/null)
+  if [[ -z $PID ]]
+  then
+    rm $FILE
+  fi
+done
+
