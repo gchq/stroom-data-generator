@@ -12,6 +12,8 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
+
+    id 'distribution'
 }
 
 compileJava   {
@@ -39,15 +41,21 @@ jar {
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    onlyIf {
+        true
+    }
 }
 
-////create a single Jar with all dependencies
-//task fatJar(type: Jar) {
-//    mainClassName = 'stroom.datageneratator.EventGen'
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    with jar
-//}
-
+distributions {
+    eventgen {
+        distributionBaseName = 'eventgen'
+        contents {
+            from 'eventgen/bin'
+            from 'eventgen/config'
+            from 'eventgen/templates'
+        }
+    }
+}
 
 dependencies {
     compile 'com.google.guava:guava:28.0-jre'
