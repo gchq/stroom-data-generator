@@ -51,6 +51,7 @@ public abstract class AbstractTemplateProcessor implements TemplateProcessor{
         return appConfig;
     }
 
+    @Override
     public TemplateConfig getConfig(){
         return config;
     }

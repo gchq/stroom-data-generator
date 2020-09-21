@@ -2,11 +2,10 @@ startTime: 2020-01-01T00:00:00.000Z
 runLength: P0DT10M
 templateRoot: templates
 outputRoot: output
-defaultTemplateFormat: Velocity
+defaultTemplateFormat: Simple
 defaultTimeZoneId: UTC
 defaultLocaleId: en-uk
 defaultFileEncoding: us-ascii
-#defaultSubstreamCount: 1000
 batchDuration: PT10M
 domain: org.myorg.domain
 userCount: 1000
@@ -63,7 +62,6 @@ streams:
     events:
       - template:
           path: ausearch/events/setA
-          format: Simple
         averageCountPerSecond: 0.7
     outputDirectory: ausearch
 ##############################

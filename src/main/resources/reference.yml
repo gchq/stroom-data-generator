@@ -1,0 +1,22 @@
+startTime: 2018-01-01T00:00:00.000Z
+runLength: P30D
+templateRoot: templates
+outputRoot: output
+defaultTemplateFormat: Velocity
+defaultTimeZoneId: UTC
+defaultLocaleId: en-uk
+defaultFileEncoding: us-ascii
+batchDuration: P1D
+domain: org.myorg.domain
+userCount: 1000
+streams:
+  - name: userRefCsv
+    feed: TEST-USER_CSV-REFERENCE
+    preEvents:
+      path: userref/userref-csv.vm
+      format: Velocity
+    outputDirectory: userref
+    include:
+      - type: Meta
+        path: userref/meta
+        format: Simple

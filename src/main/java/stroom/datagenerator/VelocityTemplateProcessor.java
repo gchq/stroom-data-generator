@@ -3,6 +3,7 @@ package stroom.datagenerator;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.tools.generic.DateTool;
+import org.apache.velocity.tools.generic.MathTool;
 import stroom.datagenerator.config.EventGenConfig;
 import stroom.datagenerator.config.TemplateConfig;
 
@@ -10,8 +11,11 @@ import java.io.Reader;
 import java.io.Writer;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
     public static final String FORMAT_ID="Velocity";
@@ -40,16 +44,22 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
         } else {
             velocityContext = new VelocityContext();
 
-            //Set vals that don't change for entire file/substrewam
+            //Set vals that don't change for entire file/substream
             velocityContext.put("user", context.getUserId());
             velocityContext.put("substream", context.getSubstreamNum());
             velocityContext.put("host", context.getHostId());
             velocityContext.put("fqdn", context.getHostFqdn());
             velocityContext.put("hostip", context.getIpAddress());
-            velocityContext.put("otherip", context.generateRandomIpAddress());
+
+            List<String> allUsers = IntStream.range(1,getAppConfig().getUserCount() + 1).mapToObj(u -> "user" + u).
+                    collect(Collectors.toList());
+            velocityContext.put("allusers", allUsers);
+            velocityContext.put("math", new MathTool());
+            velocityContext.put("random", context.getRandom());
         }
 
         //Set vals that change each event
+        velocityContext.put("otherip", context.generateRandomIpAddress());
         velocityContext.put("seq", context.getSequenceNumber());
         if (context.getTimestamp() != null) {
             velocityContext.put("date", new SingleInstantDateTool(context.getTimestamp(),

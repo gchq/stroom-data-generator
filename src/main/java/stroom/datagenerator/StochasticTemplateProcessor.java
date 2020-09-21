@@ -1,6 +1,7 @@
 package stroom.datagenerator;
 
 import stroom.datagenerator.config.StochasticTemplateConfig;
+import stroom.datagenerator.config.TemplateConfig;
 
 import java.io.FileNotFoundException;
 import java.io.Writer;
@@ -22,5 +23,10 @@ public class StochasticTemplateProcessor implements TemplateProcessor{
     @Override
     public void process(ProcessingContext context, Writer output) throws TemplateProcessingException {
         processor.process(context, output);
+    }
+
+    @Override
+    public TemplateConfig getConfig() {
+        return processor.getConfig();
     }
 }

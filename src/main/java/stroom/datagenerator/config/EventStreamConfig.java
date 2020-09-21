@@ -9,6 +9,7 @@ public class EventStreamConfig {
     private final List<StochasticTemplateConfig> events;
     private final TemplateConfig betweenEvents;
     private final TemplateConfig postEvents;
+    private final List<TemplateConfig> include;
     private final String fileEncoding;
     private final String completionCommand;
     private final String outputDirectory;
@@ -27,12 +28,14 @@ public class EventStreamConfig {
         outputDirectory = null;
         outputSuffix = null;
         feed = null;
+        include = null;
     }
 
     public EventStreamConfig(String name, int substreamCount, TemplateConfig preEvents,
                              TemplateConfig betweenEvents, String outputPath,
                              String outputSuffix,
                              List<StochasticTemplateConfig> events,
+                             List<TemplateConfig> include,
                              TemplateConfig postEvents, String fileEncoding, String completionCommand,
                              String feed) {
         this.name = name;
@@ -46,6 +49,7 @@ public class EventStreamConfig {
         this.fileEncoding = fileEncoding;
         this.completionCommand = completionCommand;
         this.feed = feed;
+        this.include = include;
     }
 
     public String getName() {
@@ -96,7 +100,11 @@ public class EventStreamConfig {
         return feed;
     }
 
+    public List<TemplateConfig> getInclude() {
+        return include;
+    }
+
     public boolean isZipRequired (EventGenConfig appConfig){
-        return getSubstreamCount(appConfig) > 0;
+        return getSubstreamCount(appConfig) > 0 || include != null;
     }
 }

@@ -1,0 +1,5 @@
+#set ($teamval = $allusers.size() / 100)
+#foreach($userid in $allusers)
+#set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
+$userid,$teamnum
+#end

@@ -6,19 +6,25 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class EventStreamProcessor {
+    private static String META_LITERAL = "Meta";
+    private static String CONTENXT_LITERAL = "Context";
     private static String tempSuffix = "-incomplete";
     private final EventGenConfig appConfig;
     private final EventStreamConfig config;
-    private TemplateProcessor headerProcessor = null;
-    private StochasticContentProcessor contentProcessor;
-    private TemplateProcessor footerProcessor = null;
+    private final TemplateProcessor headerProcessor;
+    private final StochasticContentProcessor contentProcessor;
+    private final TemplateProcessor footerProcessor;
     private final String outputDirectory;
     private final boolean createSubstreams;
+    private final List<TemplateProcessor> additionalIncludes;
 
     public EventStreamProcessor (final EventGenConfig appConfig, final EventStreamConfig config) throws FileNotFoundException {
         this.appConfig = appConfig;
@@ -27,16 +33,32 @@ public class EventStreamProcessor {
 
         if (config.getPreEvents() != null) {
             headerProcessor = templateProcessorFactory.createProcessor(config.getPreEvents(), config.getName());
+        } else {
+            headerProcessor = null;
         }
 
         if (config.getEvents() != null){
             contentProcessor = new StochasticContentProcessor(appConfig, config.getEvents(),
                     config.getBetweenEvents(), config.getName());
+        } else {
+            contentProcessor = null;
         }
 
         if (config.getPostEvents() != null) {
             footerProcessor = templateProcessorFactory.createProcessor(config.getPostEvents(), config.getName());
+        } else {
+            footerProcessor = null;
         }
+
+        additionalIncludes = new ArrayList<>();
+
+        if (config.getInclude() != null){
+            for (TemplateConfig includedConfig : config.getInclude()){
+               additionalIncludes.add(templateProcessorFactory.createProcessor(includedConfig, config.getName()));
+            }
+        }
+
+
 
         if (config.getOutputDirectory() != null) {
             if (config.getOutputDirectory().startsWith("/")){
@@ -105,7 +127,8 @@ public class EventStreamProcessor {
 
             final Writer writer;
             if (zipOutputStream != null){
-                zipOutputStream.putNextEntry(new ZipEntry(String.format("%04d.dat", substream)));
+                zipOutputStream.putNextEntry(new ZipEntry(String.format("%04d", substream) +
+                        findExtension (null)));
                 writer = createWriter(zipOutputStream);
             } else {
                 writer = createWriter(fileOutputStream);
@@ -140,6 +163,17 @@ public class EventStreamProcessor {
             if (zipOutputStream != null){
                 zipOutputStream.closeEntry();
             }
+
+            //Now add any additional files that must be generated with the events
+            for (TemplateProcessor additionalProcessor : additionalIncludes){
+                zipOutputStream.putNextEntry(new ZipEntry(String.format("%04d", substream) +
+                        findExtension (additionalProcessor)));
+                Writer additionalStreamTypeWriter = createWriter(zipOutputStream);
+                additionalProcessor.process(context, additionalStreamTypeWriter);
+                additionalStreamTypeWriter.flush();
+                zipOutputStream.closeEntry();
+            }
+
         } while (substream < substreamCount);
 
         if (zipOutputStream != null){
@@ -166,6 +200,18 @@ public class EventStreamProcessor {
                 appConfig.getUserCount());
     }
 
+    private String findExtension(TemplateProcessor processor){
+        if (processor == null || processor.getConfig() == null || processor.getConfig().getType() == null){
+            return ".dat";
+        } else if ("Meta".equals(processor.getConfig().getType())) {
+            return ".meta";
+        } else if ("Context".equals(processor.getConfig().getType())) {
+            return ".ctx";
+        } else {
+            throw new IllegalArgumentException("Unknown additional stream type " + processor.getConfig().getType() +
+                    " Must be Meta or Context");
+        }
+    }
 
     private Writer createWriter(OutputStream outputStream) throws IOException {
         final OutputStreamWriter writer;
