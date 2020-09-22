@@ -1,5 +1,20 @@
 #!/bin/bash
 
+#/*
+# * Copyright 2020 Crown Copyright
+# *
+# * Licensed under the Apache License, Version 2.0 (the "License");
+# * you may not use this file except in compliance with the License.
+# * You may obtain a copy of the License at
+# *
+# *     http://www.apache.org/licenses/LICENSE-2.0
+# *
+# * Unless required by applicable law or agreed to in writing, software
+# * distributed under the License is distributed on an "AS IS" BASIS,
+# * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# * See the License for the specific language governing permissions and
+# * limitations under the License.
+# */
 if [ "$(pidof -x $(basename $0))" != $$ ]
 then
   echo "Another instance of this script is already running"
@@ -8,22 +23,29 @@ fi
 
 if (( $# < 1 ))
 then
-  echo "Usage $0 <output directory root> [FEED]"
+  echo "usage: $0 <eventgen output directory root> [URL] [FEED]"
+  echo "URL http://localhost:8080/stroom/noauth/datafeed is used if not provided."
+  echo "WARNING! This script deletes data! Always specify a directory that only holds eventgen output."
   exit 1
 fi
 
-FEED=$2
-SUFFIX='.zip'
-FILES=$(find $1 -name \*$SUFFIX)
+URL=$2
+FEED=$3
+PATTERN="*00Z-*.zip"
+FILES=$(find $1 -name $PATTERN)
 
 for FILE in $FILES
 do
-  if (( $# == 1 ))
+  if (( $# < 3 ))
   then
     FEED=$(basename $FILE | cut -d . -f 1)
   fi
+  if (( $# < 2 ))
+  then
+    URL="http://localhost:8080/stroom/noauth/datafeed"
+  fi
   
-  RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} "http://localhost:8080/stroom/noauth/datafeed" -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
+  RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} ${URL} -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
   if (( $RESPONSE == 200 ))
   then
 #    mv $FILE $FILE.sent

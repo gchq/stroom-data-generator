@@ -1,7 +1,23 @@
+/*
+ * Copyright 2020 Crown Copyright
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package stroom.datagenerator;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.tools.generic.ComparisonDateTool;
 import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.MathTool;
 import stroom.datagenerator.config.EventGenConfig;
@@ -71,7 +87,7 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
         return velocityContext;
     }
 
-    private static class SingleInstantDateTool extends DateTool{
+    private static class SingleInstantDateTool extends ComparisonDateTool {
         private final Date date;
         SingleInstantDateTool (final Instant timestamp, TimeZone timeZone, Locale locale){
             this.date = Date.from(timestamp);
