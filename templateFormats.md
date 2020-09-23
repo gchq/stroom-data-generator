@@ -46,7 +46,7 @@ In addition to any variable that may be defined within a template itself, a numb
 * `$fqdn` - the fully qualified DNS name of `$host`
 * `$allusers` - a list containing all users
 * `$math` - an instance of [Velocity's MathTool](https://velocity.apache.org/tools/3.0/tools-summary.html#MathTool).
-* `$random` - an instance of Java 12's java.util.Random class, that is guaranteed to be set to the same seed when 
+* `$random` - an instance of Java 12's java.util.Random class, that is set to the same seed when 
 regenerating a particular event. 
 
 ### Variables that change every event
