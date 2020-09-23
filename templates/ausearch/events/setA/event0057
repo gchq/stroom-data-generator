@@ -1,7 +1,7 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/bin/sh /etc/lxdm/PreLogin 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=2 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=1 name=/bin/sh inode=268789 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=/etc/lxdm/PreLogin inode=1049938 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/ 
-node=$fqdn type=EXECVE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : argc=2 a0=/bin/sh a1=/etc/lxdm/PreLogin 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x55e05b7eb1d0 a1=0x55e05b802f40 a2=0x55e05b803750 a3=0x55e05b802f40 items=3 ppid=2708 pid=2709 auid=$user uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=1 comm=PreLogin exe=/usr/bin/bash key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=/bin/sh /etc/lxdm/PreLogin 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=2 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=1 name=/bin/sh inode=268789 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=/etc/lxdm/PreLogin inode=1049938 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/ 
+node=$fqdn type=EXECVE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : argc=2 a0=/bin/sh a1=/etc/lxdm/PreLogin 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x55e05b7eb1d0 a1=0x55e05b802f40 a2=0x55e05b803750 a3=0x55e05b802f40 items=3 ppid=2708 pid=2709 auid=$user uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=1 comm=PreLogin exe=/usr/bin/bash key=(null) 

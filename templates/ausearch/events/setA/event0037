@@ -1,5 +1,5 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=reboot 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=/bin/runit-init inode=153456 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/root 
-node=$fqdn type=EXECVE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : argc=2 a0=init a1=6 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x564f59455036 a1=0x7fff532647f0 a2=0x7fff532649b8 a3=0x7fff53264830 items=1 ppid=9703 pid=9709 auid=root uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=tty1 ses=3 comm=runit-init exe=/usr/bin/runit-init key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=reboot 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=/bin/runit-init inode=153456 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/root 
+node=$fqdn type=EXECVE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : argc=2 a0=init a1=6 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x564f59455036 a1=0x7fff532647f0 a2=0x7fff532649b8 a3=0x7fff53264830 items=1 ppid=9703 pid=9709 auid=root uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=tty1 ses=3 comm=runit-init exe=/usr/bin/runit-init key=(null) 

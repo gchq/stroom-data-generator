@@ -1,4 +1,4 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=xfce4-session 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/bin/core_perl/gnome-keyring-daemon nametype=UNKNOWN cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=no exit=ENOENT(No such file or directory) a0=0x5634a0c75ec3 a1=0x7ffdf34c69d0 a2=0x5634a0c8cc00 a3=0x0 items=1 ppid=2708 pid=2759 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=xfce4-session exe=/usr/bin/xfce4-session key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=xfce4-session 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/bin/core_perl/gnome-keyring-daemon nametype=UNKNOWN cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=no exit=ENOENT(No such file or directory) a0=0x5634a0c75ec3 a1=0x7ffdf34c69d0 a2=0x5634a0c8cc00 a3=0x0 items=1 ppid=2708 pid=2759 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=xfce4-session exe=/usr/bin/xfce4-session key=(null) 

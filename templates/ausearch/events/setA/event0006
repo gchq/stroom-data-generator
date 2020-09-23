@@ -1,1 +1,1 @@
-node=$fqdn type=SYSTEM_BOOT msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1290 uid=root auid=unset ses=unset msg=' comm=systemd-update-utmp exe=/usr/lib/elogind/elogind hostname=? addr=? terminal=? res=success' 
+node=$fqdn type=SYSTEM_BOOT msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : pid=1290 uid=root auid=unset ses=unset msg=' comm=systemd-update-utmp exe=/usr/lib/elogind/elogind hostname=? addr=? terminal=? res=success' 

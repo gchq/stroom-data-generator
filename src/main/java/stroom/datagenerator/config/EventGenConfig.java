@@ -30,9 +30,10 @@ public class EventGenConfig {
     private final String defaultFileEncoding;
     private final List<EventStreamConfig> streams;
     private final Duration batchDuration;
-    private String domain;
-    private int userCount;
-    private Integer defaultSubstreamCount;
+    private final String domain;
+    private final int userCount;
+    private final int hostCount;
+    private final Integer defaultSubstreamCount;
 
     public EventGenConfig(){
         startTime = null;
@@ -47,12 +48,13 @@ public class EventGenConfig {
         batchDuration = null;
         domain = null;
         userCount = 0;
+        hostCount = 0;
         defaultSubstreamCount = null;
     }
 
     public EventGenConfig(EventGenConfig baseConfig, Instant startTime, Duration runLength,
                           Duration batchDuration,
-                          String templateRoot, String outputRoot, String domain, Integer userCount, Integer substreamCount){
+                          String templateRoot, String outputRoot, String domain, Integer userCount, Integer hostCount, Integer substreamCount){
         if (startTime != null)
             this.startTime = startTime;
         else
@@ -83,6 +85,11 @@ public class EventGenConfig {
         else
             this.userCount = baseConfig.userCount;
 
+        if (hostCount != null)
+            this.hostCount = hostCount;
+        else
+            this.hostCount = baseConfig.hostCount;
+
         if (substreamCount != null)
             this.defaultSubstreamCount = substreamCount;
         else
@@ -108,7 +115,8 @@ public class EventGenConfig {
                           final String defaultTimezone, final String defaultLocale,
                           final String defaultFileEncoding,
                           final String domain,
-                          final int userCount,
+                          final Integer userCount,
+                          final Integer hostCount,
                           final Integer defaultSubstreamCount,
                           List<EventStreamConfig> streams) {
         this.startTime = startTime;
@@ -127,6 +135,7 @@ public class EventGenConfig {
         this.streams = streams;
         this.domain = domain;
         this.userCount = userCount;
+        this.hostCount = hostCount;
         this.defaultSubstreamCount = defaultSubstreamCount;
     }
 
@@ -172,6 +181,13 @@ public class EventGenConfig {
 
     public int getUserCount() {
         return userCount;
+    }
+
+    public int getHostCount() {
+        if (defaultSubstreamCount == null || hostCount > defaultSubstreamCount) {
+            return hostCount;
+        }
+        return defaultSubstreamCount;
     }
 
     public int getDefaultSubstreamCount() {

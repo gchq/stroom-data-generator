@@ -23,6 +23,7 @@ defaultFileEncoding: us-ascii
 batchDuration: P1D
 domain: org.myorg.domain
 userCount: 1000
+hostCount: 500
 streams:
   - name: userRefCsv
     feed: TEST-USER_CSV-REFERENCE
@@ -33,4 +34,14 @@ streams:
     include:
       - type: Meta
         path: userref/meta
+        format: Simple
+  - name: hostRefCsv
+    feed: TEST-HOST_CSV-REFERENCE
+    preEvents:
+      path: hostref/hostref-csv.vm
+      format: Velocity
+    outputDirectory: hostref
+    include:
+      - type: Meta
+        path: hostref/meta
         format: Simple

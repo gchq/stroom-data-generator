@@ -1,2 +1,2 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/lib/lxdm/lxdm-session 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=write success=yes exit=4 a0=0x3 a1=0x7ffc46410d70 a2=0x4 a3=0x7ffc46410a84 items=0 ppid=2308 pid=2707 auid=$user uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=1 comm=lxdm-session exe=/usr/lib/lxdm/lxdm-session key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/lib/lxdm/lxdm-session 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=write success=yes exit=4 a0=0x3 a1=0x7ffc46410d70 a2=0x4 a3=0x7ffc46410a84 items=0 ppid=2308 pid=2707 auid=$user uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=(none) ses=1 comm=lxdm-session exe=/usr/lib/lxdm/lxdm-session key=(null) 

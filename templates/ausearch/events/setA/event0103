@@ -1,6 +1,6 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/bin/pulseaudio --start --log-target=syslog 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/bin/pulseaudio inode=293440 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data 
-node=$fqdn type=EXECVE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : argc=3 a0=/usr/bin/pulseaudio a1=--start a2=--log-target=syslog 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x56155cc036d0 a1=0x7fff474a7010 a2=0x56155c600400 a3=0x7fa3a3716ac0 items=2 ppid=2760 pid=2775 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=pulseaudio exe=/usr/bin/pulseaudio key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/bin/pulseaudio --start --log-target=syslog 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/bin/pulseaudio inode=293440 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data 
+node=$fqdn type=EXECVE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : argc=3 a0=/usr/bin/pulseaudio a1=--start a2=--log-target=syslog 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x56155cc036d0 a1=0x7fff474a7010 a2=0x56155c600400 a3=0x7fa3a3716ac0 items=2 ppid=2760 pid=2775 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=pulseaudio exe=/usr/bin/pulseaudio key=(null) 

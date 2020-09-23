@@ -58,9 +58,7 @@ distributions {
     eventgen {
         distributionBaseName = 'eventgen'
         contents {
-            from 'eventgen/bin'
-            from 'eventgen/config'
-            from 'eventgen/templates'
+            from 'src/eventgen'
         }
     }
 }

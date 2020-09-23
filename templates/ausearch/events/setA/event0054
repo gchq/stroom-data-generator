@@ -1,1 +1,1 @@
-node=$fqdn type=LOGIN msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=2707 uid=root old-auid=unset auid=$user tty=(none) old-ses=4294967295 ses=1 res=yes 
+node=$fqdn type=LOGIN msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : pid=2707 uid=root old-auid=unset auid=$user tty=(none) old-ses=4294967295 ses=1 res=yes 

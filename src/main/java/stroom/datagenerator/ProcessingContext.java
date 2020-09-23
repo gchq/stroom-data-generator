@@ -16,6 +16,7 @@
 package stroom.datagenerator;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Random;
 
 public class ProcessingContext {
@@ -27,10 +28,14 @@ public class ProcessingContext {
     private final String userId;
     private final String hostId;
     private final long sequenceNumber;
+    private final Collection<String> allHosts;
+    private final Collection<String> allUsers;
 
-    public ProcessingContext(Instant timestamp, int substreamNum, int userNum, String domain){
+    public ProcessingContext(Instant timestamp, final Collection<String> allUsers, final Collection<String> allHosts, int substreamNum, int userNum, String domain){
         this.substreamNum = substreamNum;
         this.timestamp = timestamp;
+        this.allHosts = allHosts;
+        this.allUsers = allUsers;
         this.userId = "user" + userNum;
         this.hostId = "host" + substreamNum;
         this.fqdn = domain + "." + this.hostId;
@@ -42,6 +47,8 @@ public class ProcessingContext {
     public ProcessingContext(ProcessingContext initialContext, Instant currentTime) {
         this.substreamNum = initialContext.substreamNum;
         this.timestamp = currentTime;
+        this.allUsers = initialContext.allUsers;
+        this.allHosts = initialContext.allHosts;
         this.userId = initialContext.userId;
         this.hostId = initialContext.hostId;
         this.fqdn = initialContext.fqdn;
@@ -93,6 +100,14 @@ public class ProcessingContext {
 
     public void setLanguageNativeContext(Object languageNativeContext) {
         this.languageNativeContext = languageNativeContext;
+    }
+
+    public Collection<String> getAllHosts() {
+        return allHosts;
+    }
+
+    public Collection<String> getAllUsers() {
+        return allUsers;
     }
 
     public Random getRandom() {

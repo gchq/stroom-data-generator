@@ -1,6 +1,6 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/lib/at-spi-bus-launcher 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/lib/at-spi-bus-launcher inode=277128 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/ 
-node=$fqdn type=EXECVE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : argc=1 a0=/usr/lib/at-spi-bus-launcher 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x560727ad8320 a1=0x560727ae60a0 a2=0x560727ae2010 a3=0x0 items=2 ppid=2725 pid=2726 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=at-spi-bus-laun exe=/usr/lib/at-spi-bus-launcher key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/lib/at-spi-bus-launcher 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=/usr/lib/at-spi-bus-launcher inode=277128 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/ 
+node=$fqdn type=EXECVE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : argc=1 a0=/usr/lib/at-spi-bus-launcher 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x560727ad8320 a1=0x560727ae60a0 a2=0x560727ae2010 a3=0x0 items=2 ppid=2725 pid=2726 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=(none) ses=1 comm=at-spi-bus-laun exe=/usr/lib/at-spi-bus-launcher key=(null) 

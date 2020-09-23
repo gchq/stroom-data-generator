@@ -1,1 +1,1 @@
-node=$fqdn type=USER_START msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : pid=1354 uid=root auid=unset ses=unset msg='op=PAM:session_open grantors=pam_limits,pam_unix acct=root exe=/usr/bin/crond hostname=? addr=? terminal=cron res=success' 
+node=$fqdn type=USER_START msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : pid=1354 uid=root auid=unset ses=unset msg='op=PAM:session_open grantors=pam_limits,pam_unix acct=root exe=/usr/bin/crond hostname=? addr=? terminal=cron res=success' 

@@ -79,6 +79,10 @@ public class EventStreamConfig {
         }
     }
 
+    public Integer getSubstreamCount(){
+        return substreamCount;
+    }
+
     public TemplateConfig getPreEvents() {
         return preEvents;
     }

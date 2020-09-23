@@ -22,8 +22,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -39,6 +42,7 @@ public class EventStreamProcessor {
     private final String outputDirectory;
     private final boolean createSubstreams;
     private final List<TemplateProcessor> additionalIncludes;
+    private final List<String> allHosts;
 
     public EventStreamProcessor (final EventGenConfig appConfig, final EventStreamConfig config) throws FileNotFoundException {
         this.appConfig = appConfig;
@@ -72,6 +76,12 @@ public class EventStreamProcessor {
             }
         }
 
+        if (config.getSubstreamCount() != null && appConfig.getHostCount() < config.getSubstreamCount()){
+            allHosts = IntStream.range(1,config.getSubstreamCount() + 1).mapToObj(u -> "host" + u).
+                    collect(Collectors.toList());
+        } else {
+            allHosts = null;
+        }
 
 
         if (config.getOutputDirectory() != null) {
@@ -94,7 +104,8 @@ public class EventStreamProcessor {
         }
     }
 
-    public void process (String periodName, Instant startTimeInclusive, Instant endTimeExclusive) throws IOException, TemplateProcessingException {
+    public void process (String periodName, final Collection<String> allDefaultHosts, Collection<String> allUsers,
+                         Instant startTimeInclusive, Instant endTimeExclusive) throws IOException, TemplateProcessingException {
         //Create output directory
         File dir = new File (outputDirectory);
         dir.mkdirs();
@@ -149,8 +160,11 @@ public class EventStreamProcessor {
             }
 
             ProcessingContext context =
-                    new ProcessingContext(startTimeInclusive, substream,
-                            generateUserNumber(startTimeInclusive.toEpochMilli() + substream), appConfig.getDomain());
+                    new ProcessingContext(startTimeInclusive, allUsers,
+                            allHosts != null ? allHosts : allDefaultHosts,
+                            substream,
+                            generateUserNumber(startTimeInclusive.toEpochMilli() + substream),
+                            appConfig.getDomain());
             try {
                 if (headerProcessor != null) {
 

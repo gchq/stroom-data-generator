@@ -1,1 +1,1 @@
-node=$fqdn type=DAEMON_END msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : op=terminate auid=root pid=22425 subj= res=success 
+node=$fqdn type=DAEMON_END msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : op=terminate auid=root pid=22425 subj= res=success 

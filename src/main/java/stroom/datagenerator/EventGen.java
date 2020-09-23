@@ -29,7 +29,10 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class EventGen {
@@ -63,11 +66,17 @@ public class EventGen {
         if (!quiet) {
             System.out.println("Generating " + periodCount + " periods of data");
         }
+
+        final List<String> allUsers = IntStream.range(1,config.getUserCount() + 1).mapToObj(u -> "user" + u).
+                collect(Collectors.toList());
+        final List<String> allHosts = IntStream.range(1,config.getHostCount() + 1).mapToObj(u -> "host" + u).
+                collect(Collectors.toList());
+
         Stream.iterate(config.getStartTime(), (periodStart) -> periodStart.plus(config.getBatchDuration())).parallel()
                 .limit(periodCount).
                 forEach((periodStart) -> {
                     try {
-                        processTimePeriod(periodStart, streamProcessors);
+                        processTimePeriod(allHosts, allUsers, periodStart, streamProcessors);
                     } catch (TemplateProcessingException | IOException ex) {
                         if (!quiet){
                             ex.printStackTrace();
@@ -79,11 +88,12 @@ public class EventGen {
 
     }
 
-    public void processTimePeriod(Instant startTime, List<EventStreamProcessor> processors) throws
+    private void processTimePeriod(final Collection<String> allHosts, final Collection<String> allUsers,
+                                   Instant startTime, List<EventStreamProcessor> processors) throws
             IOException, TemplateProcessingException {
         final String periodName = DateTimeFormatter.ISO_INSTANT.format(startTime);
         for (EventStreamProcessor streamProcessor : processors) {
-            streamProcessor.process(periodName, startTime, startTime.plus(config.getBatchDuration()));
+            streamProcessor.process(periodName, allHosts, allUsers, startTime, startTime.plus(config.getBatchDuration()));
         }
 
     }
@@ -91,14 +101,15 @@ public class EventGen {
 
     public static void main(String[] args) {
         Options options = new Options();
-        options.addOption(new Option ("h","help", false, "Show usage instructions / this message, then exit"));
+        options.addOption(new Option ("?","help", false, "Show usage instructions / this message, then exit"));
         options.addOption(new Option ("q","quiet", false, "Suppress console output"));
-        options.addOption(new Option("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
+        options.addOption(new Option ("p", "period", true, "Start Time, e.g. 2020-01-01T00:00:00.000Z"));
         options.addOption(new Option ("r","run", true, "Run length (time period), e.g. P30D"));
         options.addOption(new Option ("b","batch", true, "Batch size (time period), e.g. PT10M"));
         options.addOption(new Option ("d","domain", true, "Domain to use for host FQDN e.g. org.mydomain"));
         options.addOption(new Option ("o","output", true, "Output directory"));
         options.addOption(new Option ("t","templates", true, "Template directory"));
+        options.addOption(new Option ("h", "hosts", true, "Number of hosts"));
         options.addOption(new Option ("u","users", true, "Number of users"));
         options.addOption(new Option ("e","encoding", true, "Default output file encoding"));
         options.addOption(new Option ("s","substreams", true, "Default number of substreams per batch"));
@@ -119,7 +130,9 @@ public class EventGen {
             Integer userCount = null;
             String substreamCountStr = commands.getOptionValue("s");
             Integer substreamCount = null;
-            if (commands.hasOption('h')){
+            String hostCountStr = commands.getOptionValue("h");
+            Integer hostCount = null;
+            if (commands.hasOption('?')){
                 System.err.println ("Help currently limited to usage information...");
                 new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                 System.exit(0);
@@ -129,6 +142,15 @@ public class EventGen {
                     userCount = Integer.parseInt(userCountStr);
                 } catch (NumberFormatException ex){
                     System.err.println("User parameter requires a numeric value (number of users). Got " + userCountStr);
+                    new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
+                    System.exit(1);
+                }
+            }
+            if (hostCountStr != null){
+                try {
+                    hostCount = Integer.parseInt(hostCountStr);
+                } catch (NumberFormatException ex){
+                    System.err.println("Host parameter requires a numeric value (number of hosts). Got " + hostCountStr);
                     new HelpFormatter().printHelp("java " + EventGen.class.getName() + " <config yaml file>", options );
                     System.exit(1);
                 }
@@ -176,7 +198,7 @@ public class EventGen {
                 EventGenConfig ymlconfig = readConfig(commands.getArgs()[0]);
 
                 EventGenConfig config = new EventGenConfig(ymlconfig, startTime, runLength, batchDuration,
-                        templateDir, outputDir, domain, userCount, substreamCount);
+                        templateDir, outputDir, domain, userCount, hostCount, substreamCount);
 
                 EventGen app = new EventGen(config);
                 if (!quietMode) {

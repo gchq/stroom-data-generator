@@ -1,7 +1,7 @@
-node=$fqdn type=PROCTITLE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/bin/env bash ./start.sh 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=2 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=1 name=/usr/bin/env inode=269689 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=PATH msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : item=0 name=./start.sh inode=534147 dev=08:02 mode=file,744 ouid=$user ogid=$user rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
-node=$fqdn type=CWD msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data/stroom_core_test/stroom_core_test-v$otherip 
-node=$fqdn type=EXECVE msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : argc=3 a0=/usr/bin/env a1=bash a2=./start.sh 
-node=$fqdn type=SYSCALL msg=audit($date.get("MM/dd/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x55761da18470 a1=0x55761da322b0 a2=0x55761da176b0 a3=0x8 items=3 ppid=3005 pid=3131 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=pts0 ses=1 comm=start.sh exe=/usr/bin/env key=(null) 
+node=$fqdn type=PROCTITLE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : proctitle=/usr/bin/env bash ./start.sh 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=2 name=/lib64/ld-linux-x86-64.so.2 inode=265206 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=1 name=/usr/bin/env inode=269689 dev=08:02 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=PATH msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : item=0 name=./start.sh inode=534147 dev=08:02 mode=file,744 ouid=$user ogid=$user rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+node=$fqdn type=CWD msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : cwd=/mnt/data/stroom_core_test/stroom_core_test-v$otherip 
+node=$fqdn type=EXECVE msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : argc=3 a0=/usr/bin/env a1=bash a2=./start.sh 
+node=$fqdn type=SYSCALL msg=audit($date.get("dd/MM/yy HH:mm:ss.SSS"):$seq) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x55761da18470 a1=0x55761da322b0 a2=0x55761da176b0 a3=0x8 items=3 ppid=3005 pid=3131 auid=$user uid=$user gid=$user euid=$user suid=$user fsuid=$user egid=$user sgid=$user fsgid=$user tty=pts0 ses=1 comm=start.sh exe=/usr/bin/env key=(null) 

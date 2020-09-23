@@ -20,6 +20,7 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.tools.generic.ComparisonDateTool;
 import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.MathTool;
+import org.apache.velocity.tools.generic.NumberTool;
 import stroom.datagenerator.config.EventGenConfig;
 import stroom.datagenerator.config.TemplateConfig;
 
@@ -67,11 +68,14 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
             velocityContext.put("fqdn", context.getHostFqdn());
             velocityContext.put("hostip", context.getIpAddress());
 
-            List<String> allUsers = IntStream.range(1,getAppConfig().getUserCount() + 1).mapToObj(u -> "user" + u).
-                    collect(Collectors.toList());
-            velocityContext.put("allusers", allUsers);
-            velocityContext.put("math", new MathTool());
+            velocityContext.put("allusers", context.getAllUsers());
+            velocityContext.put("allhosts", context.getAllHosts());
+
             velocityContext.put("random", context.getRandom());
+
+            //Add velocity tools
+            velocityContext.put("math", new MathTool());
+            velocityContext.put("number", new NumberTool());
         }
 
         //Set vals that change each event
