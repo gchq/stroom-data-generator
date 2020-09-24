@@ -25,7 +25,7 @@ PROCNAME=$(basename $0)
 if [ "$(pidof -x $PROCNAME)" != $$ ]
 then
   echo "Another instance of this script is already running"
-#  exit
+  exit
 fi
 
 DIRNAME=$(dirname $0)
