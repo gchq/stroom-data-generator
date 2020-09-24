@@ -25,12 +25,12 @@ PROCNAME=$(basename $0)
 if [ "$(pidof -x $PROCNAME)" != $$ ]
 then
   echo "Another instance of this script is already running"
-  exit
+#  exit
 fi
 
 DIRNAME=$(dirname $0)
 
-if (( $# < 4 ))
+if (( $# < 5 ))
 then
   echo "$PROCNAME is designed to be invoked multiple times, e.g. via cron in order to gradually generate data."
   echo
@@ -98,7 +98,7 @@ STATEFILE_BASE=$STATE_DIR/$TASK_ID.$PROCNAME.state
 STATEFILE_OLD=$STATEFILE_BASE".historic"
 STATEFILE_NEW=$STATEFILE_BASE".current"
 
-if (( $5 != 'ROLLING' ))
+if [ "$5" != 'ROLLING' ]
 then
   # Non-rolling
   LATEST_EPOCH=$(date -u +%s -d "$5")
