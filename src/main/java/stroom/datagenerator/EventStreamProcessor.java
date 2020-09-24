@@ -31,6 +31,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class EventStreamProcessor {
+    private static final String ADDITIONAL_FILES_CHARSET = "US-ASCII";
+
     private static String META_LITERAL = "Meta";
     private static String CONTENXT_LITERAL = "Context";
     private static String tempSuffix = "-incomplete";
@@ -196,9 +198,16 @@ public class EventStreamProcessor {
             for (TemplateProcessor additionalProcessor : additionalIncludes){
                 zipOutputStream.putNextEntry(new ZipEntry(String.format("%04d", substream) +
                         findExtension (additionalProcessor)));
-                Writer additionalStreamTypeWriter = createWriter(zipOutputStream);
-                additionalProcessor.process(context, additionalStreamTypeWriter);
-                additionalStreamTypeWriter.flush();
+                Writer additionalStreamTypeWriter =  new OutputStreamWriter(zipOutputStream,
+                        Charset.forName(ADDITIONAL_FILES_CHARSET).newEncoder());
+                try {
+                    additionalProcessor.process(context, additionalStreamTypeWriter);
+
+                    additionalStreamTypeWriter.flush();
+                } catch (UnsupportedEncodingException ex) {
+                    throw new TemplateProcessingException(config.getName(), additionalProcessor.getConfig().getPath(),
+                            "Context/Meta files must be " + ADDITIONAL_FILES_CHARSET + " encoded", ex);
+                }
                 zipOutputStream.closeEntry();
             }
 

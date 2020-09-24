@@ -45,17 +45,18 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
 
 
     @Override
-    protected void processTemplate (final Reader input, final Writer output, final ProcessingContext context){
+    protected void processTemplate (final Reader input, final Writer output, final ProcessingContext context)
+      throws TemplateProcessingException {
         VelocityContext velocityContext = initialiseContext (context);
 
         Velocity.evaluate(velocityContext, output, getStreamName(), input);
     }
 
-    private VelocityContext initialiseContext (ProcessingContext context){
+    private VelocityContext initialiseContext (ProcessingContext context) throws TemplateProcessingException{
         final VelocityContext velocityContext;
         if (context.getLanguageNativeContext() != null){
             if (! (context.getLanguageNativeContext() instanceof VelocityContext)){
-                throw new UnsupportedOperationException("Currently unable to mix template languages");
+                throw new TemplateProcessingException(getStreamName(), getConfig().getPath(), "Currently unable to mix template languages");
             }
             velocityContext = (VelocityContext) context.getLanguageNativeContext();
         } else {
