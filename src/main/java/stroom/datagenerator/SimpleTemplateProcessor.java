@@ -85,7 +85,7 @@ public class SimpleTemplateProcessor extends AbstractTemplateProcessor {
 
         //Copy remainder of input
         if (currentIndex < input.length()) {
-            stringBuilder.append(input, currentIndex, input.length() - 1);
+            stringBuilder.append(input, currentIndex, input.length());
         }
 
         String output = stringBuilder.toString();

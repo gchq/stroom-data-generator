@@ -1,0 +1,14 @@
+userid,team,quote,favoriteFood,foodAllergies
+#set ($teamval = 10)
+#foreach($userid in $allusers)
+#set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
+#set ($quotenum = $random.nextInt(486) + 1)
+##Food alergens controlled via a bitmap lookup
+#if ($random.nextInt(10) == 0)
+#set ($allergyBitmap = $random.nextInt(128))
+#else
+#set ($allergyBitmap = 0)
+#end
+#set ($favoriteFood = $random.nextInt(29) + 1)
+$userid,team$teamnum,$quotenum,$favoriteFood,$allergyBitmap
+#end

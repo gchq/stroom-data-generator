@@ -28,34 +28,44 @@ streams:
   - name: userRefCsv
     feed: TEST-USER_CSV-REFERENCE
     preEvents:
-      path: userref/userref-csv.vm
+      path: reference/users/userref-csv.vm
       format: Velocity
     outputDirectory: userref
     include:
       - type: Meta
-        path: userref/meta
+        path: reference/users/meta
+        format: Simple
+  - name: foodRefCsv
+    feed: TEST-FOOD_CSV-REFERENCE
+    preEvents:
+      path: reference/users/food/foods.csv
+      format: Static
+    outputDirectory: foodref
+    include:
+      - type: Meta
+        path: reference/users/meta
         format: Simple
   - name: meditationsRefCsv
     fileEncoding: utf-8
     feed: TEST-QUOTE_CSV-REFERENCE
     preEvents:
-      path: meditations/header
+      path: reference/users/meditations/header
       format: Static
     postEvents:
-      path: meditations/THE_THOUGHTS_OF_THE_EMPEROR_MARCUS_AURELIUS_ANTONINUS-TRANSLATED_BY_GEORGE_LONG.csv
+      path: reference/users/meditations/THE_THOUGHTS_OF_THE_EMPEROR_MARCUS_AURELIUS_ANTONINUS-TRANSLATED_BY_GEORGE_LONG.csv
       format: Static
     outputDirectory: meditations
     include:
       - type: Meta
-        path: userref/meta
+        path: reference/users/meta
         format: Simple
   - name: hostRefCsv
     feed: TEST-HOST_CSV-REFERENCE
     preEvents:
-      path: hostref/hostref-csv.vm
+      path: reference/hosts/hostref-csv.vm
       format: Velocity
     outputDirectory: hostref
     include:
       - type: Meta
-        path: hostref/meta
+        path: reference/hosts/meta
         format: Simple

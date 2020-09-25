@@ -1,7 +1,0 @@
-userid,team,quote
-#set ($teamval = $allusers.size() / 100)
-#foreach($userid in $allusers)
-#set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
-#set ($quotenum = $random.nextInt(486) + 1)
-$userid,team$teamnum,$quotenum
-#end
