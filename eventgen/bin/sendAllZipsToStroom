@@ -18,7 +18,7 @@
 if [ "$(pidof -x $(basename $0))" != $$ ]
 then
   echo "Another instance of this script is already running"
-  exit
+i#  exit
 fi
 
 if (( $# < 1 ))
@@ -46,10 +46,14 @@ do
   fi
   
   RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} ${URL} -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
-  if (( $RESPONSE == 200 ))
+  if (( $RESPONSE == $RESPONSE && $RESPONSE == 200 )) 2>/dev/null
   then
 #    mv $FILE $FILE.sent
     rm $FILE
+  else
+    echo "Failed to send to $URL for feed $FEED:" 
+    echo "$RESPONSE"
+    echo
   fi
 
 done
