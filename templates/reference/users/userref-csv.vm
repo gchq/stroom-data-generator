@@ -1,4 +1,4 @@
-userid,team,quote,favoriteFood,foodAllergies
+userid,team,quote,favouriteFood,foodAllergies
 #set ($teamval = 10)
 #foreach($userid in $allusers)
 #set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
