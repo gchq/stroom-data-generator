@@ -16,6 +16,7 @@
 package stroom.datagenerator;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -29,16 +30,18 @@ public class ProcessingContext {
     private final String hostId;
     private final long sequenceNumber;
     private final Collection<String> allHosts;
-    private final Collection<String> allUsers;
+    private final ArrayList<String> allUsers;
 
-    public ProcessingContext(Instant timestamp, final Collection<String> allUsers, final Collection<String> allHosts, int substreamNum, int userNum, String domain){
+    public ProcessingContext(Instant timestamp, final Collection<String> allUsers, final Collection<String> allHosts,
+                             int substreamNum, int userNum, String domain){
         this.substreamNum = substreamNum;
         this.timestamp = timestamp;
         this.allHosts = allHosts;
-        this.allUsers = allUsers;
+        this.allUsers = new ArrayList<>();
+        this.allUsers.addAll(allUsers);
         this.userId = "user" + userNum;
         this.hostId = "host" + substreamNum;
-        this.fqdn = domain + "." + this.hostId;
+        this.fqdn = this.hostId + "." + domain;
         this.sequenceNumber = 1;
         languageNativeContext = null;
         random = new Random(timestamp.toEpochMilli() + substreamNum);
@@ -79,7 +82,8 @@ public class ProcessingContext {
     }
 
     public String getIpAddress (){
-        return "192.168." + substreamNum / 256 + "." + substreamNum % 256;
+        int hostNum = Math.abs(fqdn.hashCode() + substreamNum);
+        return "192.168." + (hostNum  / substreamNum) % 255 + "." + (hostNum % 256);
     }
 
     public String generateRandomIpAddress () {
@@ -112,5 +116,9 @@ public class ProcessingContext {
 
     public Random getRandom() {
         return random;
+    }
+
+    public String generateRandomUserId() {
+        return allUsers.get(random.nextInt(allUsers.size()));
     }
 }

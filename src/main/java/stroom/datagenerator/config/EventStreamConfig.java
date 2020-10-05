@@ -30,6 +30,8 @@ public class EventStreamConfig {
     private final String outputDirectory;
     private final String outputSuffix;
     private final String feed;
+    private final String subdomain;
+    private final Double minimumSecondsBetweenEvents;
 
     EventStreamConfig(){
         betweenEvents = null;
@@ -44,6 +46,8 @@ public class EventStreamConfig {
         outputSuffix = null;
         feed = null;
         include = null;
+        subdomain = null;
+        minimumSecondsBetweenEvents = null;
     }
 
     public EventStreamConfig(String name, int substreamCount, TemplateConfig preEvents,
@@ -52,7 +56,7 @@ public class EventStreamConfig {
                              List<StochasticTemplateConfig> events,
                              List<TemplateConfig> include,
                              TemplateConfig postEvents, String fileEncoding, String completionCommand,
-                             String feed) {
+                             String feed, String subdomain, Double minimumSecondsBetweenEvents) {
         this.name = name;
         this.substreamCount = substreamCount;
         this.betweenEvents = betweenEvents;
@@ -65,6 +69,8 @@ public class EventStreamConfig {
         this.completionCommand = completionCommand;
         this.feed = feed;
         this.include = include;
+        this.subdomain = subdomain;
+        this.minimumSecondsBetweenEvents = minimumSecondsBetweenEvents;
     }
 
     public String getName() {
@@ -125,5 +131,13 @@ public class EventStreamConfig {
 
     public boolean isZipRequired (EventGenConfig appConfig){
         return getSubstreamCount(appConfig) > 0 || include != null;
+    }
+
+    public String getSubdomain() {
+        return subdomain;
+    }
+
+    public Double getMinimumSecondsBetweenEvents() {
+        return minimumSecondsBetweenEvents;
     }
 }

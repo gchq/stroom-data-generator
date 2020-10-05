@@ -29,8 +29,10 @@ public class StochasticContentProcessor {
     private List <StochasticTemplateProcessor> contentProcessors;
     private TemplateProcessor betweenEventProcessor;
     private final String streamName;
+    private final long minMsBetweenEvents;
+
     public StochasticContentProcessor(EventGenConfig appConfig, List<StochasticTemplateConfig> contentConfig, TemplateConfig betweenEventConfig,
-                                      String streamName) throws FileNotFoundException {
+                                      String streamName, long minMsBetweenEvents) throws FileNotFoundException {
         this.streamName = streamName;
         TemplateProcessorFactory templateProcessorFactory = new TemplateProcessorFactory(appConfig);
         contentProcessors = new ArrayList<>();
@@ -47,7 +49,7 @@ public class StochasticContentProcessor {
 
                 double averageRate = config.getAverageCountPerSecond() / fileCount;
                 double minRate = averageRate / 10.0;
-                double cummulativeRate = 0.0;
+
                 if (fileCount == 0){
                     throw new FileNotFoundException("Template directory " + templateFile + " is empty - no templates found");
                 }
@@ -57,7 +59,7 @@ public class StochasticContentProcessor {
 
                     if (!template.isDirectory()) {
                         double rate = minRate + 2 * ((averageRate - minRate) * i / (double) fileCount);
-                        cummulativeRate += rate;
+
                         String thisTemplatePath = template.getPath().substring(appConfig.getTemplateRoot().length() + 1);
                         TemplateConfig templateConfig = new TemplateConfig(config.getTemplate(), thisTemplatePath);
 
@@ -73,6 +75,8 @@ public class StochasticContentProcessor {
         if (betweenEventConfig != null){
             betweenEventProcessor = templateProcessorFactory.createProcessor(betweenEventConfig, streamName);
         }
+
+        this.minMsBetweenEvents = minMsBetweenEvents;
     }
 
     public ProcessingContext process (ProcessingContext initialContext, Instant endTime, Writer output) {
@@ -82,7 +86,14 @@ public class StochasticContentProcessor {
         while (currentTime.isBefore(endTime)){
             Map<Long, StochasticTemplateProcessor> nextEventTimes = new HashMap<>();
             for (StochasticTemplateProcessor processor : contentProcessors){
-                nextEventTimes.put(processor.nextEventAfterMs(initialContext.getRandom().nextDouble()), processor);
+                long msUntilMinTimeElapsed = minMsBetweenEvents;
+
+                long msUntilNextEvent = 0;
+                while (msUntilNextEvent <= msUntilMinTimeElapsed){
+                    msUntilNextEvent += processor.nextEventAfterMs(initialContext.getRandom().nextDouble());
+                }
+
+                nextEventTimes.put(msUntilNextEvent, processor);
             }
             Long shortestInterval = nextEventTimes.keySet().iterator().next();
             for (Long delay : nextEventTimes.keySet()){

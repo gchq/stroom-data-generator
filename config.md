@@ -40,7 +40,10 @@ include:
   - # List of Template configurations (see below).  This is used in order to create Context and Meta files associated with the event stream.
 events:
   - # List of Stochastic Template Configurations (see bottom of section) used to generate the individual events
+subdomain: string # A subdomain within the overall domain used by hosts referenced in this stream
+minimumSecondsBetweenEvents: real # A minimum number of seconds that must elapse between events on this stream
 ```
+
 
 ### Template Configuration
 The following YAML format defines the settings for an individual template or set of templates.

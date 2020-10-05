@@ -58,8 +58,12 @@
             }
 
             if (config.getEvents() != null) {
+                long minMsBetweenEvents = 0;
+                if (config.getMinimumSecondsBetweenEvents() != null){
+                    minMsBetweenEvents = (long) (config.getMinimumSecondsBetweenEvents() * 1000.0);
+                }
                 contentProcessor = new StochasticContentProcessor(appConfig, config.getEvents(),
-                        config.getBetweenEvents(), config.getName());
+                        config.getBetweenEvents(), config.getName(), minMsBetweenEvents);
             } else {
                 contentProcessor = null;
             }
@@ -162,12 +166,19 @@
                         writer = createWriter(fileOutputStream);
                     }
 
+                    final String domain;
+                    if (config.getSubdomain() != null){
+                        domain = config.getSubdomain() + "." + appConfig.getDomain();
+                    } else {
+                        domain = appConfig.getDomain();
+                    }
+
                     ProcessingContext context =
                             new ProcessingContext(startTimeInclusive, allUsers,
                                     allHosts != null ? allHosts : allDefaultHosts,
                                     substream,
                                     generateUserNumber(startTimeInclusive.toEpochMilli() + substream),
-                                    appConfig.getDomain());
+                                    domain);
                     try {
                         if (headerProcessor != null) {
 

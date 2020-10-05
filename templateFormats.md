@@ -17,14 +17,15 @@ It is fast but extremely limited in capability.
 It is relatively fast at processing.
 
 ### Variables that change every stream / substream
-* `$user` - a randomly allocated user id, using the device during the creation of the stream
+* `$user` - a randomly allocated user id, normally assumed to be using the device during the creation of the stream
 * `$substream` - the one up number of the current substream within the zip
 * `$hostip` - a IP address that is meant to belong to the device generating the stream.
 * `$host` - a hostname that is meant to belong to the device generating the stream
 * `$fqdn` - the fully qualified DNS name of `$host`
 
 ### Variables that change every event
-* `$otherip` - a randomby generated IP address
+* `$otherip` - a randomly generated IP address
+* `$otheruser` - a randomly allocated user id from the set of all userids
 * `$seq` - a one up number for the event. 
 * `$date.format('SimpleDateFormatString')` - the timestamp of the event formatted with respect to the supplied format
 string and the selected timezone and locale.  The format string is that expected by Java 12 SimpleDateFormat, and
@@ -51,6 +52,7 @@ regenerating a particular event.
 
 ### Variables that change every event
 * `$otherip` - a randomby generated IP address
+* `$otheruser` - a randomly allocated user id from the set of all userids
 * `$seq` - a one up number for the event. 
 * `$date` - an instance of [Velocity's ComparisonDateTool](https://velocity.apache.org/tools/3.0/tools-summary.html#ComparisonDateTool) 
 that defaults to the current event time rather than the actual current clock time.

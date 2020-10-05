@@ -80,6 +80,7 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
         }
 
         //Set vals that change each event
+        velocityContext.put("otheruser", context.generateRandomUserId());
         velocityContext.put("otherip", context.generateRandomIpAddress());
         velocityContext.put("seq", context.getSequenceNumber());
         if (context.getTimestamp() != null) {

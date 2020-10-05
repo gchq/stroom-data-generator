@@ -50,6 +50,7 @@ public class SimpleTemplateProcessor extends AbstractTemplateProcessor {
                 .replace("$host", context.getHostId())
                 .replace("$fqdn", context.getHostFqdn())
                 .replace("$otherip", context.generateRandomIpAddress())
+                .replace("$otheruser", context.generateRandomUserId())
                 .replace("$seq", "" + context.getSequenceNumber());
 
             String changedDateLine = replaceDates (variablesChangedLine, context.getTimestamp());
