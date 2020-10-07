@@ -1,10 +1,14 @@
-hostid,commissioned,site,building,room,rack,active,user
+hostid,commissioned,site,building,room,rack,active,poc
 #set ($teamval = $allusers.size() / 100)
 #foreach($hostid in $allhosts)
 #set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
-##if ($random.nextBoolean())
 #set ($cDay = $random.nextInt(28))
 #set ($cMonth = $random.nextInt(12))
 #set ($cYear = 2000 + $random.nextInt(20))
-$hostid,$cYear-$cMonth-${cDay}T00:00:00.000Z,site$random.nextInt(5),building$random.nextInt(5),room$random.nextInt(99),rack.nextInt(20),$random.nextBoolean(),user$random.nextInt(100)
+##
+#if ($random.nextBoolean())
+$hostid,$cYear-$cMonth-${cDay}T00:00:00Z,site$random.nextInt(5),building$random.nextInt(5),room$random.nextInt(99),rack$random.nextInt(20),$random.nextBoolean(),user$random.nextInt(100)
+#else
+$hostid,$cYear-$cMonth-${cDay}T00:00:00Z,site$random.nextInt(5),building$random.nextInt(5),room$random.nextInt(99),,$random.nextBoolean(),$otheruser
+#end
 #end

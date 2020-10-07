@@ -1,0 +1,22 @@
+price,forLunch,forLaptop,forMotorcar
+0-199,cheap,!,!
+200-399,inexpensive,!,!
+400-599,mid price,!,!
+600-799,fairly expensive,!,!
+800-1999,expensive,!,!
+2000-3000,very expensive,!,!
+3001-10000,extremely expensive,extremely cheap,!
+10001-40000,!,very cheap,"extremely cheap, used"
+40001-60000,!,cheap,"very cheap, used"
+60001-100000,!,mid price,"very cheap, used"
+100001-150000,!,fairly expensive,"cheap, used"
+150001-200000,!,expensive,"fairly cheap, used"
+200001-300000,!,very expensive,"reasonably cheap, used"
+300001-500000,!,extremely expensive,"cheapish, used"
+500001-1000000,!,!,"mid price, used"
+1000001-3000000,!,!,mid price
+3000001-5000000,!,!,fairly expensive
+5000001-8000000,!,!,expensive
+8000001-10000000,!,!,very expensive
+10000001-50000000,!,!,extremely expensive
+50000001-100000000000,!,!,!

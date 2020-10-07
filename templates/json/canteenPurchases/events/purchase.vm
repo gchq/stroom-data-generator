@@ -1,5 +1,5 @@
   {
-    "timestamp": "$date.get('yyyy-dd-MM')T$date.get('HH:mm:ss.SSS')Z",
+    "timestamp": "$date.get('yyyy-MM-dd')T$date.get('HH:mm:ss.SSS')Z",
     "fqdn": "$fqdn",
     "deviceip": "$hostip",
     "action": "Purchase",
