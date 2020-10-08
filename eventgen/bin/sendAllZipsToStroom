@@ -18,7 +18,7 @@
 if [ "$(pidof -x $(basename $0))" != $$ ]
 then
   echo "Another instance of this script is already running"
-i#  exit
+  exit
 fi
 
 if (( $# < 1 ))
