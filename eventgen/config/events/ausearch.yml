@@ -28,7 +28,7 @@ streams:
 #  Linux ausearch format
 ##############################
   - name: ausearch
-    feed: RHEL5_6_AUSEARCH-EVENTS
+    feed: TEST-RHEL5_6_AUSEARCH-EVENTS
     preEvents:
       path: os/ausearch/delimiter
       format: Static
