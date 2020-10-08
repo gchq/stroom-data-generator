@@ -89,20 +89,3 @@ streams:
       - type: Meta
         path: json/canteenPurchases/meta
         format: Static
-##############################
-#  Linux ausearch format
-##############################
-  - name: ausearch
-    feed: RHEL5_6_AUSEARCH-EVENTS
-    preEvents:
-      path: os/ausearch/delimiter
-      format: Static
-    betweenEvents:
-      path: os/ausearch/delimiter
-      format: Static
-    events:
-      - template:
-          path: os/ausearch/events/setA
-        averageCountPerSecond: 0.7
-    outputDirectory: ausearch
-#

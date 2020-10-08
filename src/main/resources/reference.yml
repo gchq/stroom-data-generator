@@ -69,13 +69,3 @@ streams:
       - type: Meta
         path: reference/meta
         format: Simple
-  - name: hostRefCsv
-    feed: TEST-HOST_CSV-REFERENCE
-    preEvents:
-      path: reference/hosts/hostref-csv.vm
-      format: Velocity
-    outputDirectory: hostref
-    include:
-      - type: Meta
-        path: reference/meta
-        format: Simple
