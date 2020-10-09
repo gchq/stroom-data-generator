@@ -72,6 +72,7 @@ dependencies {
     compile 'commons-cli:commons-cli:1.4'
     compile 'org.slf4j:slf4j-api:1.7.30'
     compile 'org.slf4j:slf4j-simple:1.7.30'
+    compile 'com.github.javafaker:javafaker:1.0.2'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }

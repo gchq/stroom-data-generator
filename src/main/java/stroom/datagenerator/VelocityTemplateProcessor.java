@@ -15,6 +15,7 @@
  */
 package stroom.datagenerator;
 
+import com.github.javafaker.Faker;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.tools.generic.ComparisonDateTool;
@@ -77,6 +78,9 @@ public class VelocityTemplateProcessor extends AbstractTemplateProcessor {
             //Add velocity tools
             velocityContext.put("math", new MathTool());
             velocityContext.put("number", new NumberTool());
+
+            //Add Java Faker
+            velocityContext.put("faker", new Faker(getConfig().getLocale(getAppConfig()), context.getRandom()));
         }
 
         //Set vals that change each event

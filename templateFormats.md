@@ -47,8 +47,10 @@ In addition to any variable that may be defined within a template itself, a numb
 * `$fqdn` - the fully qualified DNS name of `$host`
 * `$allusers` - a list containing all users
 * `$math` - an instance of [Velocity's MathTool](https://velocity.apache.org/tools/3.0/tools-summary.html#MathTool).
-* `$random` - an instance of Java 12's java.util.Random class, that is set to the same seed when 
-regenerating a particular event. 
+* `$random` - an instance of Java 12's java.util.Random class, that is set to a seed based on the stream and event time
+* `$faker` - an instance of [Java Faker](https://github.com/DiUS/java-faker) to enable generation of a great variety of
+randomly generated values e.g. `$faker.internet().safeEmailAddress()`
+
 
 ### Variables that change every event
 * `$otherip` - a randomby generated IP address

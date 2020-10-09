@@ -1,4 +1,4 @@
-userid,team,quote,favouriteFood,foodAllergies
+userid,team,quote,favouriteFood,foodAllergies,firstName,lastName,mostLikelyToSay
 #set ($teamval = 10)
 #foreach($userid in $allusers)
 #set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
@@ -10,5 +10,5 @@ userid,team,quote,favouriteFood,foodAllergies
 #set ($allergyBitmap = 0)
 #end
 #set ($favoriteFood = $random.nextInt(29) + 1)
-$userid,team$teamnum,$quotenum,$favoriteFood,$allergyBitmap
+$userid,team$teamnum,$quotenum,$favoriteFood,$allergyBitmap,$faker.name().firstName(),$faker.name().lastName(),$faker.hipster().word()
 #end
