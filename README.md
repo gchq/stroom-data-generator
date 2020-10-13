@@ -11,7 +11,7 @@ Build is controlled via gradle.
 
 Having cloned this repo, open a shell in the root directory of the repo and type:
 ```shell script
-./gradlew jar evengenDistZip
+./gradlew jar eventgenDistZip
 ```
 
 ## Eventgen
