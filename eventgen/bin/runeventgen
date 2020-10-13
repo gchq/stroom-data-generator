@@ -68,7 +68,7 @@ function process () {
 
   if (( $PERIOD_EPOCH >= $EARLIEST_EPOCH && $PERIOD_EPOCH <= $LATEST_EPOCH ))
   then
-    java -jar $JAR $CONFIG -q -r $RUN_LENGTH -p "${RUN_PERIOD_DATE}T${RUN_PERIOD_TIME}.000Z" ${8} ${9} ${10} ${11} ${12} ${13} ${14} ${15} ${16}
+    java -Xmx40M -jar $JAR $CONFIG -q -r $RUN_LENGTH -p "${RUN_PERIOD_DATE}T${RUN_PERIOD_TIME}.000Z" ${8} ${9} ${10} ${11} ${12} ${13} ${14} ${15} ${16}
 
     if (( $? == 0 ))
     then
