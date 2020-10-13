@@ -1,0 +1,87 @@
+{
+  "key" : {
+    "uuid" : "801036be-8ccd-4a70-8ec9-ac3fbeb3656b|All Reviews|query-JT8D7|NJ7W_1602513542587"
+  },
+  "query" : {
+    "dataSource" : {
+      "type" : "Index",
+      "uuid" : "09adc398-d28c-4000-86cc-1e0183dc133d",
+      "name" : "Detections Index"
+    },
+    "expression" : {
+      "type" : "operator",
+      "children" : [ {
+        "type" : "term",
+        "field" : "EventTime",
+        "condition" : "GREATER_THAN",
+        "value" : "2018-01-01T00:00:00.000Z"
+      }, {
+        "type" : "term",
+        "field" : "Stars",
+        "condition" : "EQUALS",
+        "value" : "5"
+      } ]
+    }
+  },
+  "resultRequests" : [ {
+    "componentId" : "table-IIO1T",
+    "mappings" : [ {
+      "queryId" : "query-JT8D7",
+      "fields" : [ {
+        "id" : "table-IIO1T|79HQZ",
+        "name" : "EventTime",
+        "expression" : "${EventTime}",
+        "sort" : {
+          "order" : 0,
+          "direction" : "ASCENDING"
+        },
+        "format" : {
+          "type" : "DATE_TIME"
+        }
+      }, {
+        "id" : "table-IIO1T|P419N",
+        "name" : "Stars",
+        "expression" : "${Stars}",
+        "format" : {
+          "type" : "NUMBER"
+        }
+      }, {
+        "id" : "table-IIO1T|27O33",
+        "name" : "UserId",
+        "expression" : "${UserId}",
+        "format" : {
+          "type" : "GENERAL"
+        }
+      }, {
+        "id" : "table-IIO1T|AINU4",
+        "name" : "Food",
+        "expression" : "${Food}",
+        "format" : {
+          "type" : "GENERAL"
+        }
+      }, {
+        "id" : "table-IIO1T|NAVBD",
+        "name" : "Review",
+        "expression" : "${Review}",
+        "format" : {
+          "type" : "GENERAL"
+        }
+      } ],
+      "extractValues" : true,
+      "extractionPipeline" : {
+        "type" : "Pipeline",
+        "uuid" : "02dc8450-74e7-40ff-89d6-82d347e2af33",
+        "name" : "Detections Index Search Extraction"
+      },
+      "maxResults" : [ 1000000 ]
+    } ],
+    "requestedRange" : {
+      "offset" : 0,
+      "length" : 2147483647
+    },
+    "resultStyle" : "TABLE",
+    "fetch" : "ALL"
+  } ],
+  "dateTimeLocale" : "Europe/London",
+  "incremental" : false
+}

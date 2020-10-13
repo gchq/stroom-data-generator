@@ -64,7 +64,7 @@ streams:
 #    outputDirectory: testJsonFrags
   - name: canteenPurchaseJsonFrags
     feed: TEST-CANTEEN_FOOD_PURCHASE_JSON-EVENTS
-    substreamCount: 2
+    substreamCount: 10
     subdomain: canteen
     preEvents:
       path: json/startArray
