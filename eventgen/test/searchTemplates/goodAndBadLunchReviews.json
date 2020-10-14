@@ -13,13 +13,47 @@
       "children" : [ {
         "type" : "term",
         "field" : "EventTime",
-        "condition" : "GREATER_THAN",
-        "value" : "2018-01-01T00:00:00.000Z"
-      }, {
+	"condition" : "BETWEEN",
+        "value" : "2019-12-01T11:00:00.000Z,2019-12-01T13:00:00.000Z"
+      },
+       {
+        "type" : "operator",
+        "op" : "OR",
+        "children" : [ 
+		{	
+	"type" : "operator",
+        "children" : [ 
+         {
+          "type" : "term",
+          "field" : "Stars",
+          "condition" : "EQUALS",
+          "value" : "5"
+         },
+	 {
         "type" : "term",
-        "field" : "Stars",
+        "field" : "Food",
         "condition" : "EQUALS",
-        "value" : "5"
+        "value" : "chicken nuggets"
+        } 	 
+	]},
+
+       {
+        "type" : "operator",
+        "children" : [
+         {
+          "type" : "term",
+          "field" : "Stars",
+          "condition" : "LESS_THAN_OR_EQUAL_TO",
+          "value" : "1"
+         },
+         {
+        "type" : "term",
+        "field" : "Food",
+        "condition" : "EQUALS",
+        "value" : "fish"
+        }]
+		}
+	]
       } ]
     }
   },
