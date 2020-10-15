@@ -1,0 +1,26 @@
+{
+ "expression":
+ {
+   "type" : "operator",
+   "children" : [
+     {
+       "type" : "term",
+       "field" : "Feed Name",
+       "condition" : "EQUALS",
+       "value" : "TEST-CANTEEN_FOOD_PURCHASE_JSON-EVENTS"
+     },
+     {
+       "type" : "term",
+       "field" : "Type",
+       "condition" : "EQUALS",
+       "value" : "Error"
+     },
+     {
+       "type" : "term",
+       "field" : "Status",
+       "condition" : "EQUALS",
+       "value" : "Unlocked"
+     }
+   ]
+ }
+}

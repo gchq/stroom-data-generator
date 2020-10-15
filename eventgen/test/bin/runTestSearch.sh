@@ -11,10 +11,12 @@ $INSTALL_DIR/util/searchStroom "$INSTALL_DIR/test/searchTemplates/goodAndBadLunc
 
 diff -s "$INSTALL_DIR/test/searchTemplates/goodAndBadLunchReviews-out.json" $OUTPUT_FILE
 
-if (( $? == 0 ))
+STATUS=$?
+if (( $STATUS == 0 ))
 then
   echo "All good - test output as expected"
 else
   echo "Problem - test output $OUTPUT_FILE not as expected"
 fi
 
+exit $STATUS
