@@ -16,12 +16,18 @@ Parameters:
 1. A string that you wish to assign to this event generation job.  This can be any literal, but must not change
 between invocations of the application for this set of data.
 1. The directory that will be used to store the state files that record the last run period/s.  
-The directory may be shared by multiple event genration jobs (i.e. different task ids).
+The directory may be shared by multiple event generation jobs (i.e. different task ids).
 1. The earliest date to generate data for.  This should be a date in the past expressed in the format `yyyy-MM-dd`
 1. (Optional) The latest date to generate data for, when continuous /  rolling mode is not required.
 If not present, simulated near real-time data representing a recent period will be generated.
 
 The script will not currently generate data representing periods of time in the future.
+
+The following additional parameters may also be added if required:
+1. -u num - the number of unique users to add for Reference data; has no effect for Event data.
+1. -h num - the number of unique hosts to add for Reference data; has no effect for Event data.
+1. -s num - the number of streams per Event data file.  Allows larger volumes of Event data to be generated; has no effect for Reference data.
+ 
 
 ## Upload script
 'sendAllZipsToStroom' is a script that finds all zip files within the specified (output) directory and upload them to Stroom.
