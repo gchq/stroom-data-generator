@@ -70,4 +70,8 @@ bin/eventgen config/reference/example.yml refexample state DAY 2020-01-01 ROLLIN
 bin/sendAllZipsToStroom $OUTPUT_DIR
 echo "Sleeping to allow Stroom time to process this initial data..."
 sleep 150
-echo "Done. You can now run invoke.sh, or install it in crontab"
+echo "Flushing index shards"
+../util/flushAllShards
+echo "Done. "
+echo "You can now run runTestSearch.sh to check that processing has been successful."
+echo "You may also run invoke.sh, or install it in crontab"

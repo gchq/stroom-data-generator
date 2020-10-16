@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ -z "$STROOM_API_KEY" ];
+then
+  echo "You must set the STROOM_API_KEY environmental variable before running this script"
+  exit 1
+fi
+
+if (( $# < 1 ));
+then
+  echo "No first parameter provided, using default URL 'https://localhost/api/index/v2/shard/flush'"
+  URL="https://localhost/api/index/v2/shard/flush"
+else
+  URL=$1
+fi
+
+if (( $# < 2 ));
+then
+  echo "No second parameter provided, using default node name 'node1a'"
+  URL="$URL?nodeName=node1a"
+else
+  URL="$URL?nodeName=$1"
+fi
+
+
+DIR=$(dirname $0)
+INSTALL_DIR=$DIR/../../
+
+RESPONSE=$(echo {} | http --check-status --verify=no POST $URL "Authorization:Bearer $STROOM_API_KEY" )
+
+if (( $? == 0));
+then
+  echo "Request is being processed by Stroom.  Please allow some time for this operation to complete."
+  exit 0
+else
+  echo "Stroom returned abnormal response code"
+  exit 1
+fi
