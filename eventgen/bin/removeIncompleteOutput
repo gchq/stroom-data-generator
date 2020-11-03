@@ -30,7 +30,7 @@ then
 fi
 
 PATTERN='*00Z-*-incomplete'
-FILES=$(find $1 -name \*$PATTERN 2>/dev/null)
+FILES=$(find $1 -cmin 5 -name \*$PATTERN 2>/dev/null)
 
 for FILE in $FILES
 do
