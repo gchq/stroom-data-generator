@@ -62,7 +62,7 @@ Any incomplete files that are not apparently still being written to are deleted 
  
 It is invoked in the following way:
 ```
-bin/sendAllZipsToStroom <eventgen output directory root>
+bin/removeIncompleteOutput <eventgen output directory root>
 ```
 
 The root of the directory structure containing output created by eventgen is provided as a command line parameter.
