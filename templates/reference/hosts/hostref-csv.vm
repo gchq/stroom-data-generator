@@ -1,5 +1,5 @@
 hostid,commissioned,site,building,room,rack,active,poc
-#set ($teamval = $allusers.size() / 100)
+#set ($teamval = $allusers.size() / 100 + 1)
 #foreach($hostid in $allhosts)
 #set ($teamnum = $random.nextInt($teamval) * $random.nextInt($teamval) + $random.nextInt($teamval))
 #set ($cDay = $random.nextInt(28))
