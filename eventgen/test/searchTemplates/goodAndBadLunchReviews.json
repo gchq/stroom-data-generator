@@ -14,7 +14,7 @@
         "type" : "term",
         "field" : "EventTime",
 	"condition" : "BETWEEN",
-        "value" : "2019-12-01T11:00:00.000Z,2019-12-01T13:00:00.000Z"
+        "value" : "2019-12-01T15:00:00.000Z,2019-12-01T19:00:00.000Z"
       },
        {
         "type" : "operator",

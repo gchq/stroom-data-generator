@@ -15,7 +15,7 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 # */
-if [ "$(pidof -x $(basename $0))" != $$ ]
+if [ $(pidof -x "$(basename $0)") != $$ ]
 then
   echo "Another instance of this script is already running"
   exit
@@ -29,33 +29,75 @@ then
   exit 1
 fi
 
-URL=$2
-FEED=$3
+TEMP_DIR="/tmp/eventgen.$$"
+
+function sendReferenceZip() {
+  FEED="$1"
+  URL="$2"
+  ZIPFILE="$3"
+
+  RESPONSE=0
+
+  unzip -o -qq "$ZIPFILE" -d "$TEMP_DIR"
+  for DATFILE in "$TEMP_DIR"/*.dat
+  do
+    METAFILE="$TEMP_DIR"/$(basename "$DATFILE" | sed -E 's/.dat$//').meta
+    if [ -f "$DATFILE" ] && [ -f "$METAFILE" ]
+    then
+      EFF_TIME=$(grep EffectiveTime "$METAFILE" | cut -d : -f 2-)
+
+      RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${DATFILE} ${URL} -H "Feed:$FEED" -H"EffectiveTime:$EFF_TIME" -H"Content-Type:application/audit")
+      if (( RESPONSE == RESPONSE && RESPONSE != 200 )) 2>/dev/null
+      then
+        return "$RESPONSE"
+      fi
+    fi
+  done
+
+  echo "$RESPONSE"
+}
+
+URL="$2"
+FEED="$3"
 PATTERN="*00Z-*.zip"
-FILES=$(find $1 -name $PATTERN)
+FILES=$(find "$1" -name "$PATTERN")
 
 for FILE in $FILES
 do
   if (( $# < 3 ))
   then
-    FEED=$(basename $FILE | cut -d . -f 1)
+    FEED=$(basename "$FILE" | cut -d . -f 1)
   fi
   if (( $# < 2 ))
   then
     URL="http://localhost:8080/stroom/noauth/datafeed"
   fi
-  
-  RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} ${URL} -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
-  if (( $RESPONSE == $RESPONSE && $RESPONSE == 200 )) 2>/dev/null
+
+  if [[ "$FEED" == *-REFERENCE ]]
+  then
+    mkdir -p "$TEMP_DIR"
+    RESPONSE=$(sendReferenceZip "$FEED" "$URL" "$FILE")
+  else
+    RESPONSE=$(curl -s -w '%{http_code}' -k --data-binary @${FILE} ${URL} -H "Feed:$FEED" -H"Compression:zip" -H"Content-Type:application/audit")
+  fi
+
+  if (( RESPONSE == RESPONSE && RESPONSE == 200 )) 2>/dev/null
   then
 #    mv $FILE $FILE.sent
-    rm $FILE
+    rm "$FILE"
   else
-    echo "Failed to send to $URL for feed $FEED:" 
-    echo "$RESPONSE"
+    echo "Failed to send to $URL for feed $FEED"
+
+    if [ -z "$RESPONSE" ]
+    then
+      echo "No response from server"
+    else
+      echo "Webserver responded with code $RESPONSE"
+    fi
+
     echo
   fi
 
 done
 
-
+rm -r "$TEMP_DIR" 2> /dev/null

@@ -1,26 +1,43 @@
 #!/bin/bash
 
-if (( $# < 3 ));
+echo "This should be run only once to send an initial seed set of reference data to Stroom, to avoid errors"
+echo "usage: $0 [host count] [user count] [stream count] [install directory]"
+
+if (( $# > 0 ));
 then
-  echo "Usage: $0 <host count> <user count> <stream count> [install directory]" 
-  exit 1
+  HOST_COUNT=$1
+else
+  HOST_COUNT=10000
 fi
 
-if (( $# == 4 ));
+if (( $# > 1 ));
+then
+  USER_COUNT=$2
+else
+  USER_COUNT=5000
+fi
+
+if (( $# > 2 ));
+then
+  STREAM_COUNT=$3
+else
+  USER_COUNT=5
+fi
+
+if (( $# > 3 ));
 then
   INSTALL_DIR=$4
 else
-  INSTALL_DIR=$(dirname $0)/../..
+  INSTALL_DIR=$(dirname "$0")/../..
 fi
 
-HOST_COUNT=$1
-USER_COUNT=$2
-STREAM_COUNT=$3
 
 OUTPUT_DIR=$INSTALL_DIR/output
 
-cd $INSTALL_DIR
-echo "This should be run only once to send an initial seed set of reference data to Stroom, to avoid errors"
+cd "$INSTALL_DIR"
+
+echo "Generating test data with $HOST_COUNT hosts, $USER_COUNT users, and $STREAM_COUNT event substreams per batch"
+
 echo "Please wait..."
 mkdir -p $OUTPUT_DIR
 
@@ -71,7 +88,7 @@ bin/sendAllZipsToStroom $OUTPUT_DIR
 echo "Sleeping to allow Stroom time to process this initial data..."
 sleep 150
 echo "Flushing index shards"
-../util/flushAllShards
+util/flushAllShards
 echo "Done. "
 echo "You can now run runTestSearch.sh to check that processing has been successful."
 echo "You may also run invoke.sh, or install it in crontab"
