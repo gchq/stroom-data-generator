@@ -3,25 +3,29 @@
 echo "This should be run only once to send an initial seed set of reference data to Stroom, to avoid errors"
 echo "You can provide optional arguments via command line paramaters: $0 [host count] [user count] [stream count] [install directory]"
 
+DEFAULT_HOST_COUNT=10000
+DEFAULT_USER_COUNT=5000
+DEFAULT_STREAM_COUNT=10
+
 if (( $# > 0 ));
 then
   HOST_COUNT=$1
 else
-  HOST_COUNT=10000
+  HOST_COUNT=$DEFAULT_HOST_COUNT
 fi
 
 if (( $# > 1 ));
 then
   USER_COUNT=$2
 else
-  USER_COUNT=5000
+  USER_COUNT=$DEFAULT_USER_COUNT
 fi
 
 if (( $# > 2 ));
 then
   STREAM_COUNT=$3
 else
-  USER_COUNT=5
+  STREAM_COUNT=$DEFAULT_STREAM_COUNT
 fi
 
 if (( $# > 3 ));
@@ -30,7 +34,6 @@ then
 else
   INSTALL_DIR=$(dirname "$0")/../..
 fi
-
 
 OUTPUT_DIR=$INSTALL_DIR/output
 
@@ -96,9 +99,22 @@ echo "Sleeping to allow Stroom time to process this initial data..."
 sleep 150
 echo "Flushing index shards"
 util/flushAllShards
+
 echo "Done. "
+echo
+
 echo "To comfirm that processing has been successful, the following scripts may be run:"
-echo "util/runTestSearch.sh checks that the results of a search are as expected."
-echo "test/bin/findErrorStreams.sh checks for error streams associated with eventgen processing"
+echo "test/bin/runTestSearch.sh checks that the results of a search are as expected."
+
+if (( $HOST_COUNT == $DEFAULT_HOST_COUNT && $USER_COUNT == $DEFAULT_USER_COUNT  ))
+then
+  echo "test/bin/findErrorStreams.sh checks for error streams associated with eventgen processing"
+else
+  echo "test/bin/runTestSearch.sh is also available but might not provide expected output due to custom number of hosts or users"
+fi
 echo
 echo "You may now run invoke.sh, or install it to run regularly (e.g. every minute) in crontab"
+echo "The command:"
+echo "  test/bin/invoke.sh $HOST_COUNT $USER_COUNT <number of substreams per stream for ausearch data>"
+echo "Will run invoke with consistent configuration to that used to initialise."
+
