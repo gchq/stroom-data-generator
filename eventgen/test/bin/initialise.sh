@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. util/showVersion
+
 echo "This should be run only once to send an initial seed set of reference data to Stroom, to avoid errors"
 echo "You can provide optional arguments via command line paramaters: $0 [host count] [user count] [stream count] [install directory]"
 

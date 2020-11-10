@@ -1,0 +1,10 @@
+if [ -z "$EVENTGEN_VERSION_SHOWN" ]
+then
+  VERSION=`grep -E -B2 '### (Added|Removed|Changed)' CHANGELOG.md | head -1 | sed 's/#//g'`
+  
+  echo "=================================="
+  echo "This is eventgen version $VERSION"
+  echo "=================================="
+fi
+
+export EVENTGEN_VERSION_SHOWN='Y'
