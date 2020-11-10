@@ -31,7 +31,7 @@ java -jar build/bibs/eventgen --help
 ```
 
 ### Configuration file
-Eventgen configuration is specified in YAML.  This format is described in detail [here.](config.md)
+Eventgen configuration is specified in YAML.  This format is described in detail [here.](docs/config.md)
 
 ### Templates
 The configuration YAML is expected to specify a number of templates that are processed using a template language processor 
@@ -56,4 +56,4 @@ In order to explore what this archive contains, you can navigate to the director
 
 A number of scripts can be found in `bin`.  These enable eventgen to be more easily deployed.
 
-[More information...](deployment.md)
+[More information...](docs/deployment.md)
