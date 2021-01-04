@@ -1,372 +1,261 @@
 [
-  {
-    "values": [
-      "2019-12-01T15:00:32.900Z",
-      "1",
-      "user3713",
-      "fish",
-      "Disgusting, cheap food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:00:36.865Z",
-      "1",
-      "user3596",
-      "fish",
-      "Disgusting, expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:03:02.560Z",
-      "1",
-      "user322",
-      "fish",
-      "Disgusting, mid price food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:11:00.810Z",
-      "1",
-      "user1551",
-      "fish",
-      "One word - kale chips!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:17:29.204Z",
-      "5",
-      "user1479",
-      "chicken nuggets",
-      "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:31:08.047Z",
-      "1",
-      "user786",
-      "fish",
-      "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:31:32.894Z",
-      "5",
-      "user3357",
-      "chicken nuggets",
-      "Amazing, fairly expensive food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:34:58.906Z",
-      "1",
-      "user4285",
-      "fish",
-      "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:41:50.130Z",
-      "1",
-      "user3097",
-      "fish",
-      "Disgusting, mid price food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:47:54.024Z",
-      "5",
-      "user2644",
-      "chicken nuggets",
-      "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:50:31.635Z",
-      "1",
-      "user3132",
-      "fish",
-      "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T15:56:33.489Z",
-      "5",
-      "user3121",
-      "chicken nuggets",
-      "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T16:07:46.150Z",
-      "5",
-      "user2000",
-      "chicken nuggets",
-      "I always love chicken nuggets. Of such expensive chicken nuggets I say... The periodic movements of the universe are the same, up and down from age to age. And either the universal intelligence puts itself in motion for every separate effect, and if this is so, be thou content with that which is the result of its activity; or it puts itself in motion once, and everything else comes by way of sequence[5] in a manner; or indivisible elements are the origin of all things.—In a word, if there is a god, all is well; and if chance rules, do not thou also be governed by it (vi. 44; vii. 75)."
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T16:14:52.904Z",
-      "5",
-      "user4277",
-      "chicken nuggets",
-      "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T16:17:38.184Z",
-      "5",
-      "user2287",
-      "chicken nuggets",
-      "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T16:36:33.209Z",
-      "5",
-      "user2489",
-      "chicken nuggets",
-      "Amazing, expensive food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T16:53:56.710Z",
-      "1",
-      "user2492",
-      "fish",
-      "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:04:29.462Z",
-      "5",
-      "user2193",
-      "chicken nuggets",
-      "I always love chicken nuggets. Of such inexpensive chicken nuggets I say... The universal nature out of the universal substance, as if it were wax, now moulds a horse, and when it has broken this up, it uses the material for a tree, then for a man, then for something else; and each of these things subsists for a very short time. But it is no hardship for the vessel to be broken up, just as there was none in its being fastened together (viii. 50)."
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:13:02.589Z",
-      "5",
-      "user1897",
-      "chicken nuggets",
-      "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:26:06.231Z",
-      "1",
-      "user3360",
-      "fish",
-      "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:28:15.834Z",
-      "5",
-      "user2479",
-      "chicken nuggets",
-      "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:36:30.320Z",
-      "1",
-      "user3983",
-      "fish",
-      "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:38:34.405Z",
-      "1",
-      "user4772",
-      "fish",
-      "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:40:40.364Z",
-      "5",
-      "user4241",
-      "chicken nuggets",
-      "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:41:43.397Z",
-      "5",
-      "user1765",
-      "chicken nuggets",
-      "I always love chicken nuggets. Of such inexpensive chicken nuggets I say... A man should always have these two rules in readiness; the one to do only whatever the reason of the ruling and legislating faculty may suggest for the use of men; the other, to change thy opinion, if there is any one at hand who sets thee right and moves thee from any opinion. But this change of opinion must proceed only from a certain persuasion, as of what is just or of common advantage, and the like, not because it appears pleasant or brings reputation."
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:51:10.171Z",
-      "1",
-      "user936",
-      "fish",
-      "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T17:58:25.432Z",
-      "5",
-      "user2322",
-      "chicken nuggets",
-      "I always love chicken nuggets. Of such fairly expensive chicken nuggets I say... THE substance of the universe is obedient and compliant; and the reason which governs it has in itself no cause for doing evil, for it has no malice, nor does it do evil to anything, nor is anything harmed by it. But all things are made and perfected according to this reason."
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:00:30.374Z",
-      "5",
-      "user3436",
-      "chicken nuggets",
-      "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:13:49.744Z",
-      "5",
-      "user2487",
-      "chicken nuggets",
-      "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:26:17.241Z",
-      "1",
-      "user1148",
-      "fish",
-      "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:27:21.085Z",
-      "1",
-      "user558",
-      "fish",
-      "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:31:35.780Z",
-      "1",
-      "user1272",
-      "fish",
-      "I always love fish. Of such inexpensive fish I say... When thou art offended with any man's shameless conduct, immediately ask thyself, Is it possible, then, that shameless men should not be in the world? It is not possible. Do not, then, require what is impossible. For this man also is one of those shameless men who must of necessity be in the world. Let the same considerations be present to thy mind in the case of the knave, and the faithless man, and of every man who does wrong in any way. For at the same time that thou dost remind thyself that it is impossible that such kind of men should not exist, thou wilt become more kindly disposed towards every one individually. It is useful to perceive this, too, immediately when the occasion arises, what virtue nature has given to man to oppose to every wrongful act. For she has given to man, as an antidote against the stupid man, mildness, and against another kind of man some other power. And in all cases it is possible for thee to correct by teaching the man who is gone astray; for every man who errs misses his object and is gone astray. Besides, wherein hast thou been injured? For thou wilt find that no one among those against whom thou art irritated has done anything by which thy mind could be made worse; but that which is evil to thee and harmful has its foundation only in the mind. And what harm is done or what is there strange, if the man who has not been instructed does the acts of an uninstructed man? Consider whether thou shouldst not rather blame thyself, because thou didst not expect such a man to err in such a way. For thou hadst means given thee by thy reason to suppose that it was likely that he would commit this error, and yet thou hast forgotten and art amazed that he has erred. But most of all when thou blamest a man as faithless or ungrateful, turn to thyself. For the fault is manifestly thy own, whether thou didst trust that a man who had such a disposition would keep his promise, or when conferring thy kindness thou didst not confer it absolutely, nor yet in such way as to have received from thy very act all the profit. For what more dost thou want when thou hast done a man a service? art thou not content that thou hast done something conformable to thy nature, and dost thou seek to be paid for it? just as if the eye demanded a recompense for seeing, or the feet for walking. For as these members are formed for a particular purpose, and by working according to their several constitutions obtain what is their own;[8] so also as man is formed by nature to acts of benevolence, when he has done anything benevolent or in any other way conducive to the common interest, he has acted conformably to his constitution, and he gets what is his own."
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:36:57.411Z",
-      "1",
-      "user59",
-      "fish",
-      "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:37:50.735Z",
-      "1",
-      "user1611",
-      "fish",
-      "Disgusting, expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:46:07.870Z",
-      "1",
-      "user1445",
-      "fish",
-      "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:50:17.924Z",
-      "5",
-      "user3082",
-      "chicken nuggets",
-      "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
-    ],
-    "depth": 0
-  },
-  {
-    "values": [
-      "2019-12-01T18:56:32.065Z",
-      "1",
-      "user1351",
-      "fish",
-      "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
-    ],
-    "depth": 0
-  }
+  [
+    "2019-12-01T15:00:32.900Z",
+    "1",
+    "user3713",
+    "fish",
+    "Disgusting, cheap food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T15:00:36.865Z",
+    "1",
+    "user3596",
+    "fish",
+    "Disgusting, expensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T15:03:02.560Z",
+    "1",
+    "user322",
+    "fish",
+    "Disgusting, mid price food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T15:11:00.810Z",
+    "1",
+    "user1551",
+    "fish",
+    "One word - kale chips!"
+  ],
+  [
+    "2019-12-01T15:17:29.204Z",
+    "5",
+    "user1479",
+    "chicken nuggets",
+    "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T15:31:08.047Z",
+    "1",
+    "user786",
+    "fish",
+    "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
+  ],
+  [
+    "2019-12-01T15:31:32.894Z",
+    "5",
+    "user3357",
+    "chicken nuggets",
+    "Amazing, fairly expensive food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T15:34:58.906Z",
+    "1",
+    "user4285",
+    "fish",
+    "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
+  ],
+  [
+    "2019-12-01T15:41:50.130Z",
+    "1",
+    "user3097",
+    "fish",
+    "Disgusting, mid price food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T15:47:54.024Z",
+    "5",
+    "user2644",
+    "chicken nuggets",
+    "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T15:50:31.635Z",
+    "1",
+    "user3132",
+    "fish",
+    "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T15:56:33.489Z",
+    "5",
+    "user3121",
+    "chicken nuggets",
+    "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T16:07:46.150Z",
+    "5",
+    "user2000",
+    "chicken nuggets",
+    "I always love chicken nuggets. Of such expensive chicken nuggets I say... The periodic movements of the universe are the same, up and down from age to age. And either the universal intelligence puts itself in motion for every separate effect, and if this is so, be thou content with that which is the result of its activity; or it puts itself in motion once, and everything else comes by way of sequence[5] in a manner; or indivisible elements are the origin of all things.—In a word, if there is a god, all is well; and if chance rules, do not thou also be governed by it (vi. 44; vii. 75)."
+  ],
+  [
+    "2019-12-01T16:14:52.904Z",
+    "5",
+    "user4277",
+    "chicken nuggets",
+    "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T16:17:38.184Z",
+    "5",
+    "user2287",
+    "chicken nuggets",
+    "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T16:36:33.209Z",
+    "5",
+    "user2489",
+    "chicken nuggets",
+    "Amazing, expensive food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T16:53:56.710Z",
+    "1",
+    "user2492",
+    "fish",
+    "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T17:04:29.462Z",
+    "5",
+    "user2193",
+    "chicken nuggets",
+    "I always love chicken nuggets. Of such inexpensive chicken nuggets I say... The universal nature out of the universal substance, as if it were wax, now moulds a horse, and when it has broken this up, it uses the material for a tree, then for a man, then for something else; and each of these things subsists for a very short time. But it is no hardship for the vessel to be broken up, just as there was none in its being fastened together (viii. 50)."
+  ],
+  [
+    "2019-12-01T17:13:02.589Z",
+    "5",
+    "user1897",
+    "chicken nuggets",
+    "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T17:26:06.231Z",
+    "1",
+    "user3360",
+    "fish",
+    "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
+  ],
+  [
+    "2019-12-01T17:28:15.834Z",
+    "5",
+    "user2479",
+    "chicken nuggets",
+    "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T17:36:30.320Z",
+    "1",
+    "user3983",
+    "fish",
+    "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T17:38:34.405Z",
+    "1",
+    "user4772",
+    "fish",
+    "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T17:40:40.364Z",
+    "5",
+    "user4241",
+    "chicken nuggets",
+    "Amazing, mid price food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T17:41:43.397Z",
+    "5",
+    "user1765",
+    "chicken nuggets",
+    "I always love chicken nuggets. Of such inexpensive chicken nuggets I say... A man should always have these two rules in readiness; the one to do only whatever the reason of the ruling and legislating faculty may suggest for the use of men; the other, to change thy opinion, if there is any one at hand who sets thee right and moves thee from any opinion. But this change of opinion must proceed only from a certain persuasion, as of what is just or of common advantage, and the like, not because it appears pleasant or brings reputation."
+  ],
+  [
+    "2019-12-01T17:51:10.171Z",
+    "1",
+    "user936",
+    "fish",
+    "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
+  ],
+  [
+    "2019-12-01T17:58:25.432Z",
+    "5",
+    "user2322",
+    "chicken nuggets",
+    "I always love chicken nuggets. Of such fairly expensive chicken nuggets I say... THE substance of the universe is obedient and compliant; and the reason which governs it has in itself no cause for doing evil, for it has no malice, nor does it do evil to anything, nor is anything harmed by it. But all things are made and perfected according to this reason."
+  ],
+  [
+    "2019-12-01T18:00:30.374Z",
+    "5",
+    "user3436",
+    "chicken nuggets",
+    "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T18:13:49.744Z",
+    "5",
+    "user2487",
+    "chicken nuggets",
+    "Amazing, inexpensive food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T18:26:17.241Z",
+    "1",
+    "user1148",
+    "fish",
+    "Disappointed. I ordered fish but was unable to pay due to their stupid card machine. Next time I'll bring cash!"
+  ],
+  [
+    "2019-12-01T18:27:21.085Z",
+    "1",
+    "user558",
+    "fish",
+    "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T18:31:35.780Z",
+    "1",
+    "user1272",
+    "fish",
+    "I always love fish. Of such inexpensive fish I say... When thou art offended with any man's shameless conduct, immediately ask thyself, Is it possible, then, that shameless men should not be in the world? It is not possible. Do not, then, require what is impossible. For this man also is one of those shameless men who must of necessity be in the world. Let the same considerations be present to thy mind in the case of the knave, and the faithless man, and of every man who does wrong in any way. For at the same time that thou dost remind thyself that it is impossible that such kind of men should not exist, thou wilt become more kindly disposed towards every one individually. It is useful to perceive this, too, immediately when the occasion arises, what virtue nature has given to man to oppose to every wrongful act. For she has given to man, as an antidote against the stupid man, mildness, and against another kind of man some other power. And in all cases it is possible for thee to correct by teaching the man who is gone astray; for every man who errs misses his object and is gone astray. Besides, wherein hast thou been injured? For thou wilt find that no one among those against whom thou art irritated has done anything by which thy mind could be made worse; but that which is evil to thee and harmful has its foundation only in the mind. And what harm is done or what is there strange, if the man who has not been instructed does the acts of an uninstructed man? Consider whether thou shouldst not rather blame thyself, because thou didst not expect such a man to err in such a way. For thou hadst means given thee by thy reason to suppose that it was likely that he would commit this error, and yet thou hast forgotten and art amazed that he has erred. But most of all when thou blamest a man as faithless or ungrateful, turn to thyself. For the fault is manifestly thy own, whether thou didst trust that a man who had such a disposition would keep his promise, or when conferring thy kindness thou didst not confer it absolutely, nor yet in such way as to have received from thy very act all the profit. For what more dost thou want when thou hast done a man a service? art thou not content that thou hast done something conformable to thy nature, and dost thou seek to be paid for it? just as if the eye demanded a recompense for seeing, or the feet for walking. For as these members are formed for a particular purpose, and by working according to their several constitutions obtain what is their own;[8] so also as man is formed by nature to acts of benevolence, when he has done anything benevolent or in any other way conducive to the common interest, he has acted conformably to his constitution, and he gets what is his own."
+  ],
+  [
+    "2019-12-01T18:36:57.411Z",
+    "1",
+    "user59",
+    "fish",
+    "I am appalled! These idiots served me food containing fish which I'm allergic to. Avoid!"
+  ],
+  [
+    "2019-12-01T18:37:50.735Z",
+    "1",
+    "user1611",
+    "fish",
+    "Disgusting, expensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T18:46:07.870Z",
+    "1",
+    "user1445",
+    "fish",
+    "Disgusting, inexpensive food! I had fish and it was horrible. Avoid!"
+  ],
+  [
+    "2019-12-01T18:50:17.924Z",
+    "5",
+    "user3082",
+    "chicken nuggets",
+    "Amazing, cheap food! I had chicken nuggets and they were delicious. Recommended!"
+  ],
+  [
+    "2019-12-01T18:56:32.065Z",
+    "1",
+    "user1351",
+    "fish",
+    "Disgusting, fairly expensive food! I had fish and it was horrible. Avoid!"
+  ]
 ]

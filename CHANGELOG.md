@@ -18,6 +18,13 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+## [v1.1.2]
+
+### Changed
+- Fixed bug in findErrorStreams.sh script when supplying alternative API URL
+- Added option to allow runTestSearch.sh script to be supplied an alternative URL
+- Changed expected output from runTestSearch.sh to not be sensitive to API changes
+
 ## [v1.1.1]
 
 ### Added
