@@ -19,9 +19,8 @@ FEED_NAME='TEST-CANTEEN_FOOD_PURCHASE_JSON-EVENTS'
 if (( $# < 2 ));
 then
   echo "No second parameter provided, using default feed name $FEED_NAME"
-  URL="https://localhost/api/meta/v1/find"
 else
-  URL="$1"
+  FEED_NAME="$2"
 fi
 
 
