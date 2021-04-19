@@ -5,7 +5,7 @@
    "children" : [
      {
        "type" : "term",
-       "field" : "Feed Name",
+       "field" : "Feed",
        "condition" : "EQUALS",
        "value" : "TEST-CANTEEN_FOOD_PURCHASE_JSON-EVENTS"
      },
