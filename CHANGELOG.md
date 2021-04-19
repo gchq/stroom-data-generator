@@ -18,6 +18,13 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+## [v1.2.1]
+
+### Changed
+
+* Changed "Feed Name" to "Feed" in search templates, required by updated Stroom versions.
+
+
 ## [v1.2.0]
 
 ### Changed
