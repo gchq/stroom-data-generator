@@ -18,6 +18,8 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+* Added `eventgen-test-data-example-rules.zip` - prototype alerting demo rules
+
 ## [v1.2.1]
 
 ### Changed
