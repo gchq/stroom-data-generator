@@ -1,0 +1,14 @@
+  {
+    "timestamp": "$date.get('yyyy-MM-dd')T$date.get('HH:mm:ss.SSS')Z",
+    "fqdn": "$fqdn",
+    "deviceip": "$hostip",
+    "action": "Teleport",
+    "user": "$otheruser",
+    "campus": "Downtown",
+    "building": "Underground",
+    "floor": "Basement",
+#set ($x =  ($random.nextFloat() * 31) + 4)
+#set ($y =  ($random.nextFloat() * 52) + 3)
+    "x": $x,
+    "y": $y
+  }
