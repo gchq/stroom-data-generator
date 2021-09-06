@@ -18,6 +18,7 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+* gh-4 Added an example config for creating data suitable for testing FloorMap vis
 * Added `eventgen-test-data-example-rules.zip` - prototype alerting demo rules
 
 ## [v1.2.1]
