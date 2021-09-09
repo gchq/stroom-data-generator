@@ -18,6 +18,9 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+
+## [v1.2.3] - 2021-09-09
+
 * Fix gh-6 Uplift Stroom extraction XSLT for Saxon 9.9 
 
 ## [v1.2.2] - 2021-09-08
@@ -74,7 +77,8 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 * Under development.
 
 
-[Unreleased]: https://github.com/gchq/stroom-data-generator/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/gchq/stroom-data-generator/compare/v1.2.3...HEAD
+[v1.2.3]: https://github.com/gchq/stroom-data-generator/compare/v1.2.2...v1.2.3
 [v1.2.2]: https://github.com/gchq/stroom-data-generator/compare/v1.2.1...v1.2.2
 [v1.1.1]: https://github.com/gchq/stroom-data-generator/compare/v1.1.1...v1.1.o
 [v1.1.0]: https://github.com/gchq/event-logging-schema/compare/v1.1.0...v1.0.0
