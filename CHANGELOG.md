@@ -18,6 +18,7 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [Unreleased]
 
+* Fix gh-6 Uplift Stroom extraction XSLT for Saxon 9.9 
 
 ## [v1.2.2] - 2021-09-08
 
