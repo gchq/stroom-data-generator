@@ -21,9 +21,13 @@ Patch version changes will typically include cosmetic changes (e.g. _xs:document
 
 ## [v1.2.3] - 2021-09-09
 
+### Changed
+
 * Fix gh-6 Uplift Stroom extraction XSLT for Saxon 9.9 
 
 ## [v1.2.2] - 2021-09-08
+
+### Changed
 
 * gh-4 Added an example config for creating data suitable for testing FloorMap vis
 * Added `eventgen-test-data-example-rules.zip` - prototype alerting demo rules
